@@ -18,7 +18,7 @@ class CurriculumController extends Controller
 
     public function index()
     {
-        return view('curriculums.home');
+        return view('curriculums.content');
     }
 
     /**

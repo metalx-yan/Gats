@@ -11,10 +11,17 @@
 |
 */
 
+Route::get('/generate', function() {
+	return view('test');
+});
 
-// Route::get('/home', 'HomeController@index')->name('home');
-    //
-// Route::get('/kurikulum', 'CurrciculumController@index')->name('curriculum');
+Route::get('/404', function() { 
+	return view('errors.404');
+})->name('404');
+
+Route::get('/curriculum', 'CurriculumController@index')->name('curriculum');
+
+Route::get('/major', 'MajorController@index')->name('major');
 
 Route::get('/', function() {
 	return view('welcome');
@@ -22,7 +29,4 @@ Route::get('/', function() {
 
 Auth::routes();
 
-Route::get('/curriculum', 'CurriculumController@index')->name('curriculum');
-
-Route::get('/major', 'MajorController@index')->name('major');
 

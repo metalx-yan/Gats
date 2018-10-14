@@ -1,3 +1,6 @@
-<div class="col-sm-12">
-	<p class="back-link">Lumino Theme by <a href="https://www.medialoot.com">Medialoot</a></p>
-</div>
+ <footer class="main-footer">
+	<div class="footer-left">
+		  Copyright &copy; 2018 <div class="bullet"></div> Design By <a href="https://multinity.com/">Multinity</a>
+		</div>
+	<div class="footer-right"></div>
+</footer>

@@ -1,110 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Login</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" name="viewport">
+  <title>Login</title>
 
-    <link rel="icon" type="image/png" href="images/favicon.ico">
+  <link rel="stylesheet" href="{{ asset('/modules/bootstrap/css/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('/modules/ionicons/css/ionicons.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('/modules/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css') }}">
 
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-
-    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
-
-    <link rel="stylesheet" type="text/css" href="css/material-design-iconic-font.min.css">
-
-    <link rel="stylesheet" type="text/css" href="css/animate.css">
-
-    <link rel="stylesheet" type="text/css" href="css/hamburgers.min.css">
-
-    <link rel="stylesheet" type="text/css" href="css/animsition.min.css">
-
-    <link rel="stylesheet" type="text/css" href="css/select2.min.css">
-
-    <link rel="stylesheet" type="text/css" href="css/daterangepicker.css">
-
-    <link rel="stylesheet" type="text/css" href="css/util.css">
-
-    <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" href="{{ asset('/css/demo.css') }}">
+  <link rel="stylesheet" href="{{ asset('/css/style.css') }}">
 </head>
 <body>
     
-    <div class="limiter">
-        <div class="container-login100">
-            <div class="wrap-login100">
-                <form class="login100-form validate-form" method="POST" action="{{ route('login') }}">
-                    @csrf
-
-                    <span class="login100-form-title p-b-26">
-                        Welcome
-                    </span>
-                    <span class="login100-form-title p-b-48">
-                        <i class="zmdi zmdi-font"></i>
-                    </span>
-
-                    <div class="wrap-input100 validate-input" data-validate = "Valid username is full character">
-                        <input class="input100{{ $errors->has('username') ? ' is-invalid' : '' }}" type="text" name="username" value="{{ old('Username') }}" required autofocus>
-
-                        <span class="focus-input100" data-placeholder="Username"></span>
-                        
-                        @if ($errors->has('username'))
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $errors->first('username') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-
-                    <div class="wrap-input100 validate-input" data-validate="Enter password">
-                        <span class="btn-show-pass">
-                            <i class="zmdi zmdi-eye"></i>
-                        </span>
-                        <input class="input100{{ $errors->has('password') ? ' is-invalid' : '' }}" type="password" name="password" required>
-                        <span class="focus-input100" data-placeholder="Password"></span>
-
-                        @if ($errors->has('password'))
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $errors->first('password') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-
-                    <div class="container-login100-form-btn">
-                        <div class="wrap-login100-form-btn">
-                            <div class="login100-form-bgbtn"></div>
-                            <button class="login100-form-btn">
-                                Login
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="text-center p-t-60">
-                        
-                    </div>
-                </form>
+  <div id="app">
+    <section class="section">
+      <div class="container mt-5">
+        <div class="row">
+          <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
+            <div class="login-brand">
+              VETERAN 7680
             </div>
+
+            <div class="card card-primary">
+              <div class="card-header"><h4>Login</h4></div>
+
+              <div class="card-body">
+                <form method="POST" action="{{ route('login') }}" class="needs-validation" novalidate="">
+                    @csrf
+                  <div class="form-group">
+                    <label for="username">Username</label>
+                    <input id="username" type="username" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" name="username" tabindex="1" value="{{ old('Username') }}" required autofocus>
+                    @if ($errors->has('username'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('username') }}</strong>
+                        </span>
+                    @endif
+                  </div>
+
+                  <div class="form-group">
+                    <label for="password" class="d-block">Password
+                      {{-- <div class="float-right">
+                        <a href="forgot.html">
+                          Forgot Password?
+                        </a>
+                      </div> --}}
+                    </label>
+                    <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" tabindex="2" required>
+                     @if ($errors->has('password'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('password') }}</strong>
+                        </span>
+                     @endif
+                  </div>
+
+                  <div class="form-group">
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" name="remember" class="custom-control-input" tabindex="3" id="remember-me">
+                      <label class="custom-control-label" for="remember-me">Remember Me</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block" tabindex="4">
+                      Login
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="mt-5 text-muted text-center">
+              {{-- Don't have an account? <a href="register.html">Create One</a> --}}
+            </div>
+            <div class="simple-footer">
+              Copyright &copy; Stisla 2018
+            </div>
+          </div>
         </div>
-    </div>
-    
+      </div>
+    </section>
+  </div>
 
     <div id="dropDownSelect1"></div>
 
-    <script src="js/jquery-3.2.1.min.js"></script>
-
-    <script src="js/animsition.min.js"></script>
-
-    <script src="js/popper.js"></script>
-
-    <script src="js/bootstrap.min.js"></script>
-
-    <script src="js/select2.min.js"></script>
-
-    <script src="js/moment.min.js"></script>
-
-    <script src="js/daterangepicker.js"></script>
-
-    <script src="js/countdowntime.js"></script>
-
-    <script src="js/main.js"></script>
+  <script src="{{ asset('/modules/jquery.min.js') }}"></script>
+  <script src="{{ asset('/modules/popper.js') }}"></script>
+  <script src="{{ asset('/modules/tooltip.js') }}"></script>
+  <script src="{{ asset('/modules/bootstrap/js/bootstrap.min.js') }}"></script>
+  <script src="{{ asset('/modules/nicescroll/jquery.nicescroll.min.js') }}"></script>
+  <script src="{{ asset('/modules/moment.min.js') }}"></script>
+  <script src="{{ asset('/modules/scroll-up-bar/dist/scroll-up-bar.min.js') }}"></script>
+  <script src="{{ asset('/js/sa-functions.js') }}"></script>
+  
+  <script src="{{ asset('/js/scripts.js') }}"></script>
+  <script src="{{ asset('/js/custom.js') }}"></script>
+  <script src="{{ asset('/js/demo.js') }}"></script>
 
 </body>
 </html>

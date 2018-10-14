@@ -18,7 +18,7 @@ class MajorController extends Controller
 
     public function index()
     {
-        return view('majors.home');
+        return view('majors.content');
     }
 
     /**

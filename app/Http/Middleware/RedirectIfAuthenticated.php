@@ -18,7 +18,11 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect('/home');
+            if (Auth::user()->role->name == 'curriculum') {
+                return redirect('/curriculum');
+            } elseif (Auth::user()->role->name == 'major') {
+                return redirect('/major');
+            }
         }
 
         return $next($request);
