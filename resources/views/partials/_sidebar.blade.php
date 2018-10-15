@@ -84,7 +84,7 @@
             <li>
               <a href="#" class="has-dropdown"><i class="ion ion-flag"></i><span>Master Data</span></a>
               <ul class="menu-dropdown">
-                <li><a href="ion-icons.html"><i class="ion ion-ios-circle-outline"></i>Data Guru</a></li>
+                <li><a href="{{ route('curriculums.teachers.index') }}"><i class="ion ion-ios-circle-outline"></i>Data Guru</a></li>
                 <li><a href="fontawesome.html"><i class="ion ion-ios-circle-outline"></i>Data Ruang</a></li>
                 <li><a href="flag.html"><i class="ion ion-ios-circle-outline"></i>Data Mata Pelajaran</a></li>
                 <li><a href="flag.html"><i class="ion ion-ios-circle-outline"></i>Data Program Studi</a></li>

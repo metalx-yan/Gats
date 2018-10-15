@@ -9,6 +9,29 @@
  */
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700');
 
+div.card-header.headercolorin{
+	background-color: #e9ae18;
+}
+
+div.card-header.cardcolorin{
+	background-color: #e9ae18;
+}
+
+div.card-header.headercolorincurrent{
+	background-color: #616161;
+	color:white;
+	text-align: center;
+	font-size: 18px;
+}
+
+.fontsopher{
+	font-family: 'Philosopher', sans-serif;
+}
+
+.theadcolor{
+	background-color: #e9ae18;
+}
+
 .font-label{
 	font-family: 'Philosopher', sans-serif;
 	color: black;
@@ -1268,12 +1291,12 @@ tr:first-child>td>.fc-day-grid-event {
 
 /*table*/
 .table td, .table:not(.table-bordered) th {
-	border-top: none;
+	/*border-top: all;*/
 }
 .table thead th {
 	border-bottom: none;
 	background-color: rgba(0, 0, 0, .04);
-	color: #666;
+	color: #ffffff;
 	padding-top: 15px;
 	padding-bottom: 15px;
 }

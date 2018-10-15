@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/generate', function() {
-	return view('test');
-});
+Route::get('/curriculum/teacher', function() {
+	return view('curriculums.teachers.index');
+})->name('curriculums.teachers.index');
 
 Route::get('/404', function() { 
 	return view('errors.404');

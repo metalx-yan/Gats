@@ -104,7 +104,7 @@
 	
 <div class="font">	
 	<div class="card">
-		<div class="card-header" style="background-color: #e9ae18;">
+		<div class="card-header cardcolorin">
 			Data Jadwal
 		</div>
 
@@ -141,11 +141,11 @@
 				</div>
 				
 				<div class="col-md-1 offset-md-6">
-					<label style="color: black;" class="font-label">Search</label>
+					<label class="font-label">Search</label>
 				</div>
 				
 				<div class="col-md-2">
-					<input class="form-control" type="text" value="A">
+					<input class="form-control" type="text" value="....">
 				</div>
 
 
