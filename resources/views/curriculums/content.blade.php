@@ -110,7 +110,7 @@
 
 		<div class="card-body">
 			<div class="row">
-				<div class="col-3 font-label">
+				<div class="col-md-3 font-label">
 					    <label for="exampleFormControlSelect1">Tahun Ajaran</label>
 						    <select class="form-control" id="exampleFormControlSelect1">
 						      <option>==Pilih Tahun Ajaran==</option>
@@ -121,34 +121,26 @@
 						    </select>
 				</div>
 			
-			<div class="col-9"></div> 
+			<div class="col-md-9"></div> 
 			</div>
 			<br>
 
 			<div class="row">
-				<div class="col-md-1">
+				<div class="col-md-3">
 					<label for="" class="font-label">Baris</label>
-				</div>
-
-				<div class="col-md-2">
-					<select class="form-control" id="exampleFormControlSelect1" style="margin-left: -15px;">
+					<select class="form-control" id="exampleFormControlSelect1">
 						      <option>Null</option>
 						      <option>1</option>
 						      <option>2</option>
 						      <option>3</option>
 						      <option>4</option>
 						    </select>
-				</div>
+        </div>
 				
-				<div class="col-md-1 offset-md-6">
+				<div class="col-md-3 offset-md-6">
 					<label class="font-label">Search</label>
-				</div>
-				
-				<div class="col-md-2">
 					<input class="form-control" type="text" value="....">
-				</div>
-
-
+        </div>
 
 			</div>
 		

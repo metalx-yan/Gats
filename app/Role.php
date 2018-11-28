@@ -12,4 +12,9 @@ class Role extends Model
     {
     	return $this->hasOne(User::class);
     }
+
+    public function setNameAttribute($value)
+    {
+    	$this->attributes['name'] = $value;
+    }
 }

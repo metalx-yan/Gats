@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -33,28 +34,9 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
-    public function authorizeRoles($roles)
+    public function setPasswordAttribute($value)
     {
-        if ($this->hasAnyRole($roles)) {
-            return true;
-        }
-        abort(401, 'Error');
-    }
-
-    public function hasAnyRole($roles)
-    {
-        if (is_array($roles)) {
-            foreach ($roles as $role) {
-                if ($this->hasRole($role)) {
-                    return true;
-                }
-            }
-        } else {
-            if ($this->hasRole($role)) {
-                return true;
-            }
-        }
-        return false;
+        $this->attributes['password'] = Hash::make($value);
     }
 
     public function hasRole($role)
@@ -64,4 +46,28 @@ class User extends Authenticatable
             }        
         return false;
     }
+    // public function authorizeRoles($roles)
+    // {
+    //     if ($this->hasAnyRole($roles)) {
+    //         return true;
+    //     }
+    //     abort(401, 'Error');
+    // }
+
+    // public function hasAnyRole($roles)
+    // {
+    //     if (is_array($roles)) {
+    //         foreach ($roles as $role) {
+    //             if ($this->hasRole($role)) {
+    //                 return true;
+    //             }
+    //         }
+    //     } else {
+    //         if ($this->hasRole($role)) {
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    // }
+
 }
