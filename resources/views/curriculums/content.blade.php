@@ -139,7 +139,7 @@
 				
 				<div class="col-md-3 offset-md-6">
 					<label class="font-label">Search</label>
-					<input class="form-control" type="text" value="....">
+					<input class="form-control" type="text" placeholder="....">
         </div>
 
 			</div>

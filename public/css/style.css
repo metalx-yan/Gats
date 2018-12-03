@@ -56,6 +56,10 @@ body {
 	font-size: 14px;
 }
 
+a.form-control.btn-danger.fontsopher.style {
+	text-decoration: none;
+	text-align: center;
+}
 
 /*reset*/
 /* remove box shadow */

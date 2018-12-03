@@ -8,6 +8,10 @@
   <div>Guru</div>
 </h1>
 
+@php
+	$no = 1;
+@endphp
+
 <div class="row">
 	<div class="col-lg-8">
 		<div class="card">
@@ -16,64 +20,44 @@
 				  <thead class="theadcolor fontsopher">
 				    <tr>
 				      <th>No</th>
-				      <th>Kode Guru</th>
+				      <th>NIP</th>
+				      <th>Kode</th>
 				      <th>Nama</th>
-				      <th>Keterangan</th>
+				      <th>Status</th>
 				      <th>Aksi</th>
 				    </tr>
 				  </thead>
 				  <tbody class="fontsopher">
+				  	@foreach ($index as $indexs)
 				    <tr>
-				      <th scope="row">1</th>
-				      <td>Mark</td>
-				      <td>Otto</td>
-				      <td>@mdo</td>
+				      <th scope="row">{{ $no }}</th>
+						@php
+							$no++;	
+						@endphp
+				      <td>{{ $indexs->nip }}</td>
+				      <td>{{ $indexs->code }}</td>
+				      <td>{{ $indexs->name }}</td>
+				      <td>{{ $indexs->status }}</td>
 				      <td>
 				      	<div class="row">
-				      			<div class="col-sm-2">
-                    				<a href="" class="btn btn-primary btn-sm">View</a>
-                  				</div>
-                  
-                  				<div class="col-sm-2 offset-sm-1">
-                    				<a href="" class="btn btn-warning btn-sm">Edit</a>
-                  				</div>
-                  
-                  				<div class="col-sm-2 offset-sm-1">
-                    				<form class="" action="" method="post">
-	                      				{{ csrf_field() }}
-	                      				{{ method_field('DELETE') }}
-	                      				<input type="submit" name="delete" value="Delete" class="btn btn-danger btn-sm">
-                      				</form>
-                      			</div>
+              				<div class="col-xs-4">
+                				<a href="{{ route('teacher.edit', $indexs->id) }}" class="btn btn-warning btn-sm">
+									<i class="ion ion-edit"></i>
+                				</a>
+              				</div>
+              				<div class="col-xs-1 offset-sm-1"></div>
+              
+              				<div class="col-xs-4">
+                				<form class="" action="{{ route('teacher.destroy', $indexs->id) }}" method="POST">
+                      				@csrf
+                      				@method('DELETE')
+									<button class="ion ion-android-delete btn btn-danger btn-sm" name="delete" type="submit"></button>
+                  				</form>
+                  			</div>
 				      	</div>
 				      </td>
 				    </tr>
-				    
-				    <tr>
-				      <th scope="row">2</th>
-				      <td>Mark</td>
-				      <td>Otto</td>
-				      <td>@mdo</td>
-				      <td>
-				      	<div class="row">
-				      			<div class="col-sm-2">
-                    				<a href="" class="btn btn-primary btn-sm">View</a>
-                  				</div>
-                  
-                  				<div class="col-sm-2 offset-sm-1">
-                    				<a href="" class="btn btn-warning btn-sm">Edit</a>
-                  				</div>
-                  
-                  				<div class="col-sm-2 offset-sm-1">
-                    				<form class="" action="" method="post">
-	                      				{{ csrf_field() }}
-	                      				{{ method_field('DELETE') }}
-	                      				<input type="submit" name="delete" value="Delete" class="btn btn-danger btn-sm">
-                      				</form>
-                      			</div>
-				      	</div>
-				      </td>
-				    </tr>
+				  	@endforeach
 				  </tbody>
 				</table>
 			</div>
@@ -85,34 +69,13 @@
 			<div class="card-header headercolorincurrent fontsopher">
 				Tambah Guru
 			</div>
-			
-				<form action="">
-				{{ csrf_field() }}				
-					<div class="card-body">
-						<div class="row">
-							<div class="col-lg-12">
-								<label for="">Kode Guru</label>
-								<input type="text" name="" value="" class="form-control">
-							</div>
-						</div>
-			<br>
-						<div class="row">
-							<div class="col-lg-12">
-								<label for="">Nama</label>
-								<input type="text" name="" value="" class="form-control">
-							</div>
-						</div>
-			<br>
-						<div class="row">
-							<div class="col-lg-12">
-								<label for="">Keterangan</label>
-								<textarea name="" class="form-control"></textarea>
-							</div>
-						</div>
-			<br>
-						<button type="" class="form-control btn-success fontsopher">Buat</button>
-				</form>		
-
+				<form action="{{ route('teacher.store') }}" method="POST">
+				@csrf
+					@include('curriculums.teachers.form', [
+							'teacher' => new App\Models\Teacher,
+							'submit_button' => 'Save'
+						])
+				</form>
 			</div>
 		</div>
 	</div>

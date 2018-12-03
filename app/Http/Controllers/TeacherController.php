@@ -1,24 +1,22 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Teacher;
 
 use Illuminate\Http\Request;
 
-class MajorController extends Controller
+class TeacherController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    // public function __construct()
-    // {
-    //     $this->middleware(['auth', 'role:major']);
-    // }
-
     public function index()
     {
-        return view('majors.content');
+        $index = Teacher::all();
+
+        return view('curriculums.teachers.index', compact('index'));
     }
 
     /**
@@ -28,7 +26,7 @@ class MajorController extends Controller
      */
     public function create()
     {
-        //
+        //except
     }
 
     /**
@@ -39,7 +37,16 @@ class MajorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $store = $request->validate([
+            'nip'       =>  'required|unique:teachers|numeric|digits:18',
+            'code'      =>  'required|unique:teachers|max:4',
+            'name'      =>  'required',
+            'status'    =>  'required'
+        ]);
+
+        $a = Teacher::create($store);
+
+        return back();
     }
 
     /**
@@ -50,7 +57,7 @@ class MajorController extends Controller
      */
     public function show($id)
     {
-        //
+        //except
     }
 
     /**
@@ -59,9 +66,9 @@ class MajorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Teacher $teacher)
     {
-        //
+        return view('curriculums.teachers.edit', compact('teacher'));
     }
 
     /**
@@ -73,7 +80,22 @@ class MajorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'nip'       =>  "required|unique:teachers,nip,$id|numeric|max:18",
+            'code'      =>  "required|unique:teachers,code,$id|string|max:4", 
+            'name'      =>  'required',
+            'status'    =>  'required'
+        ]);
+
+        $teacher = Teacher::findOrFail($id);
+        $teacher->nip = $request->nip;
+        $teacher->code = $request->code;
+        $teacher->name = $request->name;
+        $teacher->status = $request->status;
+        $teacher->save();
+
+        return back();
+
     }
 
     /**
@@ -82,8 +104,10 @@ class MajorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Teacher $teacher)
     {
-        //
+        $a = $teacher->delete();
+
+        return back();
     }
 }
