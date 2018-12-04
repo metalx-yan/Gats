@@ -8,7 +8,7 @@
   
   <script src="{{ asset('/modules/chart.min.js') }}"></script>
   <script src="{{ asset('modules/summernote/summernote-lite.js') }}"></script>
-
+  
   {{-- <script>
   var ctx = document.getElementById("myChart").getContext('2d');
   var myChart = new Chart(ctx, {

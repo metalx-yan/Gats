@@ -83,5 +83,14 @@
 @endsection
 
 
+@section('scripts')
 
+		@if(Session::has('sweetalert'))
+		  <script>
+		      swal('Success!!', '{{ Session::get('sweetalert') }}', 'success');
+		  </script>
+		  {{-- <?php Session::forget('sweetalert'); ?> --}}
+		@endif
+	
+@endsection()
 

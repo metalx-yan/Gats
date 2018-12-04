@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 use App\Models\Teacher;
-
 use Illuminate\Http\Request;
 
 class TeacherController extends Controller
@@ -46,7 +45,7 @@ class TeacherController extends Controller
 
         $a = Teacher::create($store);
 
-        return back();
+        return back()->with('sweetalert', 'Berhasil Menambah Data Guru');
     }
 
     /**
@@ -81,7 +80,7 @@ class TeacherController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'nip'       =>  "required|unique:teachers,nip,$id|numeric|max:18",
+            'nip'       =>  "required|unique:teachers,nip,$id|numeric|digits:18",
             'code'      =>  "required|unique:teachers,code,$id|string|max:4", 
             'name'      =>  'required',
             'status'    =>  'required'

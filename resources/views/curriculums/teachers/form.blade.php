@@ -1,5 +1,6 @@
 <div class="card-body">
 <div class="form-group">
+	{{-- @include('partials._alert') --}}
 	<div class="row">
 		<div class="col-lg-12">
 			<label for="">NIP</label>
