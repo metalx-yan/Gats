@@ -37,7 +37,13 @@
 				      <td>{{ $indexs->nip }}</td>
 				      <td>{{ $indexs->code }}</td>
 				      <td>{{ $indexs->name }}</td>
-				      <td>{{ $indexs->status }}</td>
+				      <td>
+						@if ($indexs->status == "Aktif")
+				      		<span class="badge badge-success"><b>{{ $indexs->status }}</b></span>
+						@else
+				      		<span class="badge badge-danger"><b>{{ $indexs->status }}</b></span>
+						
+						@endif
 				      <td>
 				      	<div class="row">
               				<div class="col-xs-4">

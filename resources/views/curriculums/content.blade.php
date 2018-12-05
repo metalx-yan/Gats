@@ -16,10 +16,12 @@
     </div>
     <div class="card-wrap">
       <div class="card-header header">
-        <h4>Total Admin</h4>
+        <h4>Daftar Guru</h4>
       </div>
       <div class="card-body header">
-        10
+        @if (App\Models\Teacher::first()->status = "Aktif")
+            {{ App\Models\Teacher::all()->where('status', 'Aktif')->count() }}
+        @endif
       </div>
     </div>
   </div>

@@ -18,6 +18,8 @@ Route::group(['prefix' => 'curriculum', 'middleware' => 'auth','role:curriculum'
 	})->name('curriculum');
 
 	Route::resource('teacher', 'TeacherController')->except(['create', 'show']);
+
+	Route::resource('room', 'RoomController');
 });
 
 

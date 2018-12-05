@@ -34,7 +34,14 @@
 				      <td>{{ $teacher->nip }}</td>
 				      <td>{{ $teacher->code }}</td>
 				      <td>{{ $teacher->name }}</td>
-				      <td>{{ $teacher->status }}</td>
+				      <td>
+				      	@if ($teacher->status == "Aktif")
+				      		<span class="badge badge-success"><b>{{ $teacher->status }}</b></span>
+						@else
+				      		<span class="badge badge-danger"><b>{{ $teacher->status }}</b></span>
+						
+						@endif
+				      </td>
 				    </tr>
 				  </tbody>
 				</table>
