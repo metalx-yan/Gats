@@ -37,10 +37,10 @@ class TeacherController extends Controller
     public function store(Request $request)
     {
         $store = $request->validate([
-            'nip'       =>  'required|unique:teachers|numeric|digits:18',
-            'code'      =>  'required|unique:teachers|max:4',
-            'name'      =>  'required',
-            'status'    =>  'required'
+            'nip'         =>  'required|unique:teachers|numeric|digits:18',
+            'code'        =>  'required|unique:teachers|max:4',
+            'name'        =>  'required',
+            'status'      =>  'required'
         ]);
 
         $a = Teacher::create($store);
@@ -107,6 +107,6 @@ class TeacherController extends Controller
     {
         $a = $teacher->delete();
 
-        return back();
+        return back()->with('sweetalert', 'Berhasil Menghapus Data Guru');
     }
 }

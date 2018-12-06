@@ -17,7 +17,7 @@
 		<div class="card">
 			<div class="card-body">
 				<table class="table">
-				  <thead class="theadcolor fontsopher">
+				  <thead class="theadcolor-teacher fontsopher">
 				    <tr>
 				      <th>No</th>
 				      <th>NIP</th>
@@ -44,6 +44,7 @@
 				      		<span class="badge badge-danger"><b>{{ $indexs->status }}</b></span>
 						
 						@endif
+					</td>
 				      <td>
 				      	<div class="row">
               				<div class="col-xs-4">

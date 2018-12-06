@@ -26,7 +26,7 @@ class RoomController extends Controller
      */
     public function create()
     {
-        //
+        //except
     }
 
     /**
@@ -37,7 +37,15 @@ class RoomController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $store = $request->validate([
+            'code'          =>  'required|unique:rooms|numeric|digits:2',
+            'name'          =>  'required',
+            'capacity'      =>  'required|numeric|digits:2',
+        ]);
+
+        $a = Room::create($store);
+
+        return back()->with('sweetalert', 'Berhasil Menambah Data Ruang');
     }
 
     /**
@@ -48,7 +56,7 @@ class RoomController extends Controller
      */
     public function show($id)
     {
-        //
+        //except
     }
 
     /**
@@ -57,9 +65,9 @@ class RoomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Room $room)
     {
-        //
+        return view('curriculums.rooms.edit', compact('room'));
     }
 
     /**
@@ -71,7 +79,19 @@ class RoomController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'code'          =>  "required|unique:rooms,code,$id|numeric|digits:2",
+            'name'          =>  'required', 
+            'capacity'      =>  'required|numeric|digits:2',
+        ]);
+
+        $room = Room::findOrFail($id);
+        $room->code = $request->code;
+        $room->name = $request->name;
+        $room->capacity = $request->capacity;
+        $room->save();
+
+        return back();
     }
 
     /**
@@ -80,8 +100,10 @@ class RoomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Room $room)
     {
-        //
+        $a = $room->delete();
+
+        return back()->with('sweetalert', 'Berhasil Menghapus Data Ruang');
     }
 }

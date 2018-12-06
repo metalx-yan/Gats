@@ -28,8 +28,12 @@ div.card-header.headercolorincurrent{
 	font-family: 'Philosopher', sans-serif;
 }
 
-.theadcolor{
+.theadcolor-teacher{
 	background-color: #e9ae18;
+}
+
+.theadcolor-room{
+	background-color: #d8533e;
 }
 
 .font-label{
@@ -393,9 +397,14 @@ select.form-control:not([size]):not([multiple]) {
 /*end reset*/
 
 /*helper*/
-.bg-primary {
-	background-color: #574B90 !important;
+.bg-primary-teacher {
+	background-color: #3d9da7 !important;
 }
+
+.bg-primary-room {
+	background-color: #a72090 !important;
+}
+
 .text-primary {
 	color: #574B90 !important;
 }

@@ -1,10 +1,10 @@
 @extends('main')
 
-@section('title', 'Edit Data Guru')
+@section('title', 'Edit Data Ruang')
 
 @section('content')
 	<h1 class="section-header">
-	  <div>Edit Data Guru</div>
+	  <div>Edit Data Ruang</div>
 	</h1>
 
 @php
@@ -19,10 +19,9 @@
 				  <thead class="theadcolor-teacher fontsopher">
 				    <tr>
 				      <th>No</th>
-				      <th>NIP</th>
 				      <th>Kode</th>
 				      <th>Nama</th>
-				      <th>Status</th>
+				      <th>Kapasitas</th>
 				    </tr>
 				  </thead>
 				  <tbody class="fontsopher">
@@ -31,17 +30,10 @@
 						@php
 							$no++;	
 						@endphp
-				      <td>{{ $teacher->nip }}</td>
-				      <td>{{ $teacher->code }}</td>
-				      <td>{{ $teacher->name }}</td>
-				      <td>
-				      	@if ($teacher->status == "Aktif")
-				      		<span class="badge badge-success"><b>{{ $teacher->status }}</b></span>
-						@else
-				      		<span class="badge badge-danger"><b>{{ $teacher->status }}</b></span>
-						
-						@endif
-				      </td>
+				      <td>{{ $room->code }}</td>
+				      <td>{{ $room->name }}</td>
+				      <td>{{ $room->capacity }}</td>
+				      
 				    </tr>
 				  </tbody>
 				</table>
@@ -52,16 +44,16 @@
 	<div class="col-lg-4">
 		<div class="card">
 			<div class="card-header headercolorincurrent fontsopher">
-				Tambah Guru
+				Tambah Ruang
 			</div>
-				<form action="{{ route('teacher.update', $teacher->id) }}" method="POST">
+				<form action="{{ route('room.update', $room->id) }}" method="POST">
 				@csrf
 				@method('PUT')
-					@include('curriculums.teachers.form', [
+					@include('curriculums.rooms.form', [
 							'submit_button' => 'Update'
 						])
 					
-					<a href="{{ route('teacher.index') }}" type="text" class="form-control btn-danger fontsopher style">Back</a>
+					<a href="{{ route('room.index') }}" type="text" class="form-control btn-danger fontsopher style">Back</a>
 				</form>
 			</div>
 		</div>

@@ -11,16 +11,16 @@
 <div class="row">
 <div class="col-lg-2 col-md-6">
   <div class="card card-sm-3 col-12">
-    <div class="card-icon bg-primary" >
+    <div class="card-icon bg-primary-teacher">
       <i class="ion ion-person"></i>
     </div>
     <div class="card-wrap">
       <div class="card-header header">
-        <h4>Daftar Guru</h4>
+        <h4>Total Guru Aktif</h4>
       </div>
       <div class="card-body header">
-        @if (App\Models\Teacher::first()->status = "Aktif")
-            {{ App\Models\Teacher::all()->where('status', 'Aktif')->count() }}
+        @if (Auth::check() || App\Models\Teacher::first()->status = "Aktif")
+            {{  App\Models\Teacher::all()->where('status', 'Aktif')->count() }}
         @endif
       </div>
     </div>
@@ -28,15 +28,15 @@
 </div>
 <div class="col-lg-2 col-md-6">
   <div class="card card-sm-3 col-12">
-    <div class="card-icon bg-primary" >
+    <div class="card-icon bg-primary-room" >
       <i class="ion ion-person"></i>
     </div>
     <div class="card-wrap">
       <div class="card-header header">
-        <h4>Total Admin</h4>
+        <h4>Total Ruang</h4>
       </div>
       <div class="card-body header">
-        10
+        {{ App\Models\Room::all()->count() }}
       </div>
     </div>
   </div>
