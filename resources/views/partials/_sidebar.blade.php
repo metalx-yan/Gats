@@ -86,7 +86,7 @@
               <ul class="menu-dropdown">
                 <li><a href="{{ route('teacher.index') }}"><i class="ion ion-ios-circle-outline"></i>Data Guru</a></li>
                 <li><a href="{{ route('room.index') }}"><i class="ion ion-ios-circle-outline"></i>Data Ruang</a></li>
-                <li><a href="flag.html"><i class="ion ion-ios-circle-outline"></i>Data Mata Pelajaran</a></li>
+                <li><a href="{{ route('lesson.index') }}"><i class="ion ion-ios-circle-outline"></i>Data Mata Pelajaran</a></li>
                 <li><a href="flag.html"><i class="ion ion-ios-circle-outline"></i>Data Program Studi</a></li>
                 <li><a href="flag.html"><i class="ion ion-ios-circle-outline"></i>Data Kelas</a></li>
               </ul>

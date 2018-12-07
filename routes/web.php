@@ -20,6 +20,8 @@ Route::group(['prefix' => 'curriculum', 'middleware' => 'auth','role:curriculum'
 	Route::resource('teacher', 'TeacherController')->except(['create', 'show']);
 
 	Route::resource('room', 'RoomController')->except(['create', 'show']);
+
+	Route::resource('lesson', 'LessonController')->except(['create', 'show']);
 });
 
 

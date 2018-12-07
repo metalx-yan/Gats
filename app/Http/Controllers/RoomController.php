@@ -91,7 +91,7 @@ class RoomController extends Controller
         $room->capacity = $request->capacity;
         $room->save();
 
-        return back();
+        return back()->with('sweetalert', 'Berhasil Mengubah Data Ruang');
     }
 
     /**

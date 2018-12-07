@@ -93,7 +93,7 @@ class TeacherController extends Controller
         $teacher->status = $request->status;
         $teacher->save();
 
-        return back();
+        return back()->with('sweetalert', 'Berhasil Mengubah Data Guru');
 
     }
 
