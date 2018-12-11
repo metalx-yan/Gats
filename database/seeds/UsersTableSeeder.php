@@ -15,11 +15,11 @@ class UsersTableSeeder extends Seeder
     {
         $kurikulum = factory(User::class)->create([
             'email' => 'admin@kurikulum.com',
-            'role_id' => 1
+            'role_id' => 1,
         ]);
 
         $jurusan = factory(User::class, 5)->create([
-            'role_id' => 2
+            'role_id' => 2,
         ]);
 
         // Role::create([

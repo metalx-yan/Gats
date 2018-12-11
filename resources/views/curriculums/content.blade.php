@@ -43,15 +43,15 @@
 </div>
 <div class="col-lg-2 col-md-6">
   <div class="card card-sm-3 col-12">
-    <div class="card-icon bg-primary" >
+    <div class="card-icon bg-primary-lesson">
       <i class="ion ion-person"></i>
     </div>
     <div class="card-wrap">
       <div class="card-header header">
-        <h4>Total Admin</h4>
+        <h4>Total Mata Pelajaran</h4>
       </div>
       <div class="card-body header">
-        10
+        {{ App\Models\Lesson::all()->count() }}
       </div>
     </div>
   </div>

@@ -38,7 +38,7 @@ class LessonController extends Controller
     public function store(Request $request)
     {
         $store = $request->validate([
-            'code'          =>  'required|unique:lessons|numeric|digits:4',
+            'code'          =>  'required|unique:lessons|between:2,8',
             'name'          =>  'required',
             'total_hours'   =>  'required|numeric|digits:1',
             'semester'      =>  'required|min:6|max:6',
@@ -83,7 +83,7 @@ class LessonController extends Controller
     public function update(Request $request, $id)
     {
         $store = $request->validate([
-            'code'          =>  "required|unique:lessons,code,$id|numeric|digits:4",
+            'code'          =>  "required|unique:lessons,code,$id|between:3,8",
             'name'          =>  'required',
             'total_hours'   =>  'required|numeric|digits:1',
             'semester'      =>  'required|min:6|max:6',

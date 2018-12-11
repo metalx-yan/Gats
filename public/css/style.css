@@ -14,7 +14,7 @@ div.card-header.headercolorin{
 }
 
 div.card-header.cardcolorin{
-	background-color: #ffc107;
+	background-color: #ff4949;
 }
 
 div.card-header.headercolorincurrent{
@@ -407,6 +407,10 @@ select.form-control:not([size]):not([multiple]) {
 
 .bg-primary-room {
 	background-color: #a72090 !important;
+}
+
+.bg-primary-lesson {
+	background-color: #a9a9a9 !important;
 }
 
 .text-primary {
