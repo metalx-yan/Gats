@@ -14,4 +14,6 @@ class Level extends Model
     {
     	return $this->hasMany(Major::class);
     }
+
+    
 }

@@ -89,26 +89,20 @@
                <li><a href="#" class="has-dropdown"><i class="ion ion-ios-circle-outline"></i> Data Kelas</a>
                   <ul class="menu-dropdown">
                       @foreach (App\Models\Level::all() as $level)
-                        <li><a href="#" class="has-dropdown"><i class="ion ion-ios-circle-outline"></i>{{ $level->class }}</a>
+                        <li><a href="#" class="has-dropdown"><i class="ion ion-android-contact"></i>{{ $level->class }}</a>
                           <ul class="menu-dropdown">
                               @foreach (App\Models\Level::all()->where('id', $level->id)->first()->majors as $element)
-                            <li><a href="#"><i class="ion ion-ios-circle-outline"></i>
-                              {{ $element->name }}</a></li>
+                            <li><a href="#"><i class="ion ion-android-contacts"></i>{{ $element->name }}</a></li>
                               @endforeach
                           </ul>
                         </li>
                       @endforeach
-                    {{-- <li><a href="#"><i class="ion ion-ios-circle-outline"></i>XI Mesin 2</a></li> --}}
-                    {{-- <li><a href="#"><i class="ion ion-ios-circle-outline"></i>XI Mesin 3</a></li> --}}
-                    {{-- <li><a href="#"><i class="ion ion-ios-circle-outline"></i>XI TMI</a></li> --}}
-                    {{-- <li><a href="#"><i class="ion ion-ios-circle-outline"></i>XI TPGM</a></li> --}}
                   </ul>
                 </li>
 
                 <li><a href="{{ route('teacher.index') }}"><i class="ion ion-ios-circle-outline"></i>Data Guru</a></li>
                 <li><a href="{{ route('room.index') }}"><i class="ion ion-ios-circle-outline"></i>Data Ruang</a></li>
                 <li><a href="flag.html"><i class="ion ion-ios-circle-outline"></i>Data Program Studi</a></li>
-                {{-- <li><a href="flag.html"><i class="ion ion-ios-circle-outline"></i>Data Kelas</a></li> --}}
               </ul>
             </li>
             <li>
