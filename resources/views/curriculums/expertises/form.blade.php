@@ -3,7 +3,7 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<label for="">Kode</label>
-			<input type="text" name="code" value="{{ old('code') ?? $room->code }}" class="form-control {{ $errors->has('code') ? 'is-invalid' : ''}}">
+			<input type="text" name="code" value="{{ old('code') }}" class="form-control {{ $errors->has('code') ? 'is-invalid' : ''}}">
 			{!! $errors->first('code', '<span class="invalid-feedback">:message</span>') !!}
 		</div>
 	</div>
@@ -13,7 +13,7 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<label for="">Nama</label>
-			<input type="text" name="name" value="{{ old('name') ?? $room->name }}" class="form-control {{ $errors->has('name') ? 'is-invalid' : ''}}">
+			<input type="text" name="name" value="{{ old('name')  }}" class="form-control {{ $errors->has('name') ? 'is-invalid' : ''}}">
 			{!! $errors->first('name', '<span class="invalid-feedback">:message</span>') !!}
 		</div>
 	</div>
@@ -22,9 +22,10 @@
 <div class="form-group">
 	<div class="row">
 		<div class="col-lg-12">
-			<label for="">Kapasitas</label>
-			<input type="text" name="capacity" value="{{ old('capacity') ?? $room->capacity }}" class="form-control {{ $errors->has('capacity') ? 'is-invalid' : ''}}">
-			{!! $errors->first('capacity', '<span class="invalid-feedback">:message</span>') !!}
+			<label for="">Jurusan</label>
+			<input type="text" value="{{ $major->name}}" disabled class="form-control">
+			<input type="hidden" name="major_id" value="{{ $major->id}}" class="form-control">
+			{!! $errors->first('major_id', '<span class="invalid-feedback">:message</span>') !!}
 		</div>
 	</div>
 </div>

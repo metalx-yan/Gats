@@ -91,8 +91,14 @@
                       @foreach (App\Models\Level::all() as $level)
                         <li><a href="#" class="has-dropdown"><i class="ion ion-android-contact"></i>{{ $level->class }}</a>
                           <ul class="menu-dropdown">
-                              @foreach (App\Models\Level::all()->where('id', $level->id)->first()->majors as $element)
-                            <li><a href="#"><i class="ion ion-android-contacts"></i>{{ $element->name }}</a></li>
+                              @foreach (App\Models\Level::all()->where('id', $level->id)->first()->majors as $major)
+                              <li><a href="{{ route('mix', [$major->level_id, $major->id]) }}"><i class="ion ion-android-contacts"></i>{{ $major->name }}</a>
+                                {{-- <ul class="menu-dropdown">
+                                    @foreach (App\Models\Level::all()->where('id', $level->id)->first()->majors->where('id', $major->id)->first()->expertises as $element)
+                                  <li><a href="#"><i class="ion ion-plus-round"></i>{{ $element->name }}</a></li>
+                                    @endforeach
+                                </ul> --}}
+                              </li>
                               @endforeach
                           </ul>
                         </li>
@@ -106,7 +112,7 @@
               </ul>
             </li>
             <li>
-              <a href="table.html"><i class="ion ion-clipboard"></i><span>Tables</span></a>
+              <a href="#"><i class="ion ion-clipboard"></i><span>Tables</span></a>
             </li>
             <li>
               <a href="chartjs.html"><i class="ion ion-stats-bars"></i><span>Chart.js</span></a>
