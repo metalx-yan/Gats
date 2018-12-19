@@ -11,7 +11,7 @@
 |
 */
 
-Route::group(['prefix' => 'curriculum', 'middleware' => 'auth','role:curriculum'], function() {
+Route::group(['prefix' => 'curriculum', 'middleware' => ['auth','role:curriculum']], function() {
 
 	Route::get('expertise/{level_id}/{major_id}', 'ExpertiseController@mix')->name('mix');
 
@@ -28,10 +28,16 @@ Route::group(['prefix' => 'curriculum', 'middleware' => 'auth','role:curriculum'
 	Route::resource('expertise', 'ExpertiseController')->except(['create', 'show']);
 });
 
+Route::group(['prefix' => 'major', 'middleware' => ['auth','role:major']], function() {
 
-Route::get('major', function() {
-    return view('majors.content');
-})->middleware(['auth','role:major'])->name('major');
+	Route::get('rooms', 'RoomController@view')->name('room.view');
+
+	Route::get('/', function() {
+	    return view('majors.content');
+	})->name('major');
+});
+
+
 
 
 

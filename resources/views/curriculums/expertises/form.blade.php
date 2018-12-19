@@ -3,7 +3,7 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<label for="">Kode</label>
-			<input type="text" name="code" value="{{ old('code') }}" class="form-control {{ $errors->has('code') ? 'is-invalid' : ''}}">
+			<input type="text" name="code" value="{{ old('code') }}" class="form-control {{ $errors->has('code') ? 'is-invalid' : ''}}" autocomplete="off">
 			{!! $errors->first('code', '<span class="invalid-feedback">:message</span>') !!}
 		</div>
 	</div>
@@ -13,7 +13,7 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<label for="">Nama</label>
-			<input type="text" name="name" value="{{ old('name')  }}" class="form-control {{ $errors->has('name') ? 'is-invalid' : ''}}">
+			<input type="text" name="name" value="{{ old('name')  }}" class="form-control {{ $errors->has('name') ? 'is-invalid' : ''}}" autocomplete="off">
 			{!! $errors->first('name', '<span class="invalid-feedback">:message</span>') !!}
 		</div>
 	</div>

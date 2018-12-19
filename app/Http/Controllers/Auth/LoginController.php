@@ -45,11 +45,10 @@ class LoginController extends Controller
 
     public function redirectTo()
     {
-        if (Auth::check() && Auth::user()->role_id == 1) {
+        if (Auth::user()->role_id == 1) {
             return '/curriculum';
         } 
-        else
-        {
+        elseif (Auth::user()->role_id == 2) {
             return '/major';
         }
     }

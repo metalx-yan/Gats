@@ -24,7 +24,7 @@ class ExpertiseController extends Controller
     {
         $major = Major::find($major);
         
-        return view('curriculums.expertises.index', compact(['major','level']));
+        return view('curriculums.expertises.index', compact(['major']));
     }
 
     /**

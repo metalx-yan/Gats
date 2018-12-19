@@ -22,6 +22,11 @@ use App\Models\User;
 
 
 // Route::group(['middleware' => 'auth:api'] , function () {
-	Route::get('rooms', 'Api\RoomController@index');
+	Route::get('rooms', 'Api\AllController@rooms');
+	Route::get('expertises', 'Api\AllController@expertises');
+	Route::get('teachers', 'Api\AllController@teachers');
+	Route::get('lessons', 'Api\AllController@lessons');
+	Route::get('majors', 'Api\AllController@majors');
+	Route::get('levels', 'Api\AllController@levels');
 
 // });

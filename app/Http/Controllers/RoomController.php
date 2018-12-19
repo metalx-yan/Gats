@@ -54,9 +54,11 @@ class RoomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function view()
     {
-        //except
+        $view = Room::all();
+
+        return view('majors.rooms.view', compact('view'));
     }
 
     /**

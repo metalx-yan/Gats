@@ -18,9 +18,9 @@
               <a href="#" class="has-dropdown"><i class="ion ion-ios-albums-outline"></i><span>Master Data
               </span></a>
               <ul class="menu-dropdown">
-                <li><a href="general.html"><i class="ion ion-ios-circle-outline"></i>Data Ruang</a></li>
+                <li><a href="{{ route('room.view') }}"><i class="ion ion-ios-circle-outline"></i>Data Ruang</a></li>
                 <li><a href="components.html"><i class="ion ion-ios-circle-outline"></i>Data Kelas</a></li>
-                <li><a href="buttons.html"><i class="ion ion-ios-circle-outline"></i>Data Guru</a></li>
+                <li><a href=""><i class="ion ion-ios-circle-outline"></i>Data Guru</a></li>
                 <li><a href="toastr.html"><i class="ion ion-ios-circle-outline"></i>Data Mata Pelajaran</a></li>
               </ul>
             </li>
@@ -91,14 +91,14 @@
                       @foreach (App\Models\Level::all() as $level)
                         <li><a href="#" class="has-dropdown"><i class="ion ion-android-contact"></i>{{ $level->class }}</a>
                           <ul class="menu-dropdown">
-                              @foreach (App\Models\Level::all()->where('id', $level->id)->first()->majors as $major)
-                              <li><a href="{{ route('mix', [$major->level_id, $major->id]) }}"><i class="ion ion-android-contacts"></i>{{ $major->name }}</a>
-                                {{-- <ul class="menu-dropdown">
-                                    @foreach (App\Models\Level::all()->where('id', $level->id)->first()->majors->where('id', $major->id)->first()->expertises as $element)
-                                  <li><a href="#"><i class="ion ion-plus-round"></i>{{ $element->name }}</a></li>
+                              @foreach ($level->majors as $major)
+                                <li><a href="{{ route('mix', [$level->id, $major->id]) }}"><i class="ion ion-android-contacts"></i>{{ $major->name }}</a>
+                                  <ul class="menu-dropdown">
+                                    @foreach ($major->expertises as $expertise)
+                                    <li><a href="#"><i class="ion ion-plus-round"></i> {{$expertise->name }} </a></li>
                                     @endforeach
-                                </ul> --}}
-                              </li>
+                                  </ul>
+                                </li>
                               @endforeach
                           </ul>
                         </li>
@@ -108,7 +108,7 @@
 
                 <li><a href="{{ route('teacher.index') }}"><i class="ion ion-ios-circle-outline"></i>Data Guru</a></li>
                 <li><a href="{{ route('room.index') }}"><i class="ion ion-ios-circle-outline"></i>Data Ruang</a></li>
-                <li><a href="flag.html"><i class="ion ion-ios-circle-outline"></i>Data Program Studi</a></li>
+                {{-- <li><a href="flag.html"><i class="ion ion-ios-circle-outline"></i>Data Program Studi</a></li> --}}
               </ul>
             </li>
             <li>

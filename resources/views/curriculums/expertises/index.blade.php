@@ -9,7 +9,7 @@
 @section('content')
 
 <h1 class="section-header">
-  <div>Kelas {{ $major->level->class }} {{ $major->name }} dari Keahlian Jurusan   </div>
+  <div>Keahlian Jurusan Kelas {{ $major->level->class }} Jurusan {{ $major->name }} </div>
 </h1>
 
 @php
