@@ -10,6 +10,12 @@ class Teacher extends Model
     	'nip',
     	'code',
     	'name',
-    	'status'
+    	'status',
+        'type_teacher_id'
     ];
+
+    public function type_teacher()
+    {
+    	return $this->belongsTo(TypeTeacher::class);
+    }
 }

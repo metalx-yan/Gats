@@ -92,7 +92,7 @@
                         <li><a href="#" class="has-dropdown"><i class="ion ion-android-contact"></i>{{ $level->class }}</a>
                           <ul class="menu-dropdown">
                               @foreach ($level->majors as $major)
-                                <li><a href="{{ route('mix', [$level->id, $major->id]) }}"><i class="ion ion-android-contacts"></i>{{ $major->name }}</a>
+                                <li><a href="{{ route('mix.expertise', [$level->id, $major->id]) }}"><i class="ion ion-android-contacts"></i>{{ $major->name }}</a>
                                   <ul class="menu-dropdown">
                                     @foreach ($major->expertises as $expertise)
                                     <li><a href="#"><i class="ion ion-plus-round"></i> {{$expertise->name }} </a></li>
@@ -106,7 +106,14 @@
                   </ul>
                 </li>
 
-                <li><a href="{{ route('teacher.index') }}"><i class="ion ion-ios-circle-outline"></i>Data Guru</a></li>
+                <li><a href="#"  class="has-dropdown"><i class="ion ion-ios-circle-outline"></i>Data Guru</a>
+                    <ul class="menu-dropdown">
+                        @foreach (App\Models\TypeTeacher::all() as $type)
+                          <li><a href="{{ route('mix.teacher', $type->id) }}"><i class="ion ion-android-contact"></i>{{ $type->type }}</a></li>
+                        @endforeach
+                    </ul>
+                </li>
+
                 <li><a href="{{ route('room.index') }}"><i class="ion ion-ios-circle-outline"></i>Data Ruang</a></li>
                 {{-- <li><a href="flag.html"><i class="ion ion-ios-circle-outline"></i>Data Program Studi</a></li> --}}
               </ul>

@@ -33,6 +33,17 @@
 <div class="form-group">
 	<div class="row">
 		<div class="col-lg-12">
+			<label for="">Tipe Mengajar</label>
+			<input type="text" value="{{ $mix->type ?? $teacher->type_teacher->type}}" disabled class="form-control">
+			<input type="hidden" name="type_teacher_id" value="{{ $mix->id ?? $teacher->type_teacher_id}}" class="form-control">
+			{!! $errors->first('type_teacher_id', '<span class="invalid-feedback">:message</span>') !!}
+		</div>
+	</div>
+</div>
+
+<div class="form-group">
+	<div class="row">
+		<div class="col-lg-12">
 			<label for="">Status</label>
 			<select class="form-control" name="status">
 				@foreach (["Aktif" => "Aktif", "Nonaktif" => "NonAktif"] as $key)

@@ -26,6 +26,7 @@
 				      <th>NIP</th>
 				      <th>Kode</th>
 				      <th>Nama</th>
+				      <th>Tipe Mengajar</th>
 				      <th>Status</th>
 				    </tr>
 				  </thead>
@@ -38,6 +39,7 @@
 				      <td>{{ $teacher->nip }}</td>
 				      <td>{{ $teacher->code }}</td>
 				      <td>{{ $teacher->name }}</td>
+				      <td>{{ $teacher->type_teacher->type }}</td>
 				      <td>
 				      	@if ($teacher->status == "Aktif")
 				      		<span class="badge badge-success"><b>{{ $teacher->status }}</b></span>
@@ -65,7 +67,7 @@
 							'submit_button' => 'Update'
 						])
 					
-					<a href="{{ route('teacher.index') }}" type="text" class="form-control btn-danger fontsopher style">Back</a>
+					<a href="{{ route('mix.teacher', $teacher->id) }}" type="text" class="form-control btn-danger fontsopher style">Back</a>
 				</form>
 			</div>
 		</div>

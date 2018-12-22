@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Teacher;
+use App\Models\TypeTeacher;
 use Illuminate\Http\Request;
 
 class TeacherController extends Controller
@@ -13,11 +14,17 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        $index = Teacher::all();
+        // $index = Teacher::all();
 
-        return view('curriculums.teachers.index', compact('index'));
+        // return view('curriculums.teachers.index', compact('index'));
     }
 
+    public function mix($typeteacher)
+    {
+        $mix = TypeTeacher::find($typeteacher);
+
+        return view('curriculums.teachers.index', compact('mix'));
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -37,10 +44,11 @@ class TeacherController extends Controller
     public function store(Request $request)
     {
         $store = $request->validate([
-            'nip'         =>  'required|unique:teachers|numeric|digits:18',
-            'code'        =>  'required|unique:teachers|max:4',
-            'name'        =>  'required',
-            'status'      =>  'required'
+            'nip'               =>  'required|unique:teachers|numeric|digits:18',
+            'code'              =>  'required|unique:teachers|max:4',
+            'name'              =>  'required',
+            'status'            =>  'required',
+            'type_teacher_id'   =>  'required'
         ]);
 
         $a = Teacher::create($store);

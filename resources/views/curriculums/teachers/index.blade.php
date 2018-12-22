@@ -27,12 +27,13 @@
 				      <th>NIP</th>
 				      <th>Kode</th>
 				      <th>Nama</th>
+				      <th>Tipe Pengajar</th>
 				      <th>Status</th>
 				      <th>Aksi</th>
 				    </tr>
 				  </thead>
 				  <tbody class="fontsopher">
-				  	@foreach ($index as $indexs)
+				  	@foreach ($mix->teachers as $indexs)
 				    <tr>
 				      <th scope="row">{{ $no }}</th>
 						@php
@@ -41,6 +42,7 @@
 				      <td>{{ $indexs->nip }}</td>
 				      <td>{{ $indexs->code }}</td>
 				      <td>{{ $indexs->name }}</td>
+				      <td>{{ $indexs->type_teacher->type }}</td>
 				      <td>
 						@if ($indexs->status == "Aktif")
 				      		<span class="badge badge-success"><b>{{ $indexs->status }}</b></span>
@@ -102,7 +104,6 @@
 		  <script>
 		      swal('Success!!', '{{ Session::get('sweetalert') }}', 'success');
 		  </script>
-		  {{-- <?php Session::forget('sweetalert'); ?> --}}
 		@endif
 	
 @endsection()

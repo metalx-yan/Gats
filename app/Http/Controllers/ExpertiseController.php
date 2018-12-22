@@ -73,9 +73,15 @@ class ExpertiseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function editmix($level, $major, $expertise)
+    {
+        $expertise = Expertise::find($expertise);
+        return view('curriculums.expertises.edit', compact(['expertise']));
+    }
+
     public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -87,7 +93,19 @@ class ExpertiseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+         $this->validate($request, [
+            'code'          =>  "required|unique:expertises,code,$id|between:2,5",
+            'name'          =>  'required',
+            'major_id'      =>  'required'
+        ]);
+
+        $expertise = Expertise::findOrFail($id);
+        $expertise->code    = $request->code;
+        $expertise->name    = $request->name;
+        $expertise->major_id = $request->major_id;
+        $expertise->save();
+
+        return back()->with('sweetalert', 'Berhasil Mengubah Data Keahlian Jurusan');
     }
 
     /**
@@ -96,8 +114,9 @@ class ExpertiseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Expertise $expertise)
     {
-        //
+        $expertise->delete();
+        return redirect()->back()->with('sweetalert', 'Berhasil Menghapus Data Keahlian Jurusan');
     }
 }

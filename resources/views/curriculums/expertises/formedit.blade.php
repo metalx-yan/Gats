@@ -1,9 +1,10 @@
+
 <div class="card-body">
 <div class="form-group">
 	<div class="row">
 		<div class="col-lg-12">
 			<label for="">Kode</label>
-			<input type="text" name="code" value="{{ old('code')  }}" class="form-control {{ $errors->has('code') ? 'is-invalid' : ''}}" autocomplete="off">
+			<input type="text" name="code" value="{{ $expertise->code }}" class="form-control {{ $errors->has('code') ? 'is-invalid' : ''}}" autocomplete="off">
 			{!! $errors->first('code', '<span class="invalid-feedback">:message</span>') !!}
 		</div>
 	</div>
@@ -13,7 +14,7 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<label for="">Nama</label>
-			<input type="text" name="name" value="{{ old('name')  }}" class="form-control {{ $errors->has('name') ? 'is-invalid' : ''}}" autocomplete="off">
+			<input type="text" name="name" value="{{ $expertise->name }}" class="form-control {{ $errors->has('name') ? 'is-invalid' : ''}}" autocomplete="off">
 			{!! $errors->first('name', '<span class="invalid-feedback">:message</span>') !!}
 		</div>
 	</div>
@@ -23,8 +24,8 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<label for="">Jurusan</label>
-			<input type="text" value="{{ $major->name }}" disabled class="form-control">
-			<input type="hidden" name="major_id" value="{{ $major->id}}" class="form-control">
+			<input type="text" value="{{ $expertise->major->name }}" disabled class="form-control">
+			<input type="hidden" name="major_id" value="{{ $expertise->major->id}}" class="form-control">
 			{!! $errors->first('major_id', '<span class="invalid-feedback">:message</span>') !!}
 		</div>
 	</div>

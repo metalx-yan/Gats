@@ -13,7 +13,11 @@
 
 Route::group(['prefix' => 'curriculum', 'middleware' => ['auth','role:curriculum']], function() {
 
-	Route::get('expertise/{level_id}/{major_id}', 'ExpertiseController@mix')->name('mix');
+	Route::get('expertise/{level_id}/{major_id}', 'ExpertiseController@mix')->name('mix.expertise');
+
+	Route::get('expertise/{level_id}/{major_id}/{expertise_id}/edit', 'ExpertiseController@editmix')->name('editmix.expertise');
+
+	Route::get('teacher/{typeteacher_id}', 'TeacherController@mix')->name('mix.teacher');
 
 	Route::get('/', function() {
 	    return view('curriculums.content');
