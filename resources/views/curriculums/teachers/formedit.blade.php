@@ -4,7 +4,7 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<label for="">NIP</label>
-			<input type="text" name="nip" value="{{ old('nip') }}" class="form-control {{ $errors->has('nip') ? 'is-invalid' : ''}}" autocomplete="off">
+			<input type="text" name="nip" value="{{ $teacher->nip }}" class="form-control {{ $errors->has('nip') ? 'is-invalid' : ''}}" autocomplete="off">
 			{!! $errors->first('nip', '<span class="invalid-feedback">:message</span>') !!}
 		</div>
 	</div>
@@ -14,7 +14,7 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<label for="">Kode</label>
-			<input type="text" name="code" value="{{ old('code') }}" class="form-control {{ $errors->has('code') ? 'is-invalid' : ''}}" autocomplete="off">
+			<input type="text" name="code" value="{{ $teacher->code }}" class="form-control {{ $errors->has('code') ? 'is-invalid' : ''}}" autocomplete="off">
 			{!! $errors->first('code', '<span class="invalid-feedback">:message</span>') !!}
 		</div>
 	</div>
@@ -24,7 +24,7 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<label for="">Nama</label>
-			<input type="text" name="name" value="{{ old('name') }}" class="form-control {{ $errors->has('name') ? 'is-invalid' : ''}}" autocomplete="off">
+			<input type="text" name="name" value="{{ $teacher->name }}" class="form-control {{ $errors->has('name') ? 'is-invalid' : ''}}" autocomplete="off">
 			{!! $errors->first('name', '<span class="invalid-feedback">:message</span>') !!}
 		</div>
 	</div>
@@ -34,8 +34,8 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<label for="">Tipe Mengajar</label>
-			<input type="text" value="{{ $mix->type }}" disabled class="form-control">
-			<input type="hidden" name="type_teacher_id" value="{{ $mix->id }}" class="form-control">
+			<input type="text" value="{{ $teacher->type_teacher->type}}" disabled class="form-control">
+			<input type="hidden" name="type_teacher_id" value="{{ $teacher->type_teacher->id }}" class="form-control">
 			{!! $errors->first('type_teacher_id', '<span class="invalid-feedback">:message</span>') !!}
 		</div>
 	</div>

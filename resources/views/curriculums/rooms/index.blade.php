@@ -31,7 +31,7 @@
 				    </tr>
 				  </thead>
 				  <tbody class="fontsopher">
-				  	@foreach ($index as $indexs)
+				  	@foreach ($typeroom->rooms as $indexs)
 				    <tr>
 				      <th scope="row">{{ $no }}</th>
 						@php
@@ -44,7 +44,7 @@
 				      <td>
 				      	<div class="row">
               				<div class="col-xs-4">
-                				<a href="{{ route('room.edit', $indexs->id) }}" class="btn btn-warning btn-sm">
+                				<a href="{{ route('editmix.room', [$indexs->type_room->id, $indexs->id]) }}" class="btn btn-warning btn-sm">
 									<i class="ion ion-edit"></i>
                 				</a>
               				</div>

@@ -30,6 +30,7 @@
 				      <th>Nama</th>
 				      <th>Total Jam</th>
 				      <th>Semester</th>
+				      <th>Tipe Mata Pelajaran</th>
 				      <th>Tahun Ajaran</th>
 				    </tr>
 				  </thead>
@@ -43,6 +44,7 @@
 				      <td>{{ $lesson->name }}</td>
 				      <td>{{ $lesson->total_hours }}</td>
 				      <td>{{ $lesson->semester }}</td>
+				      <td>{{ $lesson->type_lesson->type }}</td>
 				      <td>{{ $lesson->beginning }}/{{ $lesson->end }}</td>
 				      {{-- <td>
 				      	@if ($lesson->status == "Aktif")
@@ -67,11 +69,11 @@
 				<form action="{{ route('lesson.update', $lesson->id) }}" method="POST">
 				@csrf
 				@method('PUT')
-					@include('curriculums.lessons.form', [
+					@include('curriculums.lessons.formedit', [
 							'submit_button' => 'Update'
 						])
 					
-					<a href="{{ route('lesson.index') }}" type="text" class="form-control btn-danger fontsopher style">Back</a>
+					<a href="{{ route('mix.lesson', $lesson->type_lesson->id) }}" type="text" class="form-control btn-danger fontsopher style">Back</a>
 				</form>
 			</div>
 		</div>

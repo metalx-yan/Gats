@@ -19,6 +19,16 @@ Route::group(['prefix' => 'curriculum', 'middleware' => ['auth','role:curriculum
 
 	Route::get('teacher/{typeteacher_id}', 'TeacherController@mix')->name('mix.teacher');
 
+	Route::get('teacher/{typeteacher_id}/{teacher_id}/edit', 'TeacherController@editmix')->name('editmix.teacher');
+
+	Route::get('lesson/{typelesson_id}', 'LessonController@mix')->name('mix.lesson');
+
+	Route::get('lesson/{typelesson_id}/{lesson_id}/edit', 'LessonController@editmix')->name('editmix.lesson');
+
+	Route::get('room/{typeroom_id}', 'RoomController@mix')->name('mix.room');
+
+	Route::get('room/{typeroom_id}/{room_id}/edit', 'RoomController@editmix')->name('editmix.room');
+
 	Route::get('/', function() {
 	    return view('curriculums.content');
 	})->name('curriculum');

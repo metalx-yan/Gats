@@ -4,7 +4,7 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<label for="">Kode</label>
-			<input type="text" name="code" value="{{ old('code') }}" class="form-control {{ $errors->has('code') ? 'is-invalid' : ''}}" autocomplete="off">
+			<input type="text" name="code" value="{{ $lesson->code }}" class="form-control {{ $errors->has('code') ? 'is-invalid' : ''}}" autocomplete="off">
 			{!! $errors->first('code', '<span class="invalid-feedback">:message</span>') !!}
 		</div>
 	</div>
@@ -14,7 +14,7 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<label for="">Nama</label>
-			<input type="text" name="name" value="{{ old('name') }}" class="form-control {{ $errors->has('name') ? 'is-invalid' : ''}}" autocomplete="off">
+			<input type="text" name="name" value="{{ $lesson->name }}" class="form-control {{ $errors->has('name') ? 'is-invalid' : ''}}" autocomplete="off">
 			{!! $errors->first('name', '<span class="invalid-feedback">:message</span>') !!}
 		</div>
 	</div>
@@ -24,7 +24,7 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<label for="">Total Jam</label>
-			<input type="text" name="total_hours" value="{{ old('total_hours') }}" class="form-control {{ $errors->has('total_hours') ? 'is-invalid' : ''}}" autocomplete="off">
+			<input type="text" name="total_hours" value="{{ $lesson->total_hours }}" class="form-control {{ $errors->has('total_hours') ? 'is-invalid' : ''}}" autocomplete="off">
 			{!! $errors->first('total_hours', '<span class="invalid-feedback">:message</span>') !!}
 		</div>
 	</div>
@@ -47,8 +47,8 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<label for="">Tipe Mata Pelajaran</label>
-			<input type="text" value="{{ $typelesson->type}}" disabled class="form-control">
-			<input type="hidden" name="type_lesson_id" value="{{ $typelesson->id}}" class="form-control">
+			<input type="text" value="{{ $lesson->type_lesson->type}}" disabled class="form-control">
+			<input type="hidden" name="type_lesson_id" value="{{ $lesson->type_lesson->id}}" class="form-control">
 			{!! $errors->first('type_lesson_id', '<span class="invalid-feedback">:message</span>') !!}
 		</div>
 	</div>

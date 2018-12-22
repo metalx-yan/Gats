@@ -75,6 +75,13 @@ class TeacherController extends Controller
      */
     public function edit(Teacher $teacher)
     {
+        // return view('curriculums.teachers.edit', compact('teacher'));
+    }
+
+    public function editmix($typeteacher, $teacher)
+    {
+        $teacher = Teacher::find($teacher);
+        
         return view('curriculums.teachers.edit', compact('teacher'));
     }
 

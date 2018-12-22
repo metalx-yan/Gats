@@ -53,11 +53,11 @@
 				<form action="{{ route('room.update', $room->id) }}" method="POST">
 				@csrf
 				@method('PUT')
-					@include('curriculums.rooms.form', [
+					@include('curriculums.rooms.formedit', [
 							'submit_button' => 'Update'
 						])
 					
-					<a href="{{ route('room.index') }}" type="text" class="form-control btn-danger fontsopher style">Back</a>
+					<a href="{{ route('mix.room', $room->type_room->id) }}" type="text" class="form-control btn-danger fontsopher style">Back</a>
 				</form>
 			</div>
 		</div>

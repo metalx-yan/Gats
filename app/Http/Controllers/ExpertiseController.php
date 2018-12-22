@@ -79,10 +79,10 @@ class ExpertiseController extends Controller
         return view('curriculums.expertises.edit', compact(['expertise']));
     }
 
-    public function edit($id)
-    {
+    // public function edit($id)
+    // {
 
-    }
+    // }
 
     /**
      * Update the specified resource in storage.

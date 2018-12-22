@@ -81,12 +81,20 @@
             </li>
 
            <li class="menu-header">Components</li>
-            <li>
+            {{-- <li>
               <a href="#" class="has-dropdown"><i class="ion ion-flag"></i><span>Master Data</span></a>
-              <ul class="menu-dropdown">
-                <li><a href="{{ route('lesson.index') }}"><i class="ion ion-ios-circle-outline"></i>Data Mata Pelajaran</a></li>
+              <ul class="menu-dropdown"> --}}
+
+                <li><a href="#" class="has-dropdown"><i class="ion ion-flag"></i>Data Mata Pelajaran</a>
+                    <ul class="menu-dropdown">
+                      @foreach (App\Models\TypeLesson::all() as $typelesson)
+                        <li><a href="{{ route('mix.lesson', $typelesson->id) }}"><i class="ion ion-android-contact"></i>{{ $typelesson->type }}</a></li>
+                      @endforeach
+                    </ul>
+                </li>
+
               
-               <li><a href="#" class="has-dropdown"><i class="ion ion-ios-circle-outline"></i> Data Kelas</a>
+               <li><a href="#" class="has-dropdown"><i class="ion ion-flag"></i> Data Kelas</a>
                   <ul class="menu-dropdown">
                       @foreach (App\Models\Level::all() as $level)
                         <li><a href="#" class="has-dropdown"><i class="ion ion-android-contact"></i>{{ $level->class }}</a>
@@ -106,7 +114,7 @@
                   </ul>
                 </li>
 
-                <li><a href="#"  class="has-dropdown"><i class="ion ion-ios-circle-outline"></i>Data Guru</a>
+                <li><a href="#"  class="has-dropdown"><i class="ion ion-flag"></i>Data Guru</a>
                     <ul class="menu-dropdown">
                         @foreach (App\Models\TypeTeacher::all() as $type)
                           <li><a href="{{ route('mix.teacher', $type->id) }}"><i class="ion ion-android-contact"></i>{{ $type->type }}</a></li>
@@ -114,10 +122,18 @@
                     </ul>
                 </li>
 
-                <li><a href="{{ route('room.index') }}"><i class="ion ion-ios-circle-outline"></i>Data Ruang</a></li>
+                <li><a href="#"  class="has-dropdown"><i class="ion ion-flag"></i>Data Ruang</a>
+                    <ul class="menu-dropdown">
+                        @foreach (App\Models\TypeRoom::all() as $type)
+                          <li><a href="{{ route('mix.room', $type->id) }}"><i class="ion ion-android-contact"></i>{{ $type->type }}</a></li>
+                        @endforeach
+                    </ul>
+                </li>
+
+                {{-- <li><a href="{{ route('room.index') }}"><i class="ion ion-flag"></i>Data Ruang</a></li> --}}
                 {{-- <li><a href="flag.html"><i class="ion ion-ios-circle-outline"></i>Data Program Studi</a></li> --}}
-              </ul>
-            </li>
+              {{-- </ul>
+            </li> --}}
             <li>
               <a href="#"><i class="ion ion-clipboard"></i><span>Tables</span></a>
             </li>

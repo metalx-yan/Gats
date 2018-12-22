@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTypeTeachersTable extends Migration
+class CreateTypeLessonsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,17 @@ class CreateTypeTeachersTable extends Migration
      */
     public function up()
     {
-        Schema::create('type_teachers', function (Blueprint $table) {
+        Schema::create('type_lessons', function (Blueprint $table) {
             $table->increments('id');
             $table->enum('type', ['Jurusan', 'Umum']);
             $table->timestamps();
         });
 
-        Schema::table('teachers', function (Blueprint $table) {
-            $table->unsignedInteger('type_teacher_id');
+        Schema::table('lessons', function (Blueprint $table) {
+            $table->unsignedInteger('type_lesson_id');
 
-            $table->foreign('type_teacher_id')->references('id')->on('type_teachers');
+            $table->foreign('type_lesson_id')->references('id')->on('type_lessons');
         });
-
     }
 
     /**
@@ -34,6 +33,6 @@ class CreateTypeTeachersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('type_teachers');
+        Schema::dropIfExists('type_lessons');
     }
 }

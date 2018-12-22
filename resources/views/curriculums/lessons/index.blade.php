@@ -31,12 +31,13 @@
 				      <th>Nama</th>
 				      <th>Total Jam</th>
 				      <th>Semester</th>
+				      <th>Tipe Mata Pelajaran</th>
 				      <th>Tahun Ajaran</th>
 				      <th>Aksi</th>
 				    </tr>
 				  </thead>
 				  <tbody class="fontsopher">
-				  	@foreach ($index as $indexs)
+				  	@foreach ($typelesson->lessons as $indexs)
 				    <tr>
 				      <th scope="row">{{ $no }}</th>
 						@php
@@ -46,12 +47,13 @@
 				      <td>{{ $indexs->name }}</td>
 				      <td>{{ $indexs->total_hours }}</td>
 				      <td>{{ $indexs->semester }}</td>
+				      <td>{{ $indexs->type_lesson->type }}</td>
 				      <td>{{ $indexs->beginning }}/{{ $indexs->end }}</td>
 				     
 				      <td>
 				      	<div class="row">
               				<div class="col-sm-4">
-                				<a href="{{ route('lesson.edit', $indexs->id) }}" class="btn btn-warning btn-sm">
+                				<a href="{{ route('editmix.lesson', [$indexs->type_lesson->id, $indexs->id]) }}" class="btn btn-warning btn-sm">
 									<i class="ion ion-edit"></i>
                 				</a>
               				</div>

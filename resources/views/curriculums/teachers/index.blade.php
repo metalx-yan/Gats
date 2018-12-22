@@ -54,7 +54,7 @@
 				      <td>
 				      	<div class="row">
               				<div class="col-xs-4">
-                				<a href="{{ route('teacher.edit', $indexs->id) }}" class="btn btn-warning btn-sm">
+                				<a href="{{ route('editmix.teacher', [$indexs->type_teacher->id, $indexs->id]) }}" class="btn btn-warning btn-sm">
 									<i class="ion ion-edit"></i>
                 				</a>
               				</div>

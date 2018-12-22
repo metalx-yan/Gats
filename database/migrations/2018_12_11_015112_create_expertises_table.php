@@ -19,6 +19,12 @@ class CreateExpertisesTable extends Migration
             $table->string('name');
             $table->timestamps();
         });
+
+        Schema::table('expertises', function (Blueprint $table) {
+            $table->unsignedInteger('major_id');
+
+            $table->foreign('major_id')->references('id')->on('majors');
+        });
     }
 
     /**

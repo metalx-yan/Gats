@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Room;
+use App\Models\TypeRoom;
 
 class RoomController extends Controller
 {
@@ -12,11 +13,18 @@ class RoomController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $index = Room::all();
+    // public function index()
+    // {
+    //     $index = Room::all();
 
-        return view('curriculums.rooms.index', compact('index'));
+    //     return view('curriculums.rooms.index', compact('index'));
+    // }
+
+    public function mix($typeroom)
+    {
+        $typeroom = TypeRoom::find($typeroom);
+
+        return view('curriculums.rooms.index', compact('typeroom'));
     }
 
     /**
@@ -41,6 +49,7 @@ class RoomController extends Controller
             'code'          =>  'required|unique:rooms|numeric|digits:2',
             'name'          =>  'required',
             'capacity'      =>  'required|numeric|digits:2',
+            'type_room_id'  =>  'required',
         ]);
 
         $a = Room::create($store);
@@ -69,6 +78,13 @@ class RoomController extends Controller
      */
     public function edit(Room $room)
     {
+        // return view('curriculums.rooms.edit', compact('room'));
+    }
+
+    public function editmix($typeroom, $room)
+    {
+        $room = Room::find($room);
+
         return view('curriculums.rooms.edit', compact('room'));
     }
 

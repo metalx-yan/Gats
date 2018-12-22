@@ -18,6 +18,12 @@ class CreateLevelsTable extends Migration
             $table->enum('class', ['IX', 'X', 'XI']);
             $table->timestamps();
         });
+
+        Schema::table('majors', function (Blueprint $table) {
+            $table->unsignedInteger('level_id');
+
+            $table->foreign('level_id')->references('id')->on('levels');
+        });
     }
 
     /**

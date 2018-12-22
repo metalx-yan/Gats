@@ -12,6 +12,12 @@ class Lesson extends Model
 		'total_hours',
 		'semester',
 		'beginning',
-		'end'
+		'end',
+		'type_lesson_id'
     ];
+
+    public function type_lesson()
+    {
+    	return $this->belongsTo(TypeLesson::class);
+    }
 }
