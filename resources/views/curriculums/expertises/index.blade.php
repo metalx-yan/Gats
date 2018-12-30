@@ -27,6 +27,7 @@
 				      <th>Kode</th>
 				      <th>Nama</th>
 				      <th>Jurusan</th>
+				      <th>Bagian</th>
 				      <th>Aksi</th>
 				    </tr>
 				  </thead>
@@ -41,7 +42,8 @@
 							{{-- expr --}}
 				      <td>{{ $indexs->code }}</td>
 				      <td>{{ $indexs->name }}</td>
-				      <td>{{ $indexs->where('id', $indexs->id)->first()->major->name }}</td>
+				      <td>{{ $indexs->where('id', $indexs->id)->first()->major->major }}</td>
+				      <td>{{ $indexs->major->level->class }} {{ $indexs->name }} {{ $indexs->part }}</td>
 				     
 				      <td>
 				      	<div class="row">

@@ -11,11 +11,17 @@ class Teacher extends Model
     	'code',
     	'name',
     	'status',
-        'type_teacher_id'
+        'type_teacher_id',
+        // 'user_id',
     ];
 
     public function type_teacher()
     {
     	return $this->belongsTo(TypeTeacher::class);
     }
+
+    // public function user()
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
 }

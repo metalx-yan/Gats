@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\Teacher;
 use App\Models\TypeTeacher;
 use Illuminate\Http\Request;
+use Hash;
+use App\Models\User;
 
 class TeacherController extends Controller
 {
@@ -43,12 +45,16 @@ class TeacherController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $store = $request->validate([
             'nip'               =>  'required|unique:teachers|numeric|digits:18',
             'code'              =>  'required|unique:teachers|max:4',
             'name'              =>  'required',
             'status'            =>  'required',
-            'type_teacher_id'   =>  'required'
+            'type_teacher_id'   =>  'required',
+            // 'username'          =>  'required|unique:users',
+            // 'password'          =>  'required|string|min:6|confirmed',
+
         ]);
 
         $a = Teacher::create($store);
@@ -67,6 +73,12 @@ class TeacherController extends Controller
         //except
     }
 
+    public function view()
+    {
+        $view = Teacher::all();
+
+        return view('majors.teachers.view', compact('view'));
+    }
     /**
      * Show the form for editing the specified resource.
      *

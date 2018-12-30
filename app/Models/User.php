@@ -46,6 +46,57 @@ class User extends Authenticatable
             }        
         return false;
     }
+
+    // public function teacher()
+    // {
+    //     return $this->hasOne(Teacher::class);
+    // }
+
+}
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     // public function authorizeRoles($roles)
     // {
     //     if ($this->hasAnyRole($roles)) {
@@ -69,5 +120,3 @@ class User extends Authenticatable
     //     }
     //     return false;
     // }
-
-}

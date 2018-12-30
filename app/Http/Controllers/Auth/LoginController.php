@@ -51,6 +51,9 @@ class LoginController extends Controller
         elseif (Auth::user()->role_id == 2) {
             return '/major';
         }
+        elseif (Auth::user()->role_id == 3) {
+            return '/';
+        }
     }
 
     public function logout(Request $req)

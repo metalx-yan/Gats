@@ -46,8 +46,9 @@ class ExpertiseController extends Controller
     public function store(Request $request)
     {
         $store = $request->validate([
-            'code'          =>  'required|unique:lessons|between:2,5',
+            'code'          =>  'required|unique:expertises|between:2,5',
             'name'          =>  'required',
+            // 'part'          =>  'integer|min:1',
             'major_id'      =>  'required'
         ]);
 
@@ -67,6 +68,13 @@ class ExpertiseController extends Controller
         //
     }
 
+    public function view($levelid, $majorid)
+    {
+        $view = Major::find($majorid);
+        $expertise = Expertise::all();
+
+        return view('majors.expertises.view', compact(['view', 'expertise']));
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -102,6 +110,7 @@ class ExpertiseController extends Controller
         $expertise = Expertise::findOrFail($id);
         $expertise->code    = $request->code;
         $expertise->name    = $request->name;
+        $expertise->part    = $request->part;
         $expertise->major_id = $request->major_id;
         $expertise->save();
 

@@ -71,6 +71,12 @@ class LessonController extends Controller
         //except
     }
 
+    public function view($typelesson)
+    {
+        $view = TypeLesson::find($typelesson);
+        return view('majors.lessons.view', compact('view'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -85,7 +91,7 @@ class LessonController extends Controller
     public function editmix($typelesson, $lesson)
     {
         $lesson = Lesson::find($lesson);
-        return view('curriculums.lessons.edit', compact('lesson'));
+        return view('curriculums.lessons.edit', compact(['lesson', 'test']));
     }
 
     /**

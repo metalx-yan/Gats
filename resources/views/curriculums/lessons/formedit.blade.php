@@ -34,11 +34,12 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<label for="">Semester</label>
-			<select class="form-control" name="semester">
-				@foreach (["Ganjil" => "Ganjil", "Genap" => "Genap"] as $key)
-				  <option value="{{ $key }}"> {{ $key }}</option>
+			<select class="form-control {{ $errors->has('semester') ? 'is-invalid' : ''}}" name="semester">
+				@foreach (["Ganjil" => "semester", "Genap" => "semester"] as $key => $value)
+				  <option value="{{ $key }}" {{ old("semester", $lesson->semester) == $key ? "selected" : "" }}> {{ $key }}</option>
 				@endforeach
 			</select>
+			{!! $errors->first('semester', '<span class="invalid-feedback">:message</span>') !!}
 		</div>
 	</div>
 </div>

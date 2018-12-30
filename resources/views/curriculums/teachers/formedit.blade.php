@@ -33,10 +33,13 @@
 <div class="form-group">
 	<div class="row">
 		<div class="col-lg-12">
-			<label for="">Tipe Mengajar</label>
-			<input type="text" value="{{ $teacher->type_teacher->type}}" disabled class="form-control">
-			<input type="hidden" name="type_teacher_id" value="{{ $teacher->type_teacher->id }}" class="form-control">
-			{!! $errors->first('type_teacher_id', '<span class="invalid-feedback">:message</span>') !!}
+			<label for="">Status</label>
+			<select class="form-control {{ $errors->has('status') ? 'is-invalid' : ''}}" name="status">
+				@foreach (["Aktif" => "status", "Non Aktif" => "status"] as $key => $value)
+				  <option value="{{ $key }}" {{ old("status", $teacher->status) == $key ? "selected" : "" }}> {{ $key }}</option>
+				@endforeach
+			</select>
+			{!! $errors->first('status', '<span class="invalid-feedback">:message</span>') !!}
 		</div>
 	</div>
 </div>
@@ -44,15 +47,12 @@
 <div class="form-group">
 	<div class="row">
 		<div class="col-lg-12">
-			<label for="">Status</label>
-			<select class="form-control" name="status">
-				@foreach (["Aktif" => "Aktif", "Nonaktif" => "NonAktif"] as $key)
-				  <option value="{{ $key }}"> {{ $key }}</option>
-				@endforeach
-			</select>
+			<label for="">Tipe Mengajar</label>
+			<input type="text" value="{{ $teacher->type_teacher->type}}" disabled class="form-control">
+			<input type="hidden" name="type_teacher_id" value="{{ $teacher->type_teacher->id }}" class="form-control">
+			{!! $errors->first('type_teacher_id', '<span class="invalid-feedback">:message</span>') !!}
 		</div>
 	</div>
 </div>
-
 
 <button type="submit" class="form-control btn-success fontsopher">{{ $submit_button }}</button><p></p>

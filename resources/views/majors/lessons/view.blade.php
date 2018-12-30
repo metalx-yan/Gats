@@ -1,11 +1,11 @@
 @extends('main')
 
-@section('title', 'Ruang')
+@section('title', 'Mata Pelajaran')
 
 @section('content')
 
 <h1 class="section-header">
-  <div>Ruang</div>
+  <div>Mata Pelajaran {{ $view->type }}</div>
 </h1>
 
 @php
@@ -13,7 +13,7 @@
 @endphp
 
 <div class="row">
-	<div class="col-lg-10">
+	<div class="col-lg-12">
 		<div class="card">
 			<div class="card-body">
 				<table class="table">
@@ -22,11 +22,13 @@
 				      <th>No</th>
 				      <th>Kode</th>
 				      <th>Nama</th>
-				      <th>Kapasitas</th>
+				      <th>Total Jam</th>
+				      <th>Semester</th>
+				      <th>Tahun Ajaran</th>
 				    </tr>
 				  </thead>
 				  <tbody class="fontsopher">
-				  	@foreach ($view as $views)
+				  	@foreach ($view->lessons as $views)
 				    <tr>
 				      <th scope="row">{{ $no }}</th>
 						@php
@@ -34,7 +36,9 @@
 						@endphp
 				      <td>{{ $views->code }}</td>
 				      <td>{{ $views->name }}</td>
-				      <td>{{ $views->capacity }}</td>
+				      <td>{{ $views->total_hours }}</td>
+				      <td>{{ $views->semester }}</td>
+				      <td>{{ $views->beginning }}/{{ $views->end }}</td>
 				    </tr>
 				  	@endforeach
 				  </tbody>

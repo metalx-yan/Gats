@@ -42,18 +42,21 @@ Route::group(['prefix' => 'curriculum', 'middleware' => ['auth','role:curriculum
 	Route::resource('expertise', 'ExpertiseController')->except(['create', 'show']);
 });
 
+
 Route::group(['prefix' => 'major', 'middleware' => ['auth','role:major']], function() {
 
-	Route::get('rooms', 'RoomController@view')->name('room.view');
+	Route::get('room', 'RoomController@view')->name('room.view');
+
+	Route::get('lesson/{typelesson_id}', 'LessonController@view')->name('lesson.view');
+	
+	Route::get('expertise/{level_id}/{major_id}', 'ExpertiseController@view')->name('expertise.view');
+	
+	Route::get('teacher', 'TeacherController@view')->name('teacher.view');
 
 	Route::get('/', function() {
 	    return view('majors.content');
 	})->name('major');
 });
-
-
-
-
 
 Route::get('/404', function() { 
 	return view('errors.404');

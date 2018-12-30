@@ -14,7 +14,10 @@ class RoleTableSeeder extends Seeder
     {
         $roles = [
         	'curriculum',
-        	'major'
+        	'major',
+            'teacher',
+            'student',
+            'headmaster'
         ];
 
         foreach ($roles as $role) {

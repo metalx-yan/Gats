@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Expertise extends Model
 {
     protected $fillable = [
-    	'code','name', 'major_id'
+    	'code','name', 'part', 'major_id'
     ];
 
     public function major()

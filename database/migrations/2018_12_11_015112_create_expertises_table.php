@@ -17,6 +17,7 @@ class CreateExpertisesTable extends Migration
             $table->increments('id');
             $table->string('code', 5)->unique();
             $table->string('name');
+            $table->integer('part')->nullable();
             $table->timestamps();
         });
 

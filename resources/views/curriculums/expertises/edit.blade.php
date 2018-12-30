@@ -27,6 +27,7 @@
 				      <th>Kode</th>
 				      <th>Nama</th>
 				      <th>Jurusan</th>
+				      <th>Bagian</th>
 				    </tr>
 				  </thead>
 				  <tbody class="fontsopher">
@@ -36,13 +37,12 @@
 						@php
 							$no++;	
 						@endphp
-							{{-- expr --}}
 				      <td>{{ $expertise->code }}</td>
 				      <td>{{ $expertise->name }}</td>
-				      <td>{{ $expertise->name }}</td>
+				      <td>{{ $expertise->where('id', $expertise->id)->first()->major->major }}</td>
+				      <td>{{ $expertise->major->level->class }} {{ $expertise->name }} {{ $expertise->part }}</td>
 				     
 				    </tr>
-				  	{{-- @endif --}}
 				  </tbody>
 				</table>
 			</div>

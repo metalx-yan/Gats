@@ -13,9 +13,9 @@ class LevelTableSeeder extends Seeder
     public function run()
     {
         $levels = [
-        	'IX',
         	'X',
-        	'XI'
+        	'XI',
+        	'XII'
         ];
 
         foreach ($levels as $level) {
