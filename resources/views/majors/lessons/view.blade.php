@@ -5,7 +5,7 @@
 @section('content')
 
 <h1 class="section-header">
-  <div>Mata Pelajaran {{ $view->type }}</div>
+  <div>Daftar Mata Pelajaran {{ $view->type }}</div>
 </h1>
 
 @php
@@ -29,17 +29,19 @@
 				  </thead>
 				  <tbody class="fontsopher">
 				  	@foreach ($view->lessons as $views)
-				    <tr>
-				      <th scope="row">{{ $no }}</th>
-						@php
-							$no++;	
-						@endphp
-				      <td>{{ $views->code }}</td>
-				      <td>{{ $views->name }}</td>
-				      <td>{{ $views->total_hours }}</td>
-				      <td>{{ $views->semester }}</td>
-				      <td>{{ $views->beginning }}/{{ $views->end }}</td>
-				    </tr>
+					  	@if (Auth::user()->name == $views->user->name)
+						    <tr>
+						      <th scope="row">{{ $no }}</th>
+								@php
+									$no++;	
+								@endphp
+						      <td>{{ $views->code }}</td>
+						      <td>{{ $views->name }}</td>
+						      <td>{{ $views->total_hours }}</td>
+						      <td>{{ $views->semester }}</td>
+						      <td>{{ $views->beginning }}/{{ $views->end }}</td>
+						    </tr>
+					  	@endif
 				  	@endforeach
 				  </tbody>
 				</table>

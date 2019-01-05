@@ -21,9 +21,9 @@ class TeacherController extends Controller
         // return view('curriculums.teachers.index', compact('index'));
     }
 
-    public function mix($typeteacher)
+    public function mix($typeteacherid)
     {
-        $mix = TypeTeacher::find($typeteacher);
+        $mix = TypeTeacher::find($typeteacherid);
 
         return view('curriculums.teachers.index', compact('mix'));
     }
@@ -73,11 +73,13 @@ class TeacherController extends Controller
         //except
     }
 
-    public function view()
+    public function view($typeteacherid)
     {
-        $view = Teacher::all();
+        $view = TypeTeacher::find($typeteacherid);
 
-        return view('majors.teachers.view', compact('view'));
+        $viewteacher = Teacher::all();
+
+        return view('majors.teachers.view', compact(['view', 'viewteacher']));
     }
     /**
      * Show the form for editing the specified resource.

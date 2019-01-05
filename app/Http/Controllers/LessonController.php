@@ -52,7 +52,8 @@ class LessonController extends Controller
             'semester'          =>  'required',
             'beginning'         =>  'required',
             'end'               =>  'required',
-            'type_lesson_id'    =>  'required'
+            'type_lesson_id'    =>  'required',
+            'user_id'           =>  'required'
         ]);
 
         $a = Lesson::create($store);
@@ -74,6 +75,7 @@ class LessonController extends Controller
     public function view($typelesson)
     {
         $view = TypeLesson::find($typelesson);
+        
         return view('majors.lessons.view', compact('view'));
     }
 
@@ -91,6 +93,7 @@ class LessonController extends Controller
     public function editmix($typelesson, $lesson)
     {
         $lesson = Lesson::find($lesson);
+        
         return view('curriculums.lessons.edit', compact(['lesson', 'test']));
     }
 

@@ -9,7 +9,7 @@
 @section('content')
 
 <h1 class="section-header">
-  <div>Keahlian Jurusan Kelas {{ $major->level->class }} Jurusan {{ $major->name }} </div>
+  <div>Keahlian Jurusan Kelas {{ $major->level->class }} {{ $major->major }} </div>
 </h1>
 
 @php
@@ -43,7 +43,7 @@
 				      <td>{{ $indexs->code }}</td>
 				      <td>{{ $indexs->name }}</td>
 				      <td>{{ $indexs->where('id', $indexs->id)->first()->major->major }}</td>
-				      <td>{{ $indexs->major->level->class }} {{ $indexs->name }} {{ $indexs->part }}</td>
+				      <td>{{ $indexs->major->level->class }} {{ $indexs->name }} <b> {{ $indexs->part }}</b></td>
 				     
 				      <td>
 				      	<div class="row">

@@ -23,6 +23,12 @@ class CreateLessonsTable extends Migration
             $table->year('end');
             $table->timestamps();
         });
+
+        Schema::table('lessons', function (Blueprint $table) {
+            $table->unsignedInteger('user_id');
+
+            $table->foreign('user_id')->references('id')->on('users');
+        });
     }
 
     /**

@@ -15,11 +15,13 @@
             </li>
            <li class="menu-header">Components</li>
         
-              <li><a href="{{ route('room.view') }}" class="has-dropdown"><i class="ion ion-document-text"></i>Data Mata Pelajaran</a>
+              <li><a href="#" class="has-dropdown"><i class="ion ion-document-text"></i>Data Mata Pelajaran</a>
                 <ul class="menu-dropdown">
-                    @foreach (App\Models\TypeLesson::all() as $type)
-                      <li><a href="{{ route('lesson.view', $type->id) }}"><i class="ion ion-ios-play-outline"></i>{{ $type->type }}</a></li>
-                    @endforeach
+                  @foreach (App\Models\TypeLesson::all() as $typelesson)
+                    @if ($typelesson->id === 1)
+                      <li><a href="{{ route('lesson.view', $typelesson->id) }}"><i class="ion ion-ios-play-outline"></i>{{ $typelesson->type }}</a></li>
+                    @endif
+                  @endforeach
                 </ul>
               </li>
               
@@ -38,55 +40,41 @@
                 </ul>
               </li>
 
-              <li><a href="#"><i class="ion ion-document-text"></i>Data Guru</a></li>
-              <li><a href="#"><i class="ion ion-document-text"></i>Data Mata Pelajaran</a></li>
-            </li>
-
-            <li>
-              <a href="#" class="has-dropdown"><i class="ion ion-ios-nutrition"></i>Lihat Kelas</a>
-              <ul class="menu-dropdown">
-                <li><a href="#" class="has-dropdown"><i class="ion ion-ios-circle-outline"></i> Kelas 10</a>
-                  <ul class="menu-dropdown">
-                    <li><a href="#"><i class="ion ion-ios-circle-outline"></i>X Mesin 1</a></li>
-                    <li><a href="#"><i class="ion ion-ios-circle-outline"></i>X Mesin 2</a></li>
-                    <li><a href="#"><i class="ion ion-ios-circle-outline"></i>X Mesin 3</a></li>
-                    <li><a href="#"><i class="ion ion-ios-circle-outline"></i>X TMI</a></li>
-                    <li><a href="#"><i class="ion ion-ios-circle-outline"></i>X TPGM</a></li>
-                  </ul>
-                </li>
-
-                <li><a href="#" class="has-dropdown"><i class="ion ion-ios-circle-outline"></i> Kelas 11</a>
-                  <ul class="menu-dropdown">
-                    <li><a href="#"><i class="ion ion-ios-circle-outline"></i>XI Mesin 1</a></li>
-                    <li><a href="#"><i class="ion ion-ios-circle-outline"></i>XI Mesin 2</a></li>
-                    <li><a href="#"><i class="ion ion-ios-circle-outline"></i>XI Mesin 3</a></li>
-                    <li><a href="#"><i class="ion ion-ios-circle-outline"></i>XI TMI</a></li>
-                    <li><a href="#"><i class="ion ion-ios-circle-outline"></i>XI TPGM</a></li>
-                  </ul>
-                </li>
-
-                <li><a href="#" class="has-dropdown"><i class="ion ion-ios-circle-outline"></i> Kelas 12</a>
-                  <ul class="menu-dropdown">
-                    <li><a href="#"><i class="ion ion-ios-circle-outline"></i>XII Mesin 1</a></li>
-                    <li><a href="#"><i class="ion ion-ios-circle-outline"></i>XII Mesin 2</a></li>
-                    <li><a href="#"><i class="ion ion-ios-circle-outline"></i>XII Mesin 3</a></li>
-                    <li><a href="#"><i class="ion ion-ios-circle-outline"></i>XII Mesin 4</a></li>
-                    <li><a href="#"><i class="ion ion-ios-circle-outline"></i>XII TPMI</a></li>
-                    <li><a href="#"><i class="ion ion-ios-circle-outline"></i>XII TGM</a></li>
-                  </ul>
-                </li>
-              </ul>
-              <li><a href="#" class="has-dropdown"><i class="ion ion-ios-circle-outline"></i>Generate Jadwal</a>
+              <li><a href="#" class="has-dropdown"><i class="ion ion-document-text"></i>Data Guru</a>
                 <ul class="menu-dropdown">
-                  <li><a href=""><i class="ion ion-ios-circle-outline"></i>Kelas X</a></li>
-                  <li><a href="#"><i class="ion ion-ios-circle-outline"></i>Kelas XI</a></li>
-                  <li><a href="#"><i class="ion ion-ios-circle-outline"></i>Kelas XII</a></li>
+                  @foreach (App\Models\TypeTeacher::all() as $typeteacher)
+                    @if ($typeteacher->id === 1)
+                      <li><a href="{{ route('teacher.view', $typeteacher->id) }}"><i class="ion ion-ios-play-outline"></i>{{ $typeteacher->type }}</a></li>
+                    @endif
+                  @endforeach
                 </ul>
               </li>
-            {{-- </li> --}}
 
+              <li><a href="#" class="has-dropdown"><i class="ion ion-document-text"></i>Data Ruang</a>
+                <ul class="menu-dropdown">
+                  @foreach (App\Models\TypeRoom::all() as $typeroom)
+                    @if ($typeroom->id === 1)
+                      <li><a href="{{ route('room.view', $typeroom->id) }}"><i class="ion ion-ios-play-outline"></i>{{ $typeroom->type }}</a></li>
+                    @endif
+                  @endforeach
+                </ul>
+              </li>
+
+           <li class="menu-header">Ex</li>
             <li>
-              <a href="credits.html"><i class="ion ion-ios-information-outline"></i> Credits</a>
+              <a href="" class="has-dropdown"><i class="ion ion-ios-information-outline"></i>Generate</a>
+                <ul class="menu-dropdown">
+                  @foreach (App\Models\Level::all() as $level)
+                    <li><a href="#" class="has-dropdown"><i class="ion ion-ios-play"></i>{{ $level->class }}</a>
+                      <ul class="menu-dropdown">
+                        @foreach ($level->majors as $major)
+                          <li><a href="#"><i class="ion ion-ios-play-outline"></i>{{ $major->major }}</a>
+                          </li>
+                        @endforeach
+                      </ul>
+                    </li>
+                  @endforeach
+                </ul>
             </li>          
             @endif
 
@@ -99,7 +87,6 @@
 
            <li class="menu-header">Components</li>
           
-
                 <li><a href="#" class="has-dropdown"><i class="ion ion-document-text"></i>Data Mata Pelajaran</a>
                     <ul class="menu-dropdown">
                       @foreach (App\Models\TypeLesson::all() as $typelesson)
@@ -108,15 +95,13 @@
                     </ul>
                 </li>
 
-              
                <li><a href="#" class="has-dropdown"><i class="ion ion-document-text"></i> Data Kelas</a>
                   <ul class="menu-dropdown">
                       @foreach (App\Models\Level::all() as $level)
                         <li><a href="#" class="has-dropdown"><i class="ion ion-android-contact"></i>{{ $level->class }}</a>
                           <ul class="menu-dropdown">
                               @foreach ($level->majors as $major)
-                                <li><a href="{{ route('mix.expertise', [$level->id, $major->id]) }}"><i class="ion ion-plus-circled"></i>{{ $major->major }}</a>
-                                  
+                                <li><a href="{{ route('mix.expertise', [$major->level->id, $major->id]) }}"><i class="ion ion-plus-circled"></i>{{ $major->major }}</a>
                                 </li>
                               @endforeach
                           </ul>
@@ -140,26 +125,25 @@
                         @endforeach
                     </ul>
                 </li>
+          
 
+          <li class="menu-header">Ex</li>
             <li>
-              <a href="#"><i class="ion ion-clipboard"></i><span>Tables</span></a>
+              <a href="#" class="has-dropdown"><i class="ion ion-clipboard"></i><span>Generate</span></a>
+               <ul class="menu-dropdown">
+                    @foreach (App\Models\Level::all() as $level)
+                      <li><a href="#" class="has-dropdown"><i class="ion ion-android-contact"></i>{{ $level->class }}</a>
+                        <ul class="menu-dropdown">
+                            @foreach ($level->majors as $major)
+                              <li><a href="{{ route('showmix.generate', [$major->level->id, $major->id]) }}"><i class="ion ion-plus-circled"></i>{{ $major->major }}</a>
+                              </li>
+                            @endforeach
+                        </ul>
+                      </li>
+                    @endforeach
+                </ul>
             </li>
-            <li>
-              <a href="chartjs.html"><i class="ion ion-stats-bars"></i><span>Chart.js</span></a>
-            </li>
-            <li>
-              <a href="simple.html"><i class="ion ion-ios-location-outline"></i><span>Google Maps</span></a>
-            </li>
-            <li>
-              <a href="#" class="has-dropdown"><i class="ion ion-ios-copy-outline"></i><span>Examples</span></a>
-              <ul class="menu-dropdown">
-                <li><a href="login.html"><i class="ion ion-ios-circle-outline"></i> Login</a></li>
-                <li><a href="register.html"><i class="ion ion-ios-circle-outline"></i> Register</a></li>
-                <li><a href="forgot.html"><i class="ion ion-ios-circle-outline"></i> Forgot Password</a></li>
-                <li><a href="reset.html"><i class="ion ion-ios-circle-outline"></i> Reset Password</a></li>
-                <li><a href="404.html"><i class="ion ion-ios-circle-outline"></i> 404</a></li>
-              </ul>
-            </li>
+            
             @endif
           
           </ul>

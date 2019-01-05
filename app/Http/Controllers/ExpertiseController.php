@@ -27,6 +27,7 @@ class ExpertiseController extends Controller
         return view('curriculums.expertises.index', compact(['major']));
     }
 
+
     /**
      * Show the form for creating a new resource.
      *
@@ -48,7 +49,7 @@ class ExpertiseController extends Controller
         $store = $request->validate([
             'code'          =>  'required|unique:expertises|between:2,5',
             'name'          =>  'required',
-            // 'part'          =>  'integer|min:1',
+            'part'          =>  'integer|min:1',
             'major_id'      =>  'required'
         ]);
 
@@ -71,9 +72,9 @@ class ExpertiseController extends Controller
     public function view($levelid, $majorid)
     {
         $view = Major::find($majorid);
-        $expertise = Expertise::all();
+        // $viewexpertise = Expertise::all();
 
-        return view('majors.expertises.view', compact(['view', 'expertise']));
+        return view('majors.expertises.view', compact(['view', 'viewexpertise']));
     }
     /**
      * Show the form for editing the specified resource.

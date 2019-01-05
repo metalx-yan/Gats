@@ -5,7 +5,7 @@
 @section('content')
 
 <h1 class="section-header">
-  <div>Kelas {{ $view->level->class }} Jurusan {{ $view->major }} </div>
+  <div>Daftar Kelas {{ $view->level->class }} Jurusan {{ $view->major }} </div>
 </h1>
 
 @php

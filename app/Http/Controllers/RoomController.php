@@ -63,11 +63,13 @@ class RoomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function view()
+    public function view($typeroomid)
     {
-        $view = Room::all();
+        $view = TypeRoom::find($typeroomid);
 
-        return view('majors.rooms.view', compact('view'));
+        $viewroom = Room::all();
+
+        return view('majors.rooms.view', compact(['view', 'viewroom']));
     }
 
     /**

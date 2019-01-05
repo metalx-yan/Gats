@@ -5,7 +5,7 @@
 @section('content')
 
 <h1 class="section-header">
-  <div>Ruang</div>
+  <div>Daftar Ruang {{ $view->type }}</div>
 </h1>
 
 @php
@@ -13,7 +13,7 @@
 @endphp
 
 <div class="row">
-	<div class="col-lg-10">
+	<div class="col-lg-12">
 		<div class="card">
 			<div class="card-body">
 				<table class="table">
@@ -26,7 +26,7 @@
 				    </tr>
 				  </thead>
 				  <tbody class="fontsopher">
-				  	@foreach ($view as $views)
+				  	@foreach ($viewroom as $views)
 				    <tr>
 				      <th scope="row">{{ $no }}</th>
 						@php

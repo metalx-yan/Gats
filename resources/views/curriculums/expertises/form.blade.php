@@ -22,7 +22,7 @@
 <div class="form-group">
 	<div class="row">
 		<div class="col-lg-12">
-			<label for="">Bagian</label>
+			<label for="">Sub Kelas</label>
 			<input type="text" name="part" value="{{ old('part')  }}" class="form-control {{ $errors->has('part') ? 'is-invalid' : ''}}" autocomplete="off">
 			{!! $errors->first('part', '<span class="invalid-feedback">:message</span>') !!}
 		</div>

@@ -13,11 +13,17 @@ class Lesson extends Model
 		'semester',
 		'beginning',
 		'end',
-		'type_lesson_id'
+        'type_lesson_id',
+		'user_id'
     ];
 
     public function type_lesson()
     {
     	return $this->belongsTo(TypeLesson::class);
+    }
+
+    public function user()
+    {
+    	return $this->belongsTo(User::class);
     }
 }

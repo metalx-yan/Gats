@@ -40,7 +40,7 @@
 				      <td>{{ $expertise->code }}</td>
 				      <td>{{ $expertise->name }}</td>
 				      <td>{{ $expertise->where('id', $expertise->id)->first()->major->major }}</td>
-				      <td>{{ $expertise->major->level->class }} {{ $expertise->name }} {{ $expertise->part }}</td>
+				      <td>{{ $expertise->major->level->class }} {{ $expertise->name }} <b>{{ $expertise->part }}</b></td>
 				     
 				    </tr>
 				  </tbody>

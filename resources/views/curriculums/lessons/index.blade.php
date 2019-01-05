@@ -32,6 +32,7 @@
 				      <th>Total Jam</th>
 				      <th>Semester</th>
 				      <th>Tipe Mata Pelajaran</th>
+				      <th>User</th>
 				      <th>Tahun Ajaran</th>
 				      <th>Aksi</th>
 				    </tr>
@@ -48,18 +49,19 @@
 				      <td>{{ $indexs->total_hours }}</td>
 				      <td>{{ $indexs->semester }}</td>
 				      <td>{{ $indexs->type_lesson->type }}</td>
+				      <td>{{ $indexs->user->name }}</td>
 				      <td>{{ $indexs->beginning }}/{{ $indexs->end }}</td>
 				     
 				      <td>
 				      	<div class="row">
-              				<div class="col-sm-4">
+              				<div class="col-2">
                 				<a href="{{ route('editmix.lesson', [$indexs->type_lesson->id, $indexs->id]) }}" class="btn btn-warning btn-sm">
 									<i class="ion ion-edit"></i>
                 				</a>
               				</div>
-              				{{-- <div class="col-1"></div> --}}
+              				<div class="col-1"></div>
               
-              				<div class="col-sm-2">
+              				<div class="col-2">
                 				<form class="" action="{{ route('lesson.destroy', $indexs->id) }}" method="POST">
                       				@csrf
                       				@method('DELETE')

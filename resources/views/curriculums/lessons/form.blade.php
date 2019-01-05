@@ -33,13 +33,15 @@
 <div class="form-group">
 	<div class="row">
 		<div class="col-lg-12">
-			<label for="">Semester</label>
-			<select class="form-control {{ $errors->has('semester') ? 'is-invalid' : ''}}" name="semester">
-				@foreach (["Ganjil" => "Ganjil", "Genap" => "Genap"] as $key)
-				  <option value="{{ $key }}"> {{ $key }}</option>
+			<label for="">Jurusan</label>
+			<select class="form-control {{ $errors->has('user_id') ? 'is-invalid' : ''}}" name="user_id">
+				@foreach (App\Models\User::all() as $key)
+					@if ($key->role_id === 2)
+				  		<option value="{{ $key->id }}"> {{ $key->name }}</option>
+					@endif
 				@endforeach
 			</select>
-			{!! $errors->first('semester', '<span class="invalid-feedback">:message</span>') !!}
+			{!! $errors->first('user_id', '<span class="invalid-feedback">:message</span>') !!}
 		</div>
 	</div>
 </div>
@@ -47,10 +49,13 @@
 <div class="form-group">
 	<div class="row">
 		<div class="col-lg-12">
-			<label for="">Tipe Mata Pelajaran</label>
-			<input type="text" value="{{ $typelesson->type}}" disabled class="form-control">
-			<input type="hidden" name="type_lesson_id" value="{{ $typelesson->id}}" class="form-control">
-			{!! $errors->first('type_lesson_id', '<span class="invalid-feedback">:message</span>') !!}
+			<label for="">Semester</label>
+			<select class="form-control {{ $errors->has('semester') ? 'is-invalid' : ''}}" name="semester">
+				@foreach (["Ganjil" => "Ganjil", "Genap" => "Genap"] as $key)
+				  <option value="{{ $key }}"> {{ $key }}</option>
+				@endforeach
+			</select>
+			{!! $errors->first('semester', '<span class="invalid-feedback">:message</span>') !!}
 		</div>
 	</div>
 </div>
@@ -71,6 +76,17 @@
 			<label for="">Tahun Ajaran Akhir</label>
 			<input type="text" name="end" value="{{ old('end') ?? $lesson->end }}" class="date-own form-control {{ $errors->has('end') ? 'is-invalid' : ''}}" autocomplete="off">
 			{!! $errors->first('end', '<span class="invalid-feedback">:message</span>') !!}
+		</div>
+	</div>
+</div>
+
+<div class="form-group">
+	<div class="row">
+		<div class="col-lg-12">
+			<label for="">Tipe Mata Pelajaran</label>
+			<input type="text" value="{{ $typelesson->type}}" disabled class="form-control">
+			<input type="hidden" name="type_lesson_id" value="{{ $typelesson->id}}" class="form-control">
+			{!! $errors->first('type_lesson_id', '<span class="invalid-feedback">:message</span>') !!}
 		</div>
 	</div>
 </div>
