@@ -15,7 +15,7 @@
 
 Route::group(['prefix' => 'curriculum', 'middleware' => ['auth','role:curriculum']], function() {
 
-	Route::get('generate/{level_id}/{major_id}', 'GenerateController@showmix')->name('showmix.generate');
+	Route::get('generate/{level_id}/{major_id}', 'GenerateController@showmixcurri')->name('showmixcurri.generate');
 
 	Route::get('expertise/{level_id}/{major_id}', 'ExpertiseController@mix')->name('mix.expertise');
 
@@ -50,6 +50,8 @@ Route::group(['prefix' => 'curriculum', 'middleware' => ['auth','role:curriculum
 
 Route::group(['prefix' => 'major', 'middleware' => ['auth','role:major']], function() {
 
+	Route::get('generate/{level_id}/{major_id}', 'GenerateController@showmixmajor')->name('showmixmajor.generate');
+	
 	Route::get('room/{typeroom_id}', 'RoomController@view')->name('room.view');
 
 	Route::get('lesson/{typelesson_id}', 'LessonController@view')->name('lesson.view');

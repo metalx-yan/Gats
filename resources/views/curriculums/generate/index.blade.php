@@ -2,14 +2,10 @@
 
 @section('title', 'Keahlian Jurusan')
 
-@section('links')
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">  
-@endsection
-
 @section('content')
 
 <h1 class="section-header">
-  <div>Generate Jadwal Jurusan Kelas </div>
+  <div>Generate Jadwal Jurusan {{ $mixmajor->major }} Kelas {{ $mixmajor->level->class }}</div>
 </h1>
 
 @php
@@ -19,40 +15,29 @@
 <div class="row">
 	<div class="col-lg-12">
 		<div class="card">
+			<h5 class="card-header head">Pilih Konsentrasi</h5>
 			<div class="card-body">
-				@foreach ($mixmajor->expertises as $indexs)
-					<a href="" class="btn btn-primary">{{ $indexs->name }}</a>
-				@endforeach
-				{{-- <table class="table">
-				  <thead class="theadcolor-expertise fontsopher">
-				    <tr>
-				      <th>No</th>
-				      <th>Kode</th>
-				      <th>Nama</th>
-				      <th>Jurusan</th>
-				      <th>Bagian</th>
-				    </tr>
-				  </thead>
-				  <tbody class="fontsopher">
-				  	@foreach ($mixmajor->expertises as $indexs)
-				    <tr>
-				      <th scope="row">{{ $no }}</th>
-						@php
-							$no++;	
-						@endphp
-				      <td>{{ $indexs->code }}</td>
-				      <td>{{ $indexs->name }}</td>
-				      <td>{{ $indexs->major->major }}</td>
-				      <td>{{ $indexs->part }}</td>
-				    </tr>
-				  	@endforeach
-				  </tbody>
-				</table> --}}
+				<div class="row">
+					@foreach ($mixmajor->expertises as $indexs)
+						<div class="col-md-4">
+							<h6>{{ $indexs->major->level->class }} {{ $indexs->name }} {{ $indexs->part }}</h6>
+							<hr>
+							<center>
+								
+							<a href="" class="btn btn-info">Atur Jadwal</a>
+							<a href="" class="btn btn-warning">Lihat Jadwal</a>
+							</center>
+						<hr>
+						</div>
+					@endforeach
+				
+				</div>
+
+				
 			</div>
 		</div>
 	</div>
 
-	
 </div>
 @endsection
 

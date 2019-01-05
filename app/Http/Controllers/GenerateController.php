@@ -12,7 +12,14 @@ class GenerateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function showmix($level, $major)
+    public function showmixcurri($level, $major)
+    {
+        $mixmajor = Major::find($major);
+        
+        return view('curriculums.generate.index', compact(['mixmajor']));
+    }
+
+    public function showmixmajor($level, $major)
     {
         $mixmajor = Major::find($major);
         

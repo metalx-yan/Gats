@@ -259,6 +259,7 @@ a:not(.btn-social-icon):not(.btn-social):not(.page-link) .fab {
 	padding-left: 34px;
 	padding-right: 34px;
 }
+
 /* end btn */
 
 /* navbar */
@@ -792,8 +793,15 @@ body.sidebar-gone .main-content {
 .card .card-footer.card-footer-grey {
 	background-color: #fbfbfb;
 }
+
+h5.card-header.head {
+	background-color: #ffc107;
+	text-align: center;
+}
+
 .card .card-header {
-	border-bottom-color: #f9f9f9;
+	/*border-bottom-color: #000000;*/
+	/*background-color: #ffc107;*/
 	line-height: 30px;
 	-ms-flex-item-align: center;
 	    -ms-grid-row-align: center;

@@ -68,7 +68,7 @@
                     <li><a href="#" class="has-dropdown"><i class="ion ion-ios-play"></i>{{ $level->class }}</a>
                       <ul class="menu-dropdown">
                         @foreach ($level->majors as $major)
-                          <li><a href="#"><i class="ion ion-ios-play-outline"></i>{{ $major->major }}</a>
+                          <li><a href="{{ route('showmixmajor.generate', [$major->level->id, $major->id]) }}"><i class="ion ion-ios-play-outline"></i>{{ $major->major }}</a>
                           </li>
                         @endforeach
                       </ul>
@@ -77,7 +77,6 @@
                 </ul>
             </li>          
             @endif
-
 
             @if (Auth::user()->hasRole('curriculum'))
             <li class="menu-header">Dashboard</li>
@@ -135,7 +134,7 @@
                       <li><a href="#" class="has-dropdown"><i class="ion ion-android-contact"></i>{{ $level->class }}</a>
                         <ul class="menu-dropdown">
                             @foreach ($level->majors as $major)
-                              <li><a href="{{ route('showmix.generate', [$major->level->id, $major->id]) }}"><i class="ion ion-plus-circled"></i>{{ $major->major }}</a>
+                              <li><a href="{{ route('showmixcurri.generate', [$major->level->id, $major->id]) }}"><i class="ion ion-plus-circled"></i>{{ $major->major }}</a>
                               </li>
                             @endforeach
                         </ul>
