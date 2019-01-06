@@ -8,10 +8,6 @@
   <div>Generate Jadwal Jurusan {{ $mixmajor->major }} Kelas {{ $mixmajor->level->class }}</div>
 </h1>
 
-@php
-	$no = 1;
-@endphp
-
 <div class="row">
 	<div class="col-lg-12">
 		<div class="card">
@@ -23,17 +19,13 @@
 							<h6>{{ $indexs->major->level->class }} {{ $indexs->name }} {{ $indexs->part }}</h6>
 							<hr>
 							<center>
-								
-							<a href="" class="btn btn-info">Atur Jadwal</a>
+							<a href="{{ route('showmixexpert.generate', [$indexs->major->level->id, $indexs->major->id, $indexs->id]) }}" class="btn btn-info">Atur Jadwal</a>
 							<a href="" class="btn btn-warning">Lihat Jadwal</a>
 							</center>
 						<hr>
 						</div>
 					@endforeach
-				
 				</div>
-
-				
 			</div>
 		</div>
 	</div>

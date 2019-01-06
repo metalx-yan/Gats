@@ -15,7 +15,8 @@ class CreateTypeTeachersTable extends Migration
     {
         Schema::create('type_teachers', function (Blueprint $table) {
             $table->increments('id');
-            $table->enum('type', ['Jurusan', 'Umum']);
+            $table->string('name');
+            $table->string('slug')->unique();
             $table->timestamps();
         });
 

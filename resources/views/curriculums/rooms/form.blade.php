@@ -8,7 +8,7 @@
 		</div>
 	</div>
 </div>
-
+{{-- 
 <div class="form-group">
 	<div class="row">
 		<div class="col-lg-12">
@@ -17,7 +17,7 @@
 			{!! $errors->first('name', '<span class="invalid-feedback">:message</span>') !!}
 		</div>
 	</div>
-</div>
+</div> --}}
 
 <div class="form-group">
 	<div class="row">
@@ -33,7 +33,7 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<label for="">Tipe Ruang</label>
-			<input type="text" value="{{ $typeroom->type }}" disabled class="form-control">
+			<input type="text" value="{{ $typeroom->name }}" disabled class="form-control">
 			<input type="hidden" name="type_room_id" value="{{ $typeroom->id}}" class="form-control">
 			{!! $errors->first('major_id', '<span class="invalid-feedback">:message</span>') !!}
 		</div>

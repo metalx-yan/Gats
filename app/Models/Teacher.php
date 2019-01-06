@@ -20,6 +20,10 @@ class Teacher extends Model
     	return $this->belongsTo(TypeTeacher::class);
     }
 
+    public function generates()
+    {
+        return $this->hasMany(Major::class);
+    }
     // public function user()
     // {
     //     return $this->belongsTo(User::class);

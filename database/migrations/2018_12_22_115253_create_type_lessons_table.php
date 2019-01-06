@@ -15,7 +15,8 @@ class CreateTypeLessonsTable extends Migration
     {
         Schema::create('type_lessons', function (Blueprint $table) {
             $table->increments('id');
-            $table->enum('type', ['Jurusan', 'Umum']);
+            $table->string('name');
+            $table->string('slug')->unique();
             $table->timestamps();
         });
 

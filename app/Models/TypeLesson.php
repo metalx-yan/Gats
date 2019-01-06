@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class TypeLesson extends Model
 {
     protected $fillable = [
-    	'type'
+    	'name', 'slug'
     ];
 
     public function lessons()

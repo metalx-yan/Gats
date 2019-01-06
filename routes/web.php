@@ -15,6 +15,8 @@
 
 Route::group(['prefix' => 'curriculum', 'middleware' => ['auth','role:curriculum']], function() {
 
+	Route::get('generate/{level_id}/{major_id}/{expertise_id}', 'GenerateController@showmixexpert')->name('showmixexpert.generate');
+
 	Route::get('generate/{level_id}/{major_id}', 'GenerateController@showmixcurri')->name('showmixcurri.generate');
 
 	Route::get('expertise/{level_id}/{major_id}', 'ExpertiseController@mix')->name('mix.expertise');

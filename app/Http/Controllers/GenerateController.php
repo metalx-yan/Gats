@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Major;
+use App\Models\Expertise;
 
 class GenerateController extends Controller
 {
@@ -12,18 +13,25 @@ class GenerateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function showmixexpert($level, $major, $expertise)
+    {
+        $mixmajor = Expertise::find($expertise);
+        
+        return view('curriculums.generates.setup', compact(['mixmajor']));
+    }
+
     public function showmixcurri($level, $major)
     {
         $mixmajor = Major::find($major);
         
-        return view('curriculums.generate.index', compact(['mixmajor']));
+        return view('curriculums.generates.index', compact(['mixmajor']));
     }
 
     public function showmixmajor($level, $major)
     {
         $mixmajor = Major::find($major);
         
-        return view('curriculums.generate.index', compact(['mixmajor']));
+        return view('curriculums.generates.index', compact(['mixmajor']));
     }
 
     public function index()

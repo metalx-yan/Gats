@@ -14,4 +14,9 @@ class Expertise extends Model
     {
     	return $this->belongsTo(Major::class);
     }
+
+    public function generates()
+    {
+    	return $this->hasMany(Major::class);
+    }
 }

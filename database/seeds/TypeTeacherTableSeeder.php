@@ -19,7 +19,8 @@ class TypeTeacherTableSeeder extends Seeder
 
         foreach ($type as $types) {
         	TypeTeacher::create([
-        		'type' => $types
+        		'name' => $types,
+                'slug' => str_slug($types)
         	]);
         }
     }

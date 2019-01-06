@@ -8,7 +8,7 @@
 		</div>
 	</div>
 </div>
-
+{{-- 
 <div class="form-group">
 	<div class="row">
 		<div class="col-lg-12">
@@ -17,7 +17,7 @@
 			{!! $errors->first('name', '<span class="invalid-feedback">:message</span>') !!}
 		</div>
 	</div>
-</div>
+</div> --}}
 
 <div class="form-group">
 	<div class="row">

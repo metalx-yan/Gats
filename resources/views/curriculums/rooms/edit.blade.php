@@ -24,7 +24,7 @@
 				    <tr>
 				      <th>No</th>
 				      <th>Kode</th>
-				      <th>Nama</th>
+				      {{-- <th>Nama</th> --}}
 				      <th>Kapasitas</th>
 				    </tr>
 				  </thead>
@@ -35,7 +35,7 @@
 							$no++;	
 						@endphp
 				      <td>{{ $room->code }}</td>
-				      <td>{{ $room->name }}</td>
+				      {{-- <td>{{ $room->name }}</td> --}}
 				      <td>{{ $room->capacity }}</td>
 				      
 				    </tr>

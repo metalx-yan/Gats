@@ -27,7 +27,7 @@
 				      <th>Kode</th>
 				      <th>Nama</th>
 				      <th>Jurusan</th>
-				      <th>Bagian</th>
+				      <th>Sub Kelas</th>
 				    </tr>
 				  </thead>
 				  <tbody class="fontsopher">

@@ -26,4 +26,9 @@ class Lesson extends Model
     {
     	return $this->belongsTo(User::class);
     }
+
+    public function generates()
+    {
+        return $this->hasMany(Major::class);
+    }
 }

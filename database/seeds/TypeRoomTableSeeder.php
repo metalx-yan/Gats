@@ -18,7 +18,8 @@ class TypeRoomTableSeeder extends Seeder
 
         foreach ($type as $types) {
 	        TypeRoom::create([
-	        	'type' => $types
+	        	'name' => $types,
+                'slug' => str_slug($types)
 	        ]);
         }
     }

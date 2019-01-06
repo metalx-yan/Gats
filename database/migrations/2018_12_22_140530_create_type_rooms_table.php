@@ -15,7 +15,8 @@ class CreateTypeRoomsTable extends Migration
     {
         Schema::create('type_rooms', function (Blueprint $table) {
             $table->increments('id');
-            $table->enum('type', ['Praktek', 'Teori']);
+            $table->string('name');
+            $table->string('slug')->unique();
             $table->timestamps();
         });
 

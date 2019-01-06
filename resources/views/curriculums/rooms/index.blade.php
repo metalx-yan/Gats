@@ -25,7 +25,6 @@
 				    <tr>
 				      <th>No</th>
 				      <th>Kode</th>
-				      <th>Nama</th>
 				      <th>Kapasitas</th>
 				      <th>Aksi</th>
 				    </tr>
@@ -38,7 +37,6 @@
 							$no++;	
 						@endphp
 				      <td>{{ $indexs->code }}</td>
-				      <td>{{ $indexs->name }}</td>
 				      <td>{{ $indexs->capacity }}</td>
 				     
 				      <td>

@@ -27,7 +27,7 @@
 				      <th>Kode</th>
 				      <th>Nama</th>
 				      <th>Jurusan</th>
-				      <th>Bagian</th>
+				      <th>Sub Kelas</th>
 				      <th>Aksi</th>
 				    </tr>
 				  </thead>

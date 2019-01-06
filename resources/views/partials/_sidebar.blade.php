@@ -89,7 +89,7 @@
                 <li><a href="#" class="has-dropdown"><i class="ion ion-document-text"></i>Data Mata Pelajaran</a>
                     <ul class="menu-dropdown">
                       @foreach (App\Models\TypeLesson::all() as $typelesson)
-                        <li><a href="{{ route('mix.lesson', $typelesson->id) }}"><i class="ion ion-plus-circled"></i>{{ $typelesson->type }}</a></li>
+                        <li><a href="{{ route('mix.lesson', $typelesson->id) }}"><i class="ion ion-plus-circled"></i>{{ $typelesson->name }}</a></li>
                       @endforeach
                     </ul>
                 </li>
@@ -112,7 +112,7 @@
                 <li><a href="#"  class="has-dropdown"><i class="ion ion-document-text"></i>Data Guru</a>
                     <ul class="menu-dropdown">
                         @foreach (App\Models\TypeTeacher::all() as $type)
-                          <li><a href="{{ route('mix.teacher', $type->id) }}"><i class="ion ion-plus-circled"></i>{{ $type->type }}</a></li>
+                          <li><a href="{{ route('mix.teacher', $type->id) }}"><i class="ion ion-plus-circled"></i>{{ $type->name }}</a></li>
                         @endforeach
                     </ul>
                 </li>
@@ -120,7 +120,7 @@
                 <li><a href="#"  class="has-dropdown"><i class="ion ion-document-text"></i>Data Ruang</a>
                     <ul class="menu-dropdown">
                         @foreach (App\Models\TypeRoom::all() as $type)
-                          <li><a href="{{ route('mix.room', $type->id) }}"><i class="ion ion-plus-circled"></i>{{ $type->type }}</a></li>
+                          <li><a href="{{ route('mix.room', $type->id) }}"><i class="ion ion-plus-circled"></i>{{ $type->name }}</a></li>
                         @endforeach
                     </ul>
                 </li>
