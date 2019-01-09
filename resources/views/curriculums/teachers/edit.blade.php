@@ -8,7 +8,7 @@
 
 @section('content')
 	<h1 class="section-header">
-	  <div>Edit Data Guru</div>
+	  <div>Edit Data Guru {{ ucwords($teacher->type_teacher->name) }}</div>
 	</h1>
 
 @php
@@ -39,13 +39,12 @@
 				      <td>{{ $teacher->nip }}</td>
 				      <td>{{ $teacher->code }}</td>
 				      <td>{{ $teacher->name }}</td>
-				      <td>{{ $teacher->type_teacher->type }}</td>
+				      <td>{{ ucwords($teacher->type_teacher->name) }}</td>
 				      <td>
-				      	@if ($teacher->status == "Aktif")
-				      		<span class="badge badge-success"><b>{{ $teacher->status }}</b></span>
+				      	@if ($teacher->status == "aktif")
+				      		<span class="badge badge-success"><b>{{ ucwords($teacher->status) }}</b></span>
 						@else
-				      		<span class="badge badge-danger"><b>{{ $teacher->status }}</b></span>
-						
+				      		<span class="badge badge-danger"><b>{{ ucwords($teacher->status) }}</b></span>
 						@endif
 				      </td>
 				    </tr>

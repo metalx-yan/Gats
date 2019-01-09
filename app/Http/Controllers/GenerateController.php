@@ -13,25 +13,32 @@ class GenerateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function showmixexpert($level, $major, $expertise)
+    public function showgenexpert($level, $major, $expertise)
     {
-        $mixmajor = Expertise::find($expertise);
+        $showexpert = Expertise::find($expertise);
         
-        return view('curriculums.generates.setup', compact(['mixmajor']));
+        return view('curriculums.generates.setup', compact(['showexpert']));
+    }
+
+    public function showgenmajor($level, $major, $expertise)
+    {
+        $showmajor = Expertise::find($expertise);
+        
+        return view('majors.generates.setup', compact(['showmajor']));
     }
 
     public function showmixcurri($level, $major)
     {
-        $mixmajor = Major::find($major);
+        $mixcurriculum = Major::find($major);
         
-        return view('curriculums.generates.index', compact(['mixmajor']));
+        return view('curriculums.generates.index', compact(['mixcurriculum']));
     }
 
     public function showmixmajor($level, $major)
     {
         $mixmajor = Major::find($major);
         
-        return view('curriculums.generates.index', compact(['mixmajor']));
+        return view('majors.generates.index', compact(['mixmajor']));
     }
 
     public function index()

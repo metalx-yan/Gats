@@ -8,7 +8,7 @@
 
 @section('content')
 	<h1 class="section-header">
-	  <div>Edit Data Ruang</div>
+	  <div>Edit Data Ruang {{ ucwords($room->type_room->name) }}</div>
 	</h1>
 
 @php

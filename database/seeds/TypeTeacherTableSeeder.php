@@ -13,8 +13,8 @@ class TypeTeacherTableSeeder extends Seeder
     public function run()
     {
         $type = [
-        	'Jurusan',
-        	'Umum'
+        	'jurusan',
+        	'umum'
         ];
 
         foreach ($type as $types) {

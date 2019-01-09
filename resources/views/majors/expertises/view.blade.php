@@ -17,7 +17,7 @@
 		<div class="card">
 			<div class="card-body">
 				<table class="table">
-				  <thead class="theadcolor-room fontsopher">
+				  <thead class="theadcolor-expertise fontsopher">
 				    <tr>
 				      <th>No</th>
 				      <th>Kode</th>

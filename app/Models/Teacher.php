@@ -24,8 +24,8 @@ class Teacher extends Model
     {
         return $this->hasMany(Major::class);
     }
-    // public function user()
-    // {
-    //     return $this->belongsTo(User::class);
-    // }
+    public static function status()
+    {
+        return ['aktif', 'non aktif'];
+    }
 }

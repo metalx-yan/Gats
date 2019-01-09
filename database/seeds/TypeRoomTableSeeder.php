@@ -13,7 +13,7 @@ class TypeRoomTableSeeder extends Seeder
     public function run()
     {
         $type = [
-        	'Praktek', 'Teori'
+        	'praktek', 'teori'
         ];
 
         foreach ($type as $types) {

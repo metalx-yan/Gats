@@ -98,15 +98,14 @@ class RoomController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request);
         $this->validate($request, [
-            'code'          =>  "required|unique:rooms,code,$id|numeric|digits:2",
-            'name'          =>  'required', 
+            'code'          =>  "required|unique:rooms,code,$id|max:5",
             'capacity'      =>  'required|numeric|digits:2',
         ]);
 
         $room = Room::findOrFail($id);
         $room->code = $request->code;
-        $room->name = $request->name;
         $room->capacity = $request->capacity;
         $room->save();
 

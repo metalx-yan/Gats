@@ -18,10 +18,9 @@ class CreateTeachersTable extends Migration
             $table->bigInteger('nip')->unique();
             $table->string('code', 4)->unique();
             $table->string('name');
-            $table->enum('status', ['Aktif', 'Non Aktif']);
+            $table->enum('status', ['aktif', 'non aktif']);
             $table->timestamps();
         });
-
        
     }
 

@@ -18,7 +18,7 @@ class CreateLessonsTable extends Migration
             $table->string('code', 8)->unique();
             $table->string('name');
             $table->smallInteger('total_hours');
-            $table->enum('semester', ['Ganjil', 'Genap']);
+            $table->enum('semester', ['ganjil', 'genap']);
             $table->year('beginning');
             $table->year('end');
             $table->timestamps();

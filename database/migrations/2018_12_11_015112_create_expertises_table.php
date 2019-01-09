@@ -26,6 +26,8 @@ class CreateExpertisesTable extends Migration
 
             $table->foreign('major_id')->references('id')->on('majors');
         });
+
+        
     }
 
     /**

@@ -8,7 +8,7 @@
   <div>Atur Jadwal</div>
 </h1>
 
-		
+	{{-- 	
 	<div class="card">
 	  <div class="card-body">
 		<div class="row">
@@ -68,5 +68,5 @@
 			</div>
 		</div>
 	  </div>
-	</div>
+	</div> --}}
 @endsection

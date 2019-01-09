@@ -9,7 +9,7 @@
 @section('content')
 
 <h1 class="section-header">
-  <div>Guru</div>
+  <div>Guru {{ ucwords($mix->name) }}</div>
 </h1>
 
 @php
@@ -42,12 +42,12 @@
 				      <td>{{ $indexs->nip }}</td>
 				      <td>{{ $indexs->code }}</td>
 				      <td>{{ $indexs->name }}</td>
-				      <td>{{ $indexs->type_teacher->type }}</td>
+				      <td>{{ ucwords($indexs->type_teacher->name) }}</td>
 				      <td>
-						@if ($indexs->status == "Aktif")
-				      		<span class="badge badge-success"><b>{{ $indexs->status }}</b></span>
+						@if ($indexs->status == "aktif")
+				      		<span class="badge badge-success"><b>{{ ucwords($indexs->status) }}</b></span>
 						@else
-				      		<span class="badge badge-danger"><b>{{ $indexs->status }}</b></span>
+				      		<span class="badge badge-danger"><b>{{ ucwords($indexs->status) }}</b></span>
 						
 						@endif
 					</td>

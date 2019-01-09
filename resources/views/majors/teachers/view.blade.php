@@ -17,7 +17,7 @@
 		<div class="card">
 			<div class="card-body">
 				<table class="table">
-				  <thead class="theadcolor-room fontsopher">
+				  <thead class="theadcolor-teacher fontsopher">
 				    <tr>
 				      <th>No</th>
 				      <th>NIP</th>
@@ -26,7 +26,7 @@
 				      <th>Status</th>
 				    </tr>
 				  </thead>
-				  <tbody class="fontsopher">
+				  <tbody class=" fontsopher">
 				  	@foreach ($viewteacher as $views)
 				    <tr>
 				      <th scope="row">{{ $no }}</th>

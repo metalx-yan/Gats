@@ -35,9 +35,9 @@
 		<div class="col-lg-12">
 			<label for="">Status</label>
 			<select class="form-control {{ $errors->has('status') ? 'is-invalid' : ''}}" name="status">
-				<option> </option>
-				@foreach (["Aktif" => "Aktif", "Non Aktif" => "Non Aktif"] as $key)
-				  <option value="{{ $key }}"> {{ $key }}</option>
+				<option>-- Select --</option>
+				@foreach (App\Models\Teacher::status() as $key)
+				  <option value="{{ $key }}"> {{ ucwords($key) }}</option>
 				@endforeach
 			</select>
 			{!! $errors->first('status', '<span class="invalid-feedback">:message</span>') !!}
@@ -49,7 +49,7 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<label for="">Tipe Mengajar</label>
-			<input type="text" value="{{ $mix->type }}" disabled class="form-control">
+			<input type="text" value="{{ ucwords($mix->name) }}" disabled class="form-control">
 			<input type="hidden" name="type_teacher_id" value="{{ $mix->id }}" class="form-control">
 			{!! $errors->first('type_teacher_id', '<span class="invalid-feedback">:message</span>') !!}
 		</div>

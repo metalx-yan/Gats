@@ -19,28 +19,30 @@ class MajorTableSeeder extends Seeder
     			
     			Major::create([
     				'code' => str_random(5),
-    				'major' => 'Teknik Listrik',
+    				'name' => 'teknik listrik',
     				'level_id' => $i + 1
     			]);
 
     			Major::create([
     				'code' => str_random(5),
-    				'major' => 'Teknik Bangunan',
+    				'name' => 'teknik bangunan',
     				'level_id' => $i + 1
     			]);
 
     			Major::create([
     				'code' => str_random(5),
-    				'major' => 'Teknik Mesin',
+    				'name' => 'teknik mesin',
     				'level_id' => $i + 1
     			]);
 
     			Major::create([
     				'code' => str_random(5),
-    				'major' => 'RPL',
+    				'name' => 'rpl',
     				'level_id' => $i + 1
     			]);
     		}
+         
+
 
     }
 }

@@ -14,6 +14,7 @@ class Lesson extends Model
 		'beginning',
 		'end',
         'type_lesson_id',
+        // 'major_id',
 		'user_id'
     ];
 
@@ -27,8 +28,18 @@ class Lesson extends Model
     	return $this->belongsTo(User::class);
     }
 
+    public function majors()
+    {
+        return $this->belongsToMany(Major::class);
+    }
+
     public function generates()
     {
         return $this->hasMany(Major::class);
+    }
+
+    public static function semester()
+    {
+        return ['ganjil', 'genap'];
     }
 }

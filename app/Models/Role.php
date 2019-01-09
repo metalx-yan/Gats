@@ -17,4 +17,9 @@ class Role extends Model
     {
     	$this->attributes['name'] = $value;
     }
+
+    public function generates()
+    {
+        return $this->hasMany(Generate::class);
+    }
 }

@@ -52,6 +52,11 @@ class User extends Authenticatable
         return false;
     }
 
+    public function generates()
+    {
+        return $this->hasMany(Generate::class);
+    }
+
     // public function teacher()
     // {
     //     return $this->hasOne(Teacher::class);

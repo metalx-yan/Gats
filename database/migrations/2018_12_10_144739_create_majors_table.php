@@ -16,11 +16,10 @@ class CreateMajorsTable extends Migration
         Schema::create('majors', function (Blueprint $table) {
             $table->increments('id');
             $table->string('code', 5)->unique();
-            $table->enum('major', ['Teknik Listrik', 'Teknik Bangunan', 'Teknik Mesin', 'RPL']);
+            $table->enum('name', ['teknik listrik', 'teknik bangunan', 'teknik mesin', 'rpl']);
             $table->timestamps();
         });
 
-        
     }
 
     /**

@@ -11,9 +11,12 @@ class Generate extends Model
         'start',
 		'end',
 		'name',
-		'teacher_id',
+        'teacher_id',
+		'expertise_id',
 		'room_id',
 		'lesson_id',
+        'user_id',
+        'role_id'
     ];
 
     public function expertise()
@@ -28,12 +31,22 @@ class Generate extends Model
 
     public function room()
     {
-    	return $this->belongsTo(room::class);
+    	return $this->belongsTo(Room::class);
     }
 
     public function teacher()
     {
-    	return $this->belongsTo(teacher::class);
+    	return $this->belongsTo(Teacher::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
     }
 
     public static function days()

@@ -15,23 +15,23 @@
 
 Route::group(['prefix' => 'curriculum', 'middleware' => ['auth','role:curriculum']], function() {
 
-	Route::get('generate/{level_id}/{major_id}/{expertise_id}', 'GenerateController@showmixexpert')->name('showmixexpert.generate');
+	Route::get('generate/{level_id}/{major_id}/{expertise_id}/create', 'GenerateController@showgenexpert')->name('showgenexpert.generate');
 
 	Route::get('generate/{level_id}/{major_id}', 'GenerateController@showmixcurri')->name('showmixcurri.generate');
 
-	Route::get('expertise/{level_id}/{major_id}', 'ExpertiseController@mix')->name('mix.expertise');
+	Route::get('expertise/{level_id}/{major_id}/create', 'ExpertiseController@mix')->name('mix.expertise');
 
 	Route::get('expertise/{level_id}/{major_id}/{expertise_id}/edit', 'ExpertiseController@editmix')->name('editmix.expertise');
 
-	Route::get('teacher/{typeteacher_id}', 'TeacherController@mix')->name('mix.teacher');
+	Route::get('teacher/{typeteacher_id}/create', 'TeacherController@mix')->name('mix.teacher');
 
 	Route::get('teacher/{typeteacher_id}/{teacher_id}/edit', 'TeacherController@editmix')->name('editmix.teacher');
 
-	Route::get('lesson/{typelesson_id}', 'LessonController@mix')->name('mix.lesson');
+	Route::get('lesson/{typelesson_id}/create', 'LessonController@mix')->name('mix.lesson');
 
 	Route::get('lesson/{typelesson_id}/{lesson_id}/edit', 'LessonController@editmix')->name('editmix.lesson');
 
-	Route::get('room/{typeroom_id}', 'RoomController@mix')->name('mix.room');
+	Route::get('room/{typeroom_id}/create', 'RoomController@mix')->name('mix.room');
 
 	Route::get('room/{typeroom_id}/{room_id}/edit', 'RoomController@editmix')->name('editmix.room');
 
@@ -51,6 +51,8 @@ Route::group(['prefix' => 'curriculum', 'middleware' => ['auth','role:curriculum
 // JURUSAN
 
 Route::group(['prefix' => 'major', 'middleware' => ['auth','role:major']], function() {
+
+	Route::get('generate/{level_id}/{major_id}/{expertise_id}', 'GenerateController@showgenmajor')->name('showgenmajor.generate');
 
 	Route::get('generate/{level_id}/{major_id}', 'GenerateController@showmixmajor')->name('showmixmajor.generate');
 	

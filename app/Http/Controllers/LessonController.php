@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Lesson;
+use App\Models\Major;
 use App\Models\TypeLesson;
 
 class LessonController extends Controller
@@ -23,8 +24,10 @@ class LessonController extends Controller
     public function mix($typelesson)
     {
         $typelesson = TypeLesson::find($typelesson);
+
+        $majors = Major::all();
      
-        return view('curriculums.lessons.index', compact('typelesson'));
+        return view('curriculums.lessons.index', compact(['typelesson', 'majors']));
     }
 
     /**
@@ -45,6 +48,8 @@ class LessonController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
+
         $store = $request->validate([
             'code'              =>  'required|unique:lessons|between:2,8',
             'name'              =>  'required',
@@ -53,10 +58,13 @@ class LessonController extends Controller
             'beginning'         =>  'required',
             'end'               =>  'required',
             'type_lesson_id'    =>  'required',
+            // 'major_id'          =>  'required',
             'user_id'           =>  'required'
         ]);
 
         $a = Lesson::create($store);
+
+        $a->majors()->sync($request->majors, false);
 
         return back()->with('sweetalert', 'Berhasil Menambah Data Mata Pelajaran');
     }
@@ -94,7 +102,15 @@ class LessonController extends Controller
     {
         $lesson = Lesson::find($lesson);
         
-        return view('curriculums.lessons.edit', compact(['lesson', 'test']));
+        $majors = Major::all();
+
+        $majors2 = array();
+
+        foreach ($majors as $major) {
+            $majors2[$major->id] = $major->name;
+        }
+
+        return view('curriculums.lessons.edit', compact(['lesson', 'majors', 'majors2']));
     }
 
     /**
@@ -106,24 +122,34 @@ class LessonController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $store = $request->validate([
+        $update = $request->validate([
             'code'               =>  "required|unique:lessons,code,$id|between:2,8",
             'name'               =>  'required',
             'total_hours'        =>  'required|numeric|digits:1',
             'semester'           =>  'required',
             'beginning'          =>  'required',
             'end'                =>  'required',
-            // 'type_lesson_id'     =>  'required',
+            'type_lesson_id'     =>  'required',
+            'user_id'            =>  'required'
         ]);
 
-        $store = Lesson::findOrFail($id);
-        $store->code        = $request->code;
-        $store->name        = $request->name;
-        $store->total_hours = $request->total_hours;
-        $store->semester    = $request->semester;
-        $store->beginning   = $request->beginning;
-        $store->end         = $request->end;
-        $store->save();
+        $update = Lesson::findOrFail($id);
+        $update->code                    = $request->code;
+        $update->name                    = $request->name;
+        $update->total_hours             = $request->total_hours;
+        $update->semester                = $request->semester;
+        $update->beginning               = $request->beginning;
+        $update->end                     = $request->end;
+        $update->type_lesson_id          = $request->type_lesson_id;
+        $update->user_id                 = $request->user_id;
+        $update->save();
+
+        $update->majors()->sync($request->majors);
+        // if (isset($request->majors)) {
+        // } else 
+        // {
+        //     $update->majors()->sync(array());
+        //  }
 
         return back()->with('sweetalert', 'Berhasil Mengubah Data Mata Pelajaran');
     }
@@ -136,8 +162,7 @@ class LessonController extends Controller
      */
     public function destroy(Lesson $lesson)
     {
-        $lesson->delete();
-
+        $a = $lesson->delete();
         return back()->with('sweetalert', 'Berhasil Menghapus Data Mata Pelajaran');
     }
 }

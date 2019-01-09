@@ -9,7 +9,7 @@
 @section('content')
 
 <h1 class="section-header">
-  <div>Ruang</div>
+  <div>Ruang {{ ucwords($typeroom->name) }}</div>
 </h1>
 
 @php

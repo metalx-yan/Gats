@@ -33,9 +33,9 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<label for="">Tipe Ruang</label>
-			<input type="text" value="{{ $room->type_room->type }}" disabled class="form-control">
+			<input type="text" value="{{ ucwords($room->type_room->name) }}" disabled class="form-control">
 			<input type="hidden" name="type_room_id" value="{{ $room->type_room->id}}" class="form-control">
-			{!! $errors->first('major_id', '<span class="invalid-feedback">:message</span>') !!}
+			{!! $errors->first('type_room_id', '<span class="invalid-feedback">:message</span>') !!}
 		</div>
 	</div>
 </div>

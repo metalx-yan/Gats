@@ -19,4 +19,11 @@ class Major extends Model
     {
     	return $this->hasMany(Expertise::class);
     }
+
+    public function lessons()
+    {
+        return $this->belongsToMany(Lesson::class);
+    }
+
+    
 }

@@ -9,7 +9,7 @@
 @section('content')
 
 <h1 class="section-header">
-  <div>Keahlian Jurusan Kelas {{ $expertise->major->level->class }} Jurusan {{ $expertise->major->name }} </div>
+  <div>Keahlian Jurusan Kelas {{ $expertise->major->level->class }} {{ ucwords($expertise->major->name) }} </div>
 </h1>
 
 @php
@@ -39,7 +39,7 @@
 						@endphp
 				      <td>{{ $expertise->code }}</td>
 				      <td>{{ $expertise->name }}</td>
-				      <td>{{ $expertise->where('id', $expertise->id)->first()->major->major }}</td>
+				      <td>{{ ucwords($expertise->major->name) }}</td>
 				      <td>{{ $expertise->major->level->class }} {{ $expertise->name }} <b>{{ $expertise->part }}</b></td>
 				     
 				    </tr>

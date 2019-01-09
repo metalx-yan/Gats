@@ -9,7 +9,7 @@
 @section('content')
 
 <h1 class="section-header">
-  <div>Atur Jadwal Kelas {{ $showexpert->major->level->class }} {{ $showexpert->name }} {{ $showexpert->part }}</div>
+  <div>Atur Jadwal Kelas {{ $showmajor->major->level->class }} {{ $showmajor->name }} {{ $showmajor->part }}</div>
 </h1>
 
 
@@ -20,7 +20,7 @@
 			<div class="card-body">
 				<form action="" method="">
 						<div class="row">
-							<div class="col-lg-3">
+							<div class="col-lg-2">
 								<div class="form-group">
 									<label for="">Hari</label>
 									<select name="day" id="day" class="form-control">
@@ -32,73 +32,30 @@
 								</div>
 							</div>
 
-							<div class="col-lg-3">
+							<div class="col-lg-2">
 								<div class="form-group">
 									<div id="hour-cont"></div>
 								</div>
 							</div>
 
-							<div class="col-lg-3">
+							<div class="col-lg-2">
 								<div class="form-group">
 									<div id="sesi-cont"></div>
 								</div>
 							</div>
 
-							<div class="col-lg-3">
+							<div class="col-lg-2">
 								<div class="form-group">
 									<div id="type-cont"></div>
 								</div>
 							</div>
-						</div>
-						
-						<div class="row">
-							<div class="col-lg-3">
+
+							<div class="col-lg-2">
 								<div class="form-group">
 									<div id="room-cont"></div>
 								</div>
 							</div>
-
-							<div class="col-lg-3">
-								<div class="form-group">
-									<label for="">Tipe Mata Pelajaran</label>
-									<select name="lesson_id" id="" class="form-control">
-										<option value="">-- Select --</option>
-										@foreach (App\Models\TypeLesson::all() as $typelesson)
-											@if ($typelesson->name == 'umum')
-												<option value="{{ $typelesson->id }}">{{ ucwords($typelesson->name)}}</option>
-											@endif
-										@endforeach
-									</select>
-								</div>
-							</div>
-
-							<div class="col-lg-3">
-								<div class="form-group">
-									<label for="">Pilih Mata Pelajaran Sesuai Jurusan</label>
-									<select name="lesson_id" id="" class="form-control">
-										<option value="">-- Select --</option>
-										@foreach ($typelesson->lessons as $user)
-											<option value="{{ $user->user->id }}">{{ $user->user->name}}</option>
-										@endforeach
-									</select>
-								</div>
-							</div>
-
-							<div class="col-lg-3">
-								<div class="form-group">
-									<label for="">Mata Pelajaran</label>
-									<select name="lesson_id" id="" class="form-control">
-										<option value="">-- Select --</option>
-										@foreach ($typelesson->lessons as $lesson)
-											@if ($typelesson->name == 'umum')
-												<option value="{{ $lesson->id }}">{{ ucwords($lesson->name)}}</option>
-											@endif
-										@endforeach
-									</select>
-								</div>
-							</div>
-						</div>	
-						
+						</div>
 				</form>
 			</div>
 		</div>

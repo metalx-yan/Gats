@@ -48,7 +48,7 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<label for="">Tipe Mengajar</label>
-			<input type="text" value="{{ $teacher->type_teacher->type}}" disabled class="form-control">
+			<input type="text" value="{{ ucwords($teacher->type_teacher->name) }}" disabled class="form-control">
 			<input type="hidden" name="type_teacher_id" value="{{ $teacher->type_teacher->id }}" class="form-control">
 			{!! $errors->first('type_teacher_id', '<span class="invalid-feedback">:message</span>') !!}
 		</div>

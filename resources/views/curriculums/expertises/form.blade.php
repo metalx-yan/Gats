@@ -33,7 +33,7 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<label for="">Jurusan</label>
-			<input type="text" value="{{ $major->major }}" disabled class="form-control">
+			<input type="text" value="{{ ucwords($major->name) }}" disabled class="form-control">
 			<input type="hidden" name="major_id" value="{{ $major->id}}" class="form-control">
 			{!! $errors->first('major_id', '<span class="invalid-feedback">:message</span>') !!}
 		</div>
