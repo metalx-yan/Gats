@@ -15,23 +15,13 @@
             </li>
            <li class="menu-header">Components</li>
         
-              <li><a href="#" class="has-dropdown"><i class="ion ion-document-text"></i>Data Mata Pelajaran</a>
-                <ul class="menu-dropdown">
-                  @foreach (App\Models\TypeLesson::all() as $typelesson)
-                    @if ($typelesson->id === 1)
-                      <li><a href="{{ route('lesson.view', $typelesson->id) }}"><i class="ion ion-ios-play-outline"></i>{{ $typelesson->name }}</a></li>
-                    @endif
-                  @endforeach
-                </ul>
-              </li>
-              
               <li><a href="#" class="has-dropdown"><i class="ion ion-document-text"></i>Data Kelas</a>
                 <ul class="menu-dropdown">
                   @foreach (App\Models\Level::all() as $level)
                     <li><a href="#" class="has-dropdown"><i class="ion ion-ios-play"></i>{{ $level->class }}</a>
                       <ul class="menu-dropdown">
-                        @foreach ($level->majors->first()->major() as $major)
-                          <li><a href="{{ route('expertise.view', [$major->level->id, $major->id]) }}"><i class="ion ion-ios-play-outline"></i>{{ $major }}</a>
+                        @foreach ($level->majors as $major)
+                          <li><a href="{{ route('expertise.view', [$major->level->id, $major->id]) }}"><i class="ion ion-ios-play-outline"></i>{{ ucwords($major->name) }}</a>
                           </li>
                         @endforeach
                       </ul>
@@ -40,11 +30,21 @@
                 </ul>
               </li>
 
+              <li><a href="#" class="has-dropdown"><i class="ion ion-document-text"></i>Data Mata Pelajaran</a>
+                <ul class="menu-dropdown">
+                  @foreach (App\Models\TypeLesson::all() as $typelesson)
+                    @if ($typelesson->id === 1)
+                      <li><a href="{{ route('lesson.view', $typelesson->id) }}"><i class="ion ion-ios-play-outline"></i>{{ ucwords($typelesson->name) }}</a></li>
+                    @endif
+                  @endforeach
+                </ul>
+              </li>
+
               <li><a href="#" class="has-dropdown"><i class="ion ion-document-text"></i>Data Guru</a>
                 <ul class="menu-dropdown">
                   @foreach (App\Models\TypeTeacher::all() as $typeteacher)
                     @if ($typeteacher->id === 1)
-                      <li><a href="{{ route('teacher.view', $typeteacher->id) }}"><i class="ion ion-ios-play-outline"></i>{{ $typeteacher->name }}</a></li>
+                      <li><a href="{{ route('teacher.view', $typeteacher->id) }}"><i class="ion ion-ios-play-outline"></i>{{ ucwords($typeteacher->name) }}</a></li>
                     @endif
                   @endforeach
                 </ul>
@@ -54,7 +54,7 @@
                 <ul class="menu-dropdown">
                   @foreach (App\Models\TypeRoom::all() as $typeroom)
                     @if ($typeroom->id === 1)
-                      <li><a href="{{ route('room.view', $typeroom->id) }}"><i class="ion ion-ios-play-outline"></i>{{ $typeroom->name }}</a></li>
+                      <li><a href="{{ route('room.view', $typeroom->id) }}"><i class="ion ion-ios-play-outline"></i>{{ ucwords($typeroom->name) }}</a></li>
                     @endif
                   @endforeach
                 </ul>

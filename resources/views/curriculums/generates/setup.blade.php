@@ -16,16 +16,17 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="card">
-			<h5 class="card-header head" align="center">Generate</h5>
+			<h5 class="card-header head" align="center">----====----</h5>
 			<div class="card-body">
-				<form action="" method="">
+				<form action="{{ route('generate.store') }}" method="POST">
+					@csrf
 						<div class="row">
 							<div class="col-lg-3">
 								<div class="form-group">
 									<label for="">Hari</label>
 									<select name="day" id="day" class="form-control">
 										<option value="">-- Select --</option>
-										@foreach (App\Models\Generate::days() as $day)
+										@foreach (App\Models\Generate::day() as $day)
 											<option value="{{ $day }}">{{ ucwords($day) }}</option>
 										@endforeach
 									</select>
@@ -60,45 +61,92 @@
 
 							<div class="col-lg-3">
 								<div class="form-group">
-									<label for="">Tipe Mata Pelajaran</label>
-									<select name="lesson_id" id="" class="form-control">
-										<option value="">-- Select --</option>
-										@foreach (App\Models\TypeLesson::all() as $typelesson)
-											@if ($typelesson->name == 'umum')
-												<option value="{{ $typelesson->id }}">{{ ucwords($typelesson->name)}}</option>
-											@endif
-										@endforeach
-									</select>
+									<div id="type-lesson-cont"></div>
 								</div>
 							</div>
 
 							<div class="col-lg-3">
 								<div class="form-group">
-									<label for="">Pilih Mata Pelajaran Sesuai Jurusan</label>
-									<select name="lesson_id" id="" class="form-control">
-										<option value="">-- Select --</option>
-										@foreach ($typelesson->lessons as $user)
-											<option value="{{ $user->user->id }}">{{ $user->user->name}}</option>
-										@endforeach
-									</select>
+									<div id="lesson-major-cont"></div>
 								</div>
 							</div>
 
 							<div class="col-lg-3">
 								<div class="form-group">
-									<label for="">Mata Pelajaran</label>
+									<div id="lesson-cont"></div>
+								</div>
+							</div>							
+
+						</div>
+
+						<div class="row">
+
+							<div class="col-lg-3">
+								<div class="form-group">
+									<div id="type-teacher-cont"></div>
+								</div>
+							</div>		
+
+							<div class="col-lg-3">
+								<div class="form-group">
+									<div id="teacher-cont"></div>
+								</div>
+							</div>
+
+							<div class="col-lg-3">
+								<div class="form-group">
+									<input type="hidden" name="user_id" value="{{ Auth::user()->id }}" class="form-control">
+								</div>
+							</div>
+
+							<div class="col-lg-3">
+								<div class="form-group">
+									<input type="hidden" name="role_id" value="{{ Auth::user()->role->id }}" class="form-control">
+								</div>
+							</div>
+
+							<div class="col-lg-3">
+								<div class="form-group">
+									<input type="hidden" name="read" value="0" class="form-control">
+								</div>
+							</div>
+
+							<div class="col-lg-3">
+								<div class="form-group">
+									<input type="hidden" name="end" value="0" class="form-control">
+								</div>
+							</div>
+
+							{{-- <div class="col-lg-3">
+								<div class="form-group">
+									<label for="">Tipe Guru</label>
 									<select name="lesson_id" id="" class="form-control">
 										<option value="">-- Select --</option>
-										@foreach ($typelesson->lessons as $lesson)
-											@if ($typelesson->name == 'umum')
-												<option value="{{ $lesson->id }}">{{ ucwords($lesson->name)}}</option>
+										@foreach (App\Models\TypeTeacher::all() as $typeteacher)
+											@if ($typeteacher->name == 'umum')
+												<option value="{{ $typeteacher->id }}">{{ ucwords($typeteacher->name)}}</option>
 											@endif
 										@endforeach
 									</select>
 								</div>
-							</div>
+							</div> --}}
+
+							{{-- <div class="col-lg-3">
+								<div class="form-group">
+									<label for="">Guru</label>
+									<select name="lesson_id" id="" class="form-control">
+										<option value="">-- Select --</option>
+										@foreach ($typeteacher->teachers as $teacher)
+											@if ($teacher->type_teacher->name == 'umum')
+												<option value="{{ $teacher->id }}">{{ ucwords($teacher->name)}}</option>
+											@endif
+										@endforeach
+									</select>
+								</div>
+							</div> --}}
 						</div>	
-						
+					
+					<button type="submit" class="form-control btn-success fontsopher">Generate</button><p></p>
 				</form>
 			</div>
 		</div>
@@ -163,7 +211,7 @@
 				if (day.val() != '') {
 					hour_cont.html(`
 							<label for="">Jam Masuk</label>
-							<select name="" id="hour" class="form-control">
+							<select name="start" id="hour" class="form-control">
 							</select>
 						`);
 					$.ajax({
@@ -176,7 +224,7 @@
 					});
 					sesi_cont.html(`
 						<label for="">Sesi</label>
-						<select name="day" id="sesi" class="form-control">
+						<select name="" id="sesi" class="form-control">
 							<option value="1">1</option>
 							<option value="2">2</option>
 						</select>
@@ -184,7 +232,7 @@
 
 					type_cont.html(`
 							<label for="">Tipe Ruang</label>
-							<select name="room" id="type" class="form-control">
+							<select name="room_id" id="type" class="form-control">
 								<option value="">-- Select --</option>
 								@if (Auth::user()->role->name == 'curriculum')
 									<option value="teori">Teori</option>
@@ -194,7 +242,7 @@
 
 					room_cont.html(`
 						<label for="">Ruang</label>
-						<select name="room" id="room" class="form-control">
+						<select name="room_id" id="room" class="form-control">
 							<option value="">-- select --</option>
 						</select>
 						`);
@@ -223,6 +271,74 @@
 						$('#type').val('');
 						$('#room').html('');
 					});
+
+					$('#type-lesson-cont').html(`
+						<label for="">Tipe Mata Pelajaran</label>
+						<select name="lesson_id" id="" class="form-control">
+							<option value="">-- Select --</option>
+							@php
+								$typelesson = App\Models\TypeLesson::where('slug', 'umum')->first();
+							@endphp
+							<option value="{{ $typelesson->id }}">{{ ucwords($typelesson->name)}}</option>
+						</select>
+						`);
+
+					$('#lesson-major-cont').html(`
+							<label for="">Pilih Jurusan</label>
+							<select name="lesson_id" id="major" class="form-control">
+								<option value="">-- Select --</option>
+								@php
+									$dup = [];
+								@endphp
+								@foreach ($typelesson->lessons as $lesson)
+									@foreach ($lesson->majors as $major)
+										@if (!in_array($major->id, $dup))
+											<option value="">{{ $major->level->class }} {{ $major->name }} </option>
+										@endif
+										@php
+											array_push($dup, $major->id);
+										@endphp
+									@endforeach
+								@endforeach
+							</select>
+						`);
+
+					$('#lesson-cont').html(`
+						<label for="">Mata Pelajaran</label>
+						<select name="lesson_id" id="" class="form-control">
+							<option value="">-- Select --</option>
+							@foreach ($typelesson->lessons as $lesson)
+								@if ($lesson->type_lesson->name == 'umum')
+									<option value="{{ $lesson->id }}">{{ ucwords($lesson->name)}}</option>
+								@endif
+							@endforeach
+						</select>
+					`);
+
+					$('#type-teacher-cont').html(`
+						<label for="">Tipe Guru</label>
+						<select name="teacher_id" id="" class="form-control">
+							<option value="">-- Select --</option>
+							@foreach (App\Models\TypeTeacher::all() as $typeteacher)
+								@if ($typeteacher->name == 'umum')
+									<option value="{{ $typeteacher->id }}">{{ ucwords($typeteacher->name)}}</option>
+								@endif
+							@endforeach
+						</select>
+					`);
+
+					$('#teacher-cont').html(`
+						<label for="">Guru</label>
+						<select name="teacher_id" id="" class="form-control">
+							<option value="">-- Select --</option>
+							@foreach ($typeteacher->teachers as $teacher)
+								@if ($teacher->type_teacher->name == 'umum')
+									<option value="{{ $teacher->id }}">{{ ucwords($teacher->name)}}</option>
+								@endif
+							@endforeach
+						</select>
+					`);
+
 
 				} else {
 					hour_cont.html('');

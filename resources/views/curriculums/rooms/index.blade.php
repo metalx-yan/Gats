@@ -49,10 +49,10 @@
               				<div class="col-xs-1 offset-sm-1"></div>
               
               				<div class="col-xs-4">
-                				<form class="" action="{{ route('room.destroy', $indexs->id) }}" method="POST">
+                				<form class="delete" action="{{ route('room.destroy', $indexs->id) }}" method="POST">
                       				@csrf
                       				@method('DELETE')
-									<button class="ion ion-android-delete btn btn-danger btn-sm" name="delete" type="submit"></button>
+									<button class="ion ion-android-delete btn btn-danger btn-sm" name="delete" title="hapus" type="submit"></button>
                   				</form>
                   			</div>
 				      	</div>
@@ -93,6 +93,14 @@
 		  </script>
 		  {{-- <?php Session::forget('sweetalert'); ?> --}}
 		@endif
+		
+
+		<script>
+        $(".delete").on("submit", function(){
+		        return confirm("Ingin Menghapus Data Ruang?");
+		    });
+    </script>
+		 
 	
 @endsection()
 

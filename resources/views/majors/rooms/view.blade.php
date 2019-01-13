@@ -5,7 +5,7 @@
 @section('content')
 
 <h1 class="section-header">
-  <div>Daftar Ruang {{ $view->type }}</div>
+  <div>Daftar Ruang {{ ucwords($view->name) }}</div>
 </h1>
 
 @php
@@ -21,21 +21,21 @@
 				    <tr>
 				      <th>No</th>
 				      <th>Kode</th>
-				      <th>Nama</th>
 				      <th>Kapasitas</th>
 				    </tr>
 				  </thead>
 				  <tbody class="fontsopher">
 				  	@foreach ($viewroom as $views)
-				    <tr>
-				      <th scope="row">{{ $no }}</th>
-						@php
-							$no++;	
-						@endphp
-				      <td>{{ $views->code }}</td>
-				      <td>{{ $views->name }}</td>
-				      <td>{{ $views->capacity }}</td>
-				    </tr>
+				  	@if ($views->type_room->name == 'praktek')
+					    <tr>
+					      <th scope="row">{{ $no }}</th>
+							@php
+								$no++;	
+							@endphp
+					      <td>{{ $views->code }}</td>
+					      <td>{{ $views->capacity }}</td>
+					    </tr>	
+				  	@endif
 				  	@endforeach
 				  </tbody>
 				</table>

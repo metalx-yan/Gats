@@ -20,7 +20,7 @@
 			<div class="card-body">
 				<form action="" method="">
 						<div class="row">
-							<div class="col-lg-2">
+							<div class="col-lg-3">
 								<div class="form-group">
 									<label for="">Hari</label>
 									<select name="day" id="day" class="form-control">
@@ -32,30 +32,107 @@
 								</div>
 							</div>
 
-							<div class="col-lg-2">
+							<div class="col-lg-3">
 								<div class="form-group">
 									<div id="hour-cont"></div>
 								</div>
 							</div>
 
-							<div class="col-lg-2">
+							<div class="col-lg-3">
 								<div class="form-group">
 									<div id="sesi-cont"></div>
 								</div>
 							</div>
 
-							<div class="col-lg-2">
+							<div class="col-lg-3">
 								<div class="form-group">
 									<div id="type-cont"></div>
 								</div>
 							</div>
-
-							<div class="col-lg-2">
+						</div>
+						<div class="row">
+							<div class="col-lg-3">
 								<div class="form-group">
 									<div id="room-cont"></div>
 								</div>
 							</div>
+
+							<div class="col-lg-3">
+								<div class="form-group">
+									<label for="">Tipe Mata Pelajaran</label>
+									<select name="lesson_id" id="" class="form-control">
+										<option value="">-- Select --</option>
+										@foreach (App\Models\TypeLesson::all() as $typelesson)
+											@if ($typelesson->name == 'jurusan')
+												<option value="{{ $typelesson->id }}">{{ ucwords($typelesson->name)}}</option>
+											@endif
+										@endforeach
+									</select>
+								</div>
+							</div>
+
+							<div class="col-lg-3">
+								<div class="form-group">
+									<label for="">Pilih Jurusan</label>
+									<select name="lesson_id" id="" class="form-control">
+										<option value="">-- Select --</option>
+										@foreach ($typelesson->lessons as $lesson)
+											@foreach ($lesson->majors as $major)
+													@if ( $major->id )
+														<option value="{{ $major->id }}">{{ $major->level->class}} {{ ucwords($major->name) }} </option>
+													@endif
+											@endforeach
+										@endforeach
+									</select>
+								</div>
+							</div>
+
+							<div class="col-lg-3">
+								<div class="form-group">
+									<label for="">Mata Pelajaran</label>
+									<select name="lesson_id" id="" class="form-control">
+										<option value="">-- Select --</option>
+										@foreach ($major->lessons as $lesson)
+											@if ($lesson->type_lesson->name == 'jurusan')
+												<option value="{{ $lesson->id }}">{{ ucwords($lesson->name)}}</option>
+											@endif
+										@endforeach
+									</select>
+								</div>
+							</div>
 						</div>
+
+						<div class="row">
+							<div class="col-lg-3">
+								<div class="form-group">
+									<label for="">Tipe Guru</label>
+									<select name="lesson_id" id="" class="form-control">
+										<option value="">-- Select --</option>
+										@foreach (App\Models\TypeTeacher::all() as $typeteacher)
+											@if ($typeteacher->name == 'jurusan')
+												<option value="{{ $typeteacher->id }}">{{ ucwords($typeteacher->name)}}</option>
+											@endif
+										@endforeach
+									</select>
+								</div>
+							</div>
+
+							<div class="col-lg-3">
+								<div class="form-group">
+									<label for="">Guru</label>
+									<select name="lesson_id" id="" class="form-control">
+										<option value="">-- Select --</option>
+										@foreach ($typeteacher->teachers as $teacher)
+											@if ($teacher->type_teacher->name == 'jurusan')
+												<option value="{{ $teacher->id }}">{{ ucwords($teacher->name)}}</option>
+											@endif
+										@endforeach
+									</select>
+								</div>
+							</div>
+						</div>	
+					
+					<button type="submit" class="form-control btn-success fontsopher">Generate</button><p></p>
 				</form>
 			</div>
 		</div>

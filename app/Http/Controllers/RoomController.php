@@ -120,8 +120,8 @@ class RoomController extends Controller
      */
     public function destroy(Room $room)
     {
-        $a = $room->delete();
+        $room->delete();
 
-        return back()->with('sweetalert', 'Berhasil Menghapus Data Ruang');
+        return back();
     }
 }

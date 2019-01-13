@@ -5,7 +5,7 @@
 @section('content')
 
 <h1 class="section-header">
-  <div>Daftar Mata Pelajaran {{ $view->type }}</div>
+  <div>Daftar Mata Pelajaran {{ ucwords($view->name) }}</div>
 </h1>
 
 @php
@@ -29,7 +29,7 @@
 				  </thead>
 				  <tbody class="fontsopher">
 				  	@foreach ($view->lessons as $views)
-					  	@if (Auth::user()->name == $views->user->name)
+					  	@if ($views->type_lesson->name == 'jurusan')
 						    <tr>
 						      <th scope="row">{{ $no }}</th>
 								@php

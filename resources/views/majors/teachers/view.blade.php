@@ -5,7 +5,7 @@
 @section('content')
 
 <h1 class="section-header">
-  <div>Daftar Guru {{ $view->type }}</div>
+  <div>Daftar Guru {{ ucwords($view->name) }}</div>
 </h1>
 
 @php
@@ -28,23 +28,25 @@
 				  </thead>
 				  <tbody class=" fontsopher">
 				  	@foreach ($viewteacher as $views)
-				    <tr>
-				      <th scope="row">{{ $no }}</th>
-						@php
-							$no++;	
-						@endphp
-						<td>{{ $views->nip }}</td>
-						<td>{{ $views->code }}</td>
-						<td>{{ $views->name }}</td>
-						<td>
-						@if ($views->status == "Aktif")
-				      		<span class="badge badge-success"><b>{{ $views->status }}</b></span>
-						@else
-				      		<span class="badge badge-danger"><b>{{ $views->status }}</b></span>
-						
-						@endif
-						</td>
-				    </tr>
+					  	@if ($views->type_teacher->name == 'jurusan')
+					    <tr>
+					      <th scope="row">{{ $no }}</th>
+							@php
+								$no++;	
+							@endphp
+							<td>{{ $views->nip }}</td>
+							<td>{{ $views->code }}</td>
+							<td>{{ $views->name }}</td>
+							<td>
+							@if ($views->status == "aktif")
+					      		<span class="badge badge-success"><b>{{ $views->status }}</b></span>
+							@else
+					      		<span class="badge badge-danger"><b>{{ $views->status }}</b></span>
+							
+							@endif
+							</td>
+					    </tr>
+					  	@endif
 				  	@endforeach
 				  </tbody>
 				</table>

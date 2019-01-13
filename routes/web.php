@@ -15,7 +15,7 @@
 
 Route::group(['prefix' => 'curriculum', 'middleware' => ['auth','role:curriculum']], function() {
 
-	Route::get('generate/{level_id}/{major_id}/{expertise_id}/create', 'GenerateController@showgenexpert')->name('showgenexpert.generate');
+	Route::get('generate/{level_id}/{major_id}/{expertise_id}/create', 'GenerateController@showgencurri')->name('showgenexpert.generate');
 
 	Route::get('generate/{level_id}/{major_id}', 'GenerateController@showmixcurri')->name('showmixcurri.generate');
 
@@ -36,6 +36,8 @@ Route::group(['prefix' => 'curriculum', 'middleware' => ['auth','role:curriculum
 	Route::get('room/{typeroom_id}/{room_id}/edit', 'RoomController@editmix')->name('editmix.room');
 
 	Route::resource('teacher', 'TeacherController')->except(['create', 'show']);
+
+	Route::resource('generate', 'GenerateController')->except(['create', 'show']);
 
 	Route::resource('room', 'RoomController')->except(['create', 'show']);
 

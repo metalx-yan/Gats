@@ -15,7 +15,7 @@ class CreateGeneratesTable extends Migration
     {
         Schema::create('generates', function (Blueprint $table) {
             $table->increments('id');
-            $table->enum('days', ['senin', 'selasa', 'rabu', 'kamis', 'jumat']);
+            $table->enum('day', ['senin', 'selasa', 'rabu', 'kamis', 'jumat']);
             $table->time('start');
             $table->time('end');
             $table->boolean('read')->default(0);

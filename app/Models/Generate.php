@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Generate extends Model
 {
     protected $fillable = [
-    	'days',
+    	'day',
         'start',
 		'end',
-		'name',
+		'read',
         'teacher_id',
 		'expertise_id',
 		'room_id',
@@ -49,7 +49,7 @@ class Generate extends Model
         return $this->belongsTo(Role::class);
     }
 
-    public static function days()
+    public static function day()
     {
         return ['senin', 'selasa', 'rabu', 'kamis', 'jumat'];
     }

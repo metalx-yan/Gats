@@ -15,5 +15,6 @@ use Illuminate\Http\Request;
 
 Route::get('hours/{day}', 'ApiController@hours');
 Route::get('rooms/{type}/{day}/{hour}/{sesi}', 'ApiController@rooms');
+// Route::get('typelesson/{type}/{major}', 'ApiController@typeLessons');
 Route::group(['middleware' => 'auth:api'] , function () {
 });

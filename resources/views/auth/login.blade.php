@@ -27,40 +27,22 @@
               <div class="card-header"><h4>Login</h4></div>
 
               <div class="card-body">
-                <form method="POST" action=" {{ route('login') }}" class="needs-validation" novalidate="">
+                <form method="POST" action=" {{ route('login') }}"  novalidate="">
                     @csrf
                   <div class="form-group">
                     <label for="username">Username</label>
-                    <input id="username" type="username" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" name="username" tabindex="1" value="{{ old('Username') }}" required autofocus>
-                    @if ($errors->has('username'))
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('username') }}</strong>
-                        </span>
-                    @endif
+                    <input id="username" type="username" class="form-control {{ $errors->has('username') ? ' is-invalid' : '' }}" name="username" tabindex="1" value="{{ old('username') }}" required autofocus>
+                    {!! $errors->first('username', '<span class="invalid-feedback">:message</span>') !!}
+
                   </div>
 
                   <div class="form-group">
                     <label for="password" class="d-block">Password
-                      {{-- <div class="float-right">
-                        <a href="forgot.html">
-                          Forgot Password?
-                        </a>
-                      </div> --}}
                     </label>
-                    <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" tabindex="2" required>
-                     @if ($errors->has('password'))
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('password') }}</strong>
-                        </span>
-                     @endif
-                  </div>
+                    <input id="password" type="password" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" tabindex="2" required>
+                    {!! $errors->first('password', '<span class="invalid-feedback">:message</span>') !!}
 
-                  {{-- <div class="form-group">
-                    <div class="custom-control custom-checkbox">
-                      <input type="checkbox" name="remember" class="custom-control-input" tabindex="3" id="remember-me">
-                      <label class="custom-control-label" for="remember-me">Remember Me</label>
-                    </div>
-                  </div> --}}
+                  </div>
 
                   <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-block" tabindex="4">
@@ -71,7 +53,6 @@
               </div>
             </div>
             <div class="mt-5 text-muted text-center">
-              {{-- Don't have an account? <a href="register.html">Create One</a> --}}
             </div>
             <div class="simple-footer">
               Copyright &copy; Stisla 2018
