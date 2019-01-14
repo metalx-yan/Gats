@@ -30,21 +30,21 @@
                 </ul>
               </li>
 
-              <li><a href="#" class="has-dropdown"><i class="ion ion-document-text"></i>Data Mata Pelajaran</a>
-                <ul class="menu-dropdown">
-                  @foreach (App\Models\TypeLesson::all() as $typelesson)
-                    @if ($typelesson->id === 1)
-                      <li><a href="{{ route('lesson.view', $typelesson->id) }}"><i class="ion ion-ios-play-outline"></i>{{ ucwords($typelesson->name) }}</a></li>
-                    @endif
-                  @endforeach
-                </ul>
-              </li>
-
               <li><a href="#" class="has-dropdown"><i class="ion ion-document-text"></i>Data Guru</a>
                 <ul class="menu-dropdown">
                   @foreach (App\Models\TypeTeacher::all() as $typeteacher)
                     @if ($typeteacher->id === 1)
                       <li><a href="{{ route('teacher.view', $typeteacher->id) }}"><i class="ion ion-ios-play-outline"></i>{{ ucwords($typeteacher->name) }}</a></li>
+                    @endif
+                  @endforeach
+                </ul>
+              </li>
+
+              <li><a href="#" class="has-dropdown"><i class="ion ion-document-text"></i>Data Mata Pelajaran</a>
+                <ul class="menu-dropdown">
+                  @foreach (App\Models\TypeLesson::all() as $typelesson)
+                    @if ($typelesson->id === 1)
+                      <li><a href="{{ route('lesson.view', $typelesson->id) }}"><i class="ion ion-ios-play-outline"></i>{{ ucwords($typelesson->name) }}</a></li>
                     @endif
                   @endforeach
                 </ul>
@@ -110,6 +110,14 @@
                   </ul>
                 </li>
 
+                <li><a href="#"  class="has-dropdown"><i class="ion ion-document-text"></i>Data Guru</a>
+                    <ul class="menu-dropdown">
+                        @foreach (App\Models\TypeTeacher::all() as $type)
+                          <li><a href="{{ route('mix.teacher', $type->id) }}"><i class="ion ion-plus-circled"></i>{{ ucwords($type->name) }}</a></li>
+                        @endforeach
+                    </ul>
+                </li>
+
                 <li><a href="#" class="has-dropdown"><i class="ion ion-document-text"></i>Data Mata Pelajaran</a>
                     <ul class="menu-dropdown">
                       @foreach (App\Models\TypeLesson::all() as $typelesson)
@@ -118,13 +126,6 @@
                     </ul>
                 </li>
 
-                <li><a href="#"  class="has-dropdown"><i class="ion ion-document-text"></i>Data Guru</a>
-                    <ul class="menu-dropdown">
-                        @foreach (App\Models\TypeTeacher::all() as $type)
-                          <li><a href="{{ route('mix.teacher', $type->id) }}"><i class="ion ion-plus-circled"></i>{{ ucwords($type->name) }}</a></li>
-                        @endforeach
-                    </ul>
-                </li>
 
                 <li><a href="#"  class="has-dropdown"><i class="ion ion-document-text"></i>Data Ruang</a>
                     <ul class="menu-dropdown">
@@ -137,7 +138,7 @@
 
           <li class="menu-header">Ex</li>
             <li>
-              <a href="#" class="has-dropdown"><i class="ion ion-clipboard"></i><span>Generate</span></a>
+              <a href="#" class="has-dropdown"><i class="ion ion-calendar"></i><span>Generate</span></a>
                <ul class="menu-dropdown">
                     @foreach (App\Models\Level::all() as $level)
                       <li>

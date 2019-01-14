@@ -53,10 +53,10 @@
 				      <th>No</th>
 				      <th>Kode</th>
 				      <th>Nama</th>
-				      <th>Total Jam</th>
 				      <th>Semester</th>
+				      <th>Guru</th>
 				      <th>Akun Jurusan</th>
-				      <th>Jurusan</th>
+				      <th>Kelas Jurusan</th>
 				      <th>Tahun Ajaran</th>
 				    </tr>
 				  </thead>
@@ -68,9 +68,13 @@
 						@endphp
 				      <td>{{ $lesson->code }}</td>
 				      <td>{{ $lesson->name }}</td>
-				      <td>{{ $lesson->total_hours }}</td>
 				      <td>{{ ucwords($lesson->semester) }}</td>
-				      <td>{{ $lesson->user->name }}</td>
+				      <td>@foreach ($lesson->teachers as $teacher)
+					      {{ ucwords($teacher->name) }},<br>
+				      @endforeach</td>
+					  <td>@foreach ($lesson->users as $user)
+					      {{ ucwords($user->name) }},<br>
+				      @endforeach</td>
 				      <td>@foreach ($lesson->majors as $major)
 					      {{ ucwords($major->name) }},<br>
 				      @endforeach</td>
@@ -106,7 +110,11 @@
   	<script>
 		$(document).ready(function() {
 			$('#select2').select2();
+			$('#select3').select2();
+			$('#select4').select2();
 			$('#select2').select2().val({!! json_encode($lesson->majors()->allRelatedIds()) !!}).trigger('change');	
+			$('#select3').select2().val({!! json_encode($lesson->users()->allRelatedIds()) !!}).trigger('change');	
+			$('#select4').select2().val({!! json_encode($lesson->teachers()->allRelatedIds()) !!}).trigger('change');	
 		});
 	</script>
 

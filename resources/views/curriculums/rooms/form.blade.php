@@ -22,12 +22,29 @@
 <div class="form-group">
 	<div class="row">
 		<div class="col-lg-12">
-			<label for="">Kapasitas</label>
-			<input type="text" name="capacity" value="{{ old('capacity')  }}" class="form-control {{ $errors->has('capacity') ? 'is-invalid' : ''}}" autocomplete="off">
-			{!! $errors->first('capacity', '<span class="invalid-feedback">:message</span>') !!}
+			<label for="">Nama</label>
+			<input type="text" name="name" value="{{ old('name')  }}" class="form-control {{ $errors->has('name') ? 'is-invalid' : ''}}" autocomplete="off">
+			{!! $errors->first('name', '<span class="invalid-feedback">:message</span>') !!}
 		</div>
 	</div>
 </div>
+
+@if ($typeroom->id == 1)
+	{{-- expr --}}
+<div class="form-group">
+	<div class="row">
+		<div class="col-lg-12">
+			<label for="">Jurusan</label>
+			<select name="major_id" id="" class="form-control">
+				@foreach (App\Models\Major::all() as $value)
+						<option value="{{ $value->id }}">{{ ucwords($value->level->class) }} {{ ucwords($value->name) }}</option>
+				@endforeach
+			</select>
+			{!! $errors->first('major_id', '<span class="invalid-feedback">:message</span>') !!}
+		</div>
+	</div>
+</div>
+@endif
 
 <div class="form-group">
 	<div class="row">

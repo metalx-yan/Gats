@@ -25,7 +25,12 @@
 				    <tr>
 				      <th>No</th>
 				      <th>Kode</th>
-				      <th>Kapasitas</th>
+				      <th>Nama</th>
+				  	{{-- @foreach ($typeroom->rooms as $index) --}}
+		      			  @if ($typeroom->id === 1)
+					      <th>Jurusan</th>
+						  @endif
+					 {{-- @endforeach --}}
 				      <th>Aksi</th>
 				    </tr>
 				  </thead>
@@ -37,7 +42,14 @@
 							$no++;	
 						@endphp
 				      <td>{{ $indexs->code }}</td>
-				      <td>{{ $indexs->capacity }}</td>
+				      <td>{{ $indexs->name }}</td>
+				      
+	      				@if ($indexs->major_id === 1)
+					      <td>
+				      		{{ $indexs->major->level->class }} {{ ucwords($indexs->major->name) }}
+					      </td>
+	      				@endif
+				      
 				     
 				      <td>
 				      	<div class="row">

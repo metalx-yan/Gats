@@ -34,10 +34,10 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
-    public function lessons()
-    {
-        return $this->hasMany(Lesson::class);
-    }
+    // public function lessons()
+    // {
+    //     return $this->hasMany(Lesson::class);
+    // }
 
     public function setPasswordAttribute($value)
     {
@@ -55,6 +55,11 @@ class User extends Authenticatable
     public function generates()
     {
         return $this->hasMany(Generate::class);
+    }
+
+    public function lessons()
+    {
+        return $this->belongsToMany(Lesson::class);
     }
 
     // public function teacher()

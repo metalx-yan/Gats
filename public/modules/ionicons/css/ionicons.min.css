@@ -14,6 +14,18 @@
 	padding: 20px;
 }
 
+.ion-clipboard:before{
+	padding: 20px;
+}
+
+.ion-university:before{
+	padding: 20px;
+}
+
+.ion-home:before{
+	padding: 20px;
+}
+
 .ion-ios-paper-outline:before{
 	padding: 20px;
 }

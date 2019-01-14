@@ -117,33 +117,7 @@
 								</div>
 							</div>
 
-							{{-- <div class="col-lg-3">
-								<div class="form-group">
-									<label for="">Tipe Guru</label>
-									<select name="lesson_id" id="" class="form-control">
-										<option value="">-- Select --</option>
-										@foreach (App\Models\TypeTeacher::all() as $typeteacher)
-											@if ($typeteacher->name == 'umum')
-												<option value="{{ $typeteacher->id }}">{{ ucwords($typeteacher->name)}}</option>
-											@endif
-										@endforeach
-									</select>
-								</div>
-							</div> --}}
-
-							{{-- <div class="col-lg-3">
-								<div class="form-group">
-									<label for="">Guru</label>
-									<select name="lesson_id" id="" class="form-control">
-										<option value="">-- Select --</option>
-										@foreach ($typeteacher->teachers as $teacher)
-											@if ($teacher->type_teacher->name == 'umum')
-												<option value="{{ $teacher->id }}">{{ ucwords($teacher->name)}}</option>
-											@endif
-										@endforeach
-									</select>
-								</div>
-							</div> --}}
+							
 						</div>	
 					
 					<button type="submit" class="form-control btn-success fontsopher">Generate</button><p></p>

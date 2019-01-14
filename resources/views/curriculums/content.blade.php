@@ -19,8 +19,8 @@
         <h4>Total Guru Aktif</h4>
       </div>
       <div class="card-body header">
-        @if (Auth::check() || App\Models\Teacher::first()->status = "Aktif")
-            {{  App\Models\Teacher::all()->where('status', 'Aktif')->count() }}
+        @if (Auth::check() || App\Models\Teacher::first()->status = "aktif")
+            {{  App\Models\Teacher::all()->where('status', 'aktif')->count() }}
         @endif
       </div>
     </div>
@@ -29,7 +29,7 @@
 <div class="col-lg-2 col-md-6">
   <div class="card card-sm-3 col-12">
     <div class="card-icon bg-primary-room" >
-      <i class="ion ion-person"></i>
+      <i class="ion ion-home"></i>
     </div>
     <div class="card-wrap">
       <div class="card-header header">
@@ -44,7 +44,7 @@
 <div class="col-lg-2 col-md-6">
   <div class="card card-sm-3 col-12">
     <div class="card-icon bg-primary-lesson">
-      <i class="ion ion-person"></i>
+      <i class="ion ion-clipboard"></i>
     </div>
     <div class="card-wrap">
       <div class="card-header header">
@@ -59,14 +59,14 @@
 <div class="col-lg-2 col-md-6">
   <div class="card card-sm-3 col-12">
     <div class="card-icon bg-danger">
-   		<i class="ion ion-ios-paper-outline"></i>
+   		<i class="ion ion-university"></i>
     </div>
     <div class="card-wrap">
       <div class="card-header header">
-        <h4>News</h4>
+        <h4>Total Jurusan</h4>
       </div>
       <div class="card-body header">
-        42
+        4
       </div>
     </div>
   </div>
@@ -74,14 +74,14 @@
 <div class="col-lg-2 col-md-6">
   <div class="card card-sm-3 col-12">
     <div class="card-icon bg-warning">
-      <i class="ion ion-paper-airplane"></i>
+      <i class="ion ion-ios-paper-outline"></i>
     </div>
     <div class="card-wrap">
       <div class="card-header header">
-        <h4>Reports</h4>
+        <h4>Laporan</h4>
       </div>
       <div class="card-body header">
-        1,201
+        2
       </div>
     </div>
   </div>
@@ -93,10 +93,10 @@
     </div>
     <div class="card-wrap">
       <div class="card-header header">
-        <h4>Online Users</h4>
+        <h4>Pengguna</h4>
       </div>
       <div class="card-body header">
-        47
+        10
       </div>
     </div>
   </div>

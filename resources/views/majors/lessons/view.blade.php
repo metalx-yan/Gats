@@ -22,8 +22,10 @@
 				      <th>No</th>
 				      <th>Kode</th>
 				      <th>Nama</th>
-				      <th>Total Jam</th>
 				      <th>Semester</th>
+				      <th>Guru</th>
+				      <th>Akun Jurusan</th>
+				      <th>Kelas Jurusan</th>
 				      <th>Tahun Ajaran</th>
 				    </tr>
 				  </thead>
@@ -37,8 +39,16 @@
 								@endphp
 						      <td>{{ $views->code }}</td>
 						      <td>{{ $views->name }}</td>
-						      <td>{{ $views->total_hours }}</td>
 						      <td>{{ $views->semester }}</td>
+							  <td>@foreach ($views->teachers as $teacher)
+						      		{{ ucwords($teacher->name) }},<br>
+					      	   @endforeach</td>
+					      	   <td>@foreach ($views->users as $user)
+							   	   {{ ucwords($user->name) }},<br>
+						       @endforeach</td>
+						       <td>@foreach ($views->majors as $major)
+							    	  {{ ucwords($major->name) }},<br>
+						        @endforeach</td>
 						      <td>{{ $views->beginning }}/{{ $views->end }}</td>
 						    </tr>
 					  	@endif

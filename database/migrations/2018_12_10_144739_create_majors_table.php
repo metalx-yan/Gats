@@ -20,6 +20,11 @@ class CreateMajorsTable extends Migration
             $table->timestamps();
         });
 
+        Schema::table('rooms', function (Blueprint $table) {
+            $table->unsignedInteger('major_id')->nullable();
+            $table->foreign('major_id')->references('id')->on('majors');
+        });
+
     }
 
     /**

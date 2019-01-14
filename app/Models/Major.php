@@ -25,5 +25,9 @@ class Major extends Model
         return $this->belongsToMany(Lesson::class);
     }
 
-    
+    public function rooms()
+    {
+        return $this->hasMany(Room::class);
+    }
+   
 }

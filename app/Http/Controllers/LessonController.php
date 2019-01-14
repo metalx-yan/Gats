@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Lesson;
 use App\Models\Major;
+use App\Models\Teacher;
+use App\Models\User;
 use App\Models\TypeLesson;
 
 class LessonController extends Controller
@@ -26,8 +28,12 @@ class LessonController extends Controller
         $typelesson = TypeLesson::find($typelesson);
 
         $majors = Major::all();
+
+        $users = User::all();
+
+        $teachers = Teacher::all();
      
-        return view('curriculums.lessons.index', compact(['typelesson', 'majors']));
+        return view('curriculums.lessons.index', compact(['typelesson', 'majors', 'teachers', 'users']));
     }
 
     /**
@@ -53,18 +59,20 @@ class LessonController extends Controller
         $store = $request->validate([
             'code'              =>  'required|unique:lessons|between:2,8',
             'name'              =>  'required',
-            'total_hours'       =>  'required|numeric|digits:1',
             'semester'          =>  'required',
             'beginning'         =>  'required',
             'end'               =>  'required',
             'type_lesson_id'    =>  'required',
             // 'major_id'          =>  'required',
-            'user_id'           =>  'required'
         ]);
 
         $a = Lesson::create($store);
 
         $a->majors()->sync($request->majors, false);
+
+        $a->users()->sync($request->users, false);
+
+        $a->teachers()->sync($request->teachers, false);
 
         return back()->with('sweetalert', 'Berhasil Menambah Data Mata Pelajaran');
     }
@@ -100,6 +108,7 @@ class LessonController extends Controller
 
     public function editmix($typelesson, $lesson)
     {
+
         $lesson = Lesson::find($lesson);
         
         $majors = Major::all();
@@ -110,7 +119,23 @@ class LessonController extends Controller
             $majors2[$major->id] = $major->name;
         }
 
-        return view('curriculums.lessons.edit', compact(['lesson', 'majors', 'majors2']));
+        $users = User::all();
+
+        $user = array();
+
+        foreach ($users as $user) {
+            $user[$user->id] = $user->name;
+        }
+        
+        $teachers = Teacher::all();
+
+        $teacher = array();
+
+        foreach ($teachers as $teacher) {
+            $teacher[$teacher->id] = $teacher->name;
+        }
+
+        return view('curriculums.lessons.edit', compact(['lesson', 'majors', 'majors2', 'users', 'user', 'teachers', 'teacher']));
     }
 
     /**
@@ -125,26 +150,26 @@ class LessonController extends Controller
         $update = $request->validate([
             'code'               =>  "required|unique:lessons,code,$id|between:2,8",
             'name'               =>  'required',
-            'total_hours'        =>  'required|numeric|digits:1',
+            // 'total_hours'        =>  'required|numeric|digits:1',
             'semester'           =>  'required',
             'beginning'          =>  'required',
             'end'                =>  'required',
             'type_lesson_id'     =>  'required',
-            'user_id'            =>  'required'
         ]);
 
         $update = Lesson::findOrFail($id);
         $update->code                    = $request->code;
         $update->name                    = $request->name;
-        $update->total_hours             = $request->total_hours;
+        // $update->total_hours             = $request->total_hours;
         $update->semester                = $request->semester;
         $update->beginning               = $request->beginning;
         $update->end                     = $request->end;
         $update->type_lesson_id          = $request->type_lesson_id;
-        $update->user_id                 = $request->user_id;
         $update->save();
 
         $update->majors()->sync($request->majors);
+        $update->users()->sync($request->users);
+        $update->teachers()->sync($request->teachers);
         // if (isset($request->majors)) {
         // } else 
         // {

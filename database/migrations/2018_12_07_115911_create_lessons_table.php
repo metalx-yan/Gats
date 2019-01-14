@@ -17,18 +17,17 @@ class CreateLessonsTable extends Migration
             $table->increments('id');
             $table->string('code', 8)->unique();
             $table->string('name');
-            $table->smallInteger('total_hours');
             $table->enum('semester', ['ganjil', 'genap']);
             $table->year('beginning');
             $table->year('end');
             $table->timestamps();
         });
 
-        Schema::table('lessons', function (Blueprint $table) {
-            $table->unsignedInteger('user_id');
+        // Schema::table('lessons', function (Blueprint $table) {
+        //     $table->unsignedInteger('user_id');
 
-            $table->foreign('user_id')->references('id')->on('users');
-        });
+        //     $table->foreign('user_id')->references('id')->on('users');
+        // });
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Room;
+use App\Models\Major;
 use App\Models\TypeRoom;
 
 class RoomController extends Controller
@@ -47,8 +48,9 @@ class RoomController extends Controller
     {
         $store = $request->validate([
             'code'          =>  'required|unique:rooms|max:5',
-            'capacity'      =>  'required|numeric|digits:2',
+            'name'          =>  'required',
             'type_room_id'  =>  'required',
+            'major_id'      =>  '',
         ]);
 
         $a = Room::create($store);
@@ -86,7 +88,9 @@ class RoomController extends Controller
     {
         $room = Room::find($room);
 
-        return view('curriculums.rooms.edit', compact('room'));
+        $major = Major::all();
+
+        return view('curriculums.rooms.edit', compact(['room', 'major']));
     }
 
     /**
@@ -101,12 +105,14 @@ class RoomController extends Controller
         // dd($request);
         $this->validate($request, [
             'code'          =>  "required|unique:rooms,code,$id|max:5",
-            'capacity'      =>  'required|numeric|digits:2',
+            'name'      =>  'required',
+            'major_id'      =>  'required',
         ]);
 
         $room = Room::findOrFail($id);
         $room->code = $request->code;
-        $room->capacity = $request->capacity;
+        $room->name = $request->name;
+        $room->major_id = $request->major_id;
         $room->save();
 
         return back()->with('sweetalert', 'Berhasil Mengubah Data Ruang');

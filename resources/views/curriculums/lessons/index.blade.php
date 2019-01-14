@@ -53,10 +53,10 @@
 				      <th>No</th>
 				      <th>Kode</th>
 				      <th>Nama</th>
-				      <th>Total Jam</th>
 				      <th>Semester</th>
+				      <th>Guru</th>
 				      <th>Akun Jurusan</th>
-				      <th>Jurusan</th>
+				      <th>Kelas Jurusan</th>
 				      <th>Tahun Ajaran</th>
 				      <th>Aksi</th>
 				    </tr>
@@ -70,11 +70,15 @@
 						@endphp
 				      <td>{{ $indexs->code }}</td>
 				      <td>{{ $indexs->name }}</td>
-				      <td>{{ $indexs->total_hours }}</td>
 				      <td>{{ ucwords($indexs->semester) }}</td>
-				      <td>{{ $indexs->user->name }}</td>
+					  <td>@foreach ($indexs->teachers as $teacher)
+					      {{ ucwords($teacher->name) }},<br>
+				      @endforeach</td>
+					  <td>@foreach ($indexs->users as $user)
+					      {{ ucwords($user->name) }},<br>
+				      @endforeach</td>
 				      <td>@foreach ($indexs->majors as $major)
-					      {{ ucwords($major->name) }},<br>
+					     {{ $major->level->class }} {{ ucwords($major->name) }},<br>
 				      @endforeach</td>
 				      <td>{{ $indexs->beginning }}/{{ $indexs->end }}</td>
 				     
@@ -114,6 +118,8 @@
 	<script>
 		$(document).ready(function() {
 			$('#select2').select2();
+			$('#select3').select2();
+			$('#select4').select2();
 		});
 	</script>
 

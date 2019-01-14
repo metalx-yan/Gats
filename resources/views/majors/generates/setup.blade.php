@@ -25,7 +25,7 @@
 									<label for="">Hari</label>
 									<select name="day" id="day" class="form-control">
 										<option value="">-- Select --</option>
-										@foreach (App\Models\Generate::days() as $day)
+										@foreach (App\Models\Generate::day() as $day)
 											<option value="{{ $day }}">{{ ucwords($day) }}</option>
 										@endforeach
 									</select>
@@ -62,18 +62,17 @@
 									<label for="">Tipe Mata Pelajaran</label>
 									<select name="lesson_id" id="" class="form-control">
 										<option value="">-- Select --</option>
-										@foreach (App\Models\TypeLesson::all() as $typelesson)
-											@if ($typelesson->name == 'jurusan')
-												<option value="{{ $typelesson->id }}">{{ ucwords($typelesson->name)}}</option>
-											@endif
-										@endforeach
+										@php
+										$typelesson = App\Models\TypeLesson::where('slug', 'jurusan')->first();
+										@endphp
+										<option value="{{ $typelesson->id }}">{{ ucwords($typelesson->name)}}</option>
 									</select>
 								</div>
 							</div>
 
 							<div class="col-lg-3">
 								<div class="form-group">
-									<label for="">Pilih Jurusan</label>
+									{{-- <label for="">Pilih Jurusan</label>
 									<select name="lesson_id" id="" class="form-control">
 										<option value="">-- Select --</option>
 										@foreach ($typelesson->lessons as $lesson)
@@ -81,6 +80,24 @@
 													@if ( $major->id )
 														<option value="{{ $major->id }}">{{ $major->level->class}} {{ ucwords($major->name) }} </option>
 													@endif
+											@endforeach
+										@endforeach
+									</select>
+ --}}
+									<label for="">Pilih Jurusan</label>
+									<select name="lesson_id" id="major" class="form-control">
+										<option value="">-- Select --</option>
+										@php
+											$dup = [];
+										@endphp
+										@foreach ($typelesson->lessons as $lesson)
+											@foreach ($lesson->majors as $major)
+												@if (!in_array($major->id, $dup))
+													<option value="">{{ $major->level->class }} {{ $major->name }} </option>
+												@endif
+												@php
+													array_push($dup, $major->id);
+												@endphp
 											@endforeach
 										@endforeach
 									</select>
@@ -92,7 +109,7 @@
 									<label for="">Mata Pelajaran</label>
 									<select name="lesson_id" id="" class="form-control">
 										<option value="">-- Select --</option>
-										@foreach ($major->lessons as $lesson)
+										@foreach (App\Models\Lesson::all() as $lesson)
 											@if ($lesson->type_lesson->name == 'jurusan')
 												<option value="{{ $lesson->id }}">{{ ucwords($lesson->name)}}</option>
 											@endif
@@ -106,13 +123,12 @@
 							<div class="col-lg-3">
 								<div class="form-group">
 									<label for="">Tipe Guru</label>
-									<select name="lesson_id" id="" class="form-control">
+									<select name="teacher_id" id="" class="form-control">
 										<option value="">-- Select --</option>
-										@foreach (App\Models\TypeTeacher::all() as $typeteacher)
-											@if ($typeteacher->name == 'jurusan')
-												<option value="{{ $typeteacher->id }}">{{ ucwords($typeteacher->name)}}</option>
-											@endif
-										@endforeach
+										@php
+										$typeteacher = App\Models\TypeTeacher::where('slug', 'jurusan')->first();
+										@endphp
+										<option value="{{ $typeteacher->id }}">{{ ucwords($typeteacher->name)}}</option>
 									</select>
 								</div>
 							</div>
@@ -120,7 +136,7 @@
 							<div class="col-lg-3">
 								<div class="form-group">
 									<label for="">Guru</label>
-									<select name="lesson_id" id="" class="form-control">
+									<select name="teacher_id" id="" class="form-control">
 										<option value="">-- Select --</option>
 										@foreach ($typeteacher->teachers as $teacher)
 											@if ($teacher->type_teacher->name == 'jurusan')
@@ -220,8 +236,8 @@
 							<label for="">Tipe Ruang</label>
 							<select name="room" id="type" class="form-control">
 								<option value="">-- Select --</option>
-								@if (Auth::user()->role->name == 'curriculum')
-									<option value="teori">Teori</option>
+								@if (Auth::user()->role->name == 'major')
+									<option value="praktek">Praktek</option>
 								@endif
 							</select>
 						`);
@@ -243,7 +259,7 @@
 						}).done(function (data) {
 							$('#room').html('');
 							data.map(function (map) {
-								$('#room').append('<option value="' + map.code + '">' + map.code + '</option>');
+							$('#room').append('<option value="' + map.code + '">' + map.code + '</option>');
 							});
 						});
 					});
