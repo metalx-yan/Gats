@@ -16,7 +16,12 @@ class ApiController extends Controller
     	$start = Carbon::parse('07:00:00');
     	for ($i=0; $i < 10; $i++) { 
         	array_push($hours, $start->format('H:i:s'));
-    		$start->addMinutes(45);
+    		if ($start->format('H:i:s') == '10:00:00') {
+                $start->addMinutes(15);
+            }
+            else {
+                $start->addMinutes(45);
+            }
     	}
         return response()->json($hours);
     }

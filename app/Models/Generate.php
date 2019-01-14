@@ -12,16 +12,16 @@ class Generate extends Model
 		'end',
 		'read',
         'teacher_id',
-		'expertise_id',
+		'major_id',
 		'room_id',
 		'lesson_id',
         'user_id',
         'role_id'
     ];
 
-    public function expertise()
+    public function major()
     {
-    	return $this->belongsTo(Expertise::class);
+    	return $this->belongsTo(Major::class);
     }
 
     public function lesson()

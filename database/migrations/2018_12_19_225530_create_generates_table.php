@@ -28,14 +28,14 @@ class CreateGeneratesTable extends Migration
             $table->unsignedInteger('lesson_id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('role_id');
-            $table->unsignedInteger('expertise_id');
+            $table->unsignedInteger('major_id');
 
             $table->foreign('teacher_id')->references('id')->on('teachers');
             $table->foreign('room_id')->references('id')->on('rooms');
             $table->foreign('lesson_id')->references('id')->on('lessons');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('role_id')->references('id')->on('roles');
-            $table->foreign('expertise_id')->references('id')->on('expertises');
+            $table->foreign('major_id')->references('id')->on('majors');
         });
     }
 

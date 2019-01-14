@@ -49,7 +49,7 @@ class ExpertiseController extends Controller
         $store = $request->validate([
             'code'          =>  'required|unique:expertises|between:2,5',
             'name'          =>  'required',
-            'part'          =>  'integer|min:1',
+            'part'          =>  '',
             'major_id'      =>  'required'
         ]);
 

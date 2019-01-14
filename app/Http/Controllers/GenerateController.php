@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Major;
 use App\Models\Expertise;
 use Carbon\Carbon;
+use Auth;
+use App\Models\Generate;
 
 class GenerateController extends Controller
 {
@@ -18,7 +20,8 @@ class GenerateController extends Controller
     {
         $showexpert = Expertise::find($expertise);
         $major1 = Major::all();
-        return view('curriculums.generates.setup', compact(['showexpert', 'major1']));
+        $gens = Generate::all();
+        return view('curriculums.generates.setup', compact(['showexpert', 'major1', 'gens']));
     }
 
     public function showgenmajor($level, $major, $expertise)
@@ -65,35 +68,35 @@ class GenerateController extends Controller
      */
     public function store(Request $request)
     {
-
-        dd($request);
-
         $this->validate($request, [
             'day'   => 'required',
             'start' => 'required',
-            'end' => 'required',
-            'read' => 'required',
             'teacher_id' => 'required',
             'room_id' => 'required',
             'lesson_id' => 'required',
-            'user_id' => 'required',
-            'role_id' => 'required',
-            'expertise_id' => 'required'
+            'major_id' => 'required'
         ]);
+        
+        if ($request->start == '10:00:00') {
+            $sesi = 15 * $request->sesi;
+        }
+        else {
+            $sesi = 45 * $request->sesi;
 
-        $a = new Generate;
-        $a->day = $request->day;
-        $a->start = $request->start;
-        $a->end = Carbon::parse($a->start)->addMinutes(45);
-        $a->teacher_id = $request->teacher_id;
-        $a->room_id = $request->room_id;
-        $a->lesson_id = $request->lesson_id;
-        $a->expertise_id = $request->expertise_id;
-        $a->user_id = $request->user_id;
-        $a->role_id = $request->role_id;
-        $a->save();
+        }
+        $create = new Generate;
+        $create->day = $request->day;
+        $create->start = $request->start;
+        $create->end = Carbon::parse($request->start)->addMinutes($sesi);
+        $create->teacher_id = $request->teacher_id;
+        $create->room_id = $request->room_id;
+        $create->lesson_id = $request->lesson_id;
+        $create->major_id = $request->major_id;
+        $create->user_id = Auth::user()->id;
+        $create->role_id = Auth::user()->role->id;
+        $create->save();
 
-        return back()->with('sweetalert', 'Berhasil Menambah Data Keahlian Jurusan');
+        return back()->with('sweetalert', 'Berhasil Menambah Data Atur Jadwal');
     }
 
     /**

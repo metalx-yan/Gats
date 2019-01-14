@@ -25,7 +25,7 @@
 				      <th>No</th>
 				      <th>Kode</th>
 				      <th>Nama</th>
-				      <th>Jurusan</th>
+				      {{-- <th>Jurusan</th> --}}
 				    </tr>
 				  </thead>
 				  <tbody class="fontsopher">
@@ -36,7 +36,7 @@
 						@endphp
 				      <td>{{ $room->code }}</td>
 				      <td>{{ $room->name }}</td>
-				      <td>{{ $room->major->level->class }} {{ ucwords($room->major->name) }}</td>
+				      {{-- <td>{{ $room->id }} {{ ucwords($room->major->name) }}</td> --}}
 				      
 				    </tr>
 				  </tbody>

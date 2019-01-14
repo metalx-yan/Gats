@@ -9,9 +9,22 @@
 @section('content')
 
 <h1 class="section-header">
-  <div>Atur Jadwal Kelas {{ $showexpert->major->level->class }} {{ $showexpert->name }} {{ $showexpert->part }}</div>
+  <div>Atur Jadwal Kelas {{ $showexpert->major->level->class }} {{ $showexpert->major->name }} {{ $showexpert->part }} </div>
 </h1>
 
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+@php
+	$no = 1;
+@endphp
 
 <div class="row">
 	<div class="col-md-12">
@@ -93,7 +106,7 @@
 								</div>
 							</div>
 
-							<div class="col-lg-3">
+						{{-- 	<div class="col-lg-3">
 								<div class="form-group">
 									<input type="hidden" name="user_id" value="{{ Auth::user()->id }}" class="form-control">
 								</div>
@@ -104,18 +117,18 @@
 									<input type="hidden" name="role_id" value="{{ Auth::user()->role->id }}" class="form-control">
 								</div>
 							</div>
-
-							<div class="col-lg-3">
+ --}}
+{{-- 							<div class="col-lg-3">
 								<div class="form-group">
 									<input type="hidden" name="read" value="0" class="form-control">
 								</div>
 							</div>
-
-							<div class="col-lg-3">
+ --}}
+							{{-- <div class="col-lg-3">
 								<div class="form-group">
 									<input type="hidden" name="end" value="0" class="form-control">
 								</div>
-							</div>
+							</div> --}}
 
 							
 						</div>	
@@ -136,22 +149,31 @@
 					<thead class="theadcolor-expertise fontsopher">
 						<tr>
 							<th>No</th>
-							<th>A</th>
-							<th>B</th>
-							<th>C</th>
-							<th>D</th>
-							<th>E</th>
+							<th>Hari</th>
+							<th>Jam Masuk</th>
+							<th>Jam Keluar</th>
+							<th>Guru</th>
+							<th>Ruang</th>
+							<th>Mata Pelajaran</th>
+							<th>Kelas Jurusan</th>
 						</tr>
 					</thead>
 					<tbody class="fontsopher">
+						@foreach ($gens as $gen)
 						<tr>
-							<td>1</td>
-							<td>2</td>
-							<td>3</td>
-							<td>4</td>
-							<td>5</td>
-							<td>6</td>
+							<td>{{ $no }}</td>
+							@php
+								$no++;	
+							@endphp
+							<td>{{ ucwords($gen->day) }}</td>
+							<td>{{ $gen->start }}</td>
+							<td>{{ $gen->end }}</td>
+							<td>{{ ucwords($gen->teacher->name) }}</td>
+							<td>{{ $gen->room->code }} - {{ $gen->room->name }}</td>
+							<td>{{ $gen->lesson->name }}</td>
+							<td>{{ $gen->major->level->class }} {{ $gen->major->name }}</td>
 						</tr>
+						@endforeach
 					</tbody>
 				</table>
 			</div>
@@ -166,6 +188,7 @@
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 
 		@if(Session::has('sweetalert'))
+
 		  <script>
 		      swal('Success!!', '{{ Session::get('sweetalert') }}', 'success');
 		  </script>
@@ -193,12 +216,16 @@
 					}).done(function (data) {
 						$('#hour').html('');
 						data.map(function (map) {
-							$('#hour').append('<option value="' + map + '">' + map.substr(0, 5) + '</option>');
+							if (map.substr(0, 5) == '10:00') {
+								$('#hour').append('<option value="' + map + '">' + map.substr(0, 5) + " (istirahat)" + '</option>');
+							} else {
+								$('#hour').append('<option value="' + map + '">' + map.substr(0, 5) + '</option>');
+							}
 						});
 					});
 					sesi_cont.html(`
 						<label for="">Sesi</label>
-						<select name="" id="sesi" class="form-control">
+						<select name="sesi" id="sesi" class="form-control">
 							<option value="1">1</option>
 							<option value="2">2</option>
 						</select>
@@ -231,7 +258,7 @@
 						}).done(function (data) {
 							$('#room').html('');
 							data.map(function (map) {
-								$('#room').append('<option value="' + map.code + '">' + map.code + '</option>');
+								$('#room').append('<option value="' + map.id + '">' + map.code + '</option>');
 							});
 						});
 					});
@@ -259,7 +286,7 @@
 
 					$('#lesson-major-cont').html(`
 							<label for="">Pilih Jurusan</label>
-							<select name="lesson_id" id="major" class="form-control">
+							<select name="major_id" id="major" class="form-control">
 								<option value="">-- Select --</option>
 								@php
 									$dup = [];
@@ -267,7 +294,7 @@
 								@foreach ($typelesson->lessons as $lesson)
 									@foreach ($lesson->majors as $major)
 										@if (!in_array($major->id, $dup))
-											<option value="">{{ $major->level->class }} {{ $major->name }} </option>
+											<option value="{{ $major->id }}">{{ $major->level->class }} {{ $major->name }} </option>
 										@endif
 										@php
 											array_push($dup, $major->id);

@@ -19,6 +19,7 @@
 	</div>
 </div>
 
+@if ($room->type_room_id == 1)
 <div class="form-group">
 	<div class="row">
 		<div class="col-lg-12">
@@ -36,6 +37,7 @@
 		</div>
 	</div>
 </div>
+@endif
 
 <div class="form-group">
 	<div class="row">
