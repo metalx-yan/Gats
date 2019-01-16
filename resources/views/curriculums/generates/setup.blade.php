@@ -9,18 +9,8 @@
 @section('content')
 
 <h1 class="section-header">
-  <div>Atur Jadwal Kelas {{ $showexpert->major->level->class }} {{ $showexpert->major->name }} {{ $showexpert->part }} </div>
+  <div>Atur Jadwal Kelas {{ ucwords($showexpert->major->level->class) }} {{ ucwords($showexpert->major->name) }} {{ ucwords($showexpert->part) }} </div>
 </h1>
-
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
 
 @php
 	$no = 1;

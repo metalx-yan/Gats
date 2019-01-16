@@ -13,35 +13,90 @@ class MajorTableSeeder extends Seeder
      */
     public function run()
     {
-    		$a = Level::all();
-	    		
-    		for ($i=0; $i < count($a) ; $i++) { 
-    			
-    			Major::create([
-    				'code' => str_random(5),
-    				'name' => 'teknik listrik',
-    				'level_id' => $i + 1
-    			]);
 
-    			Major::create([
-    				'code' => str_random(5),
-    				'name' => 'teknik bangunan',
-    				'level_id' => $i + 1
-    			]);
+            $major = ['geomatika dan geospasial'];
 
-    			Major::create([
-    				'code' => str_random(5),
-    				'name' => 'teknik mesin',
-    				'level_id' => $i + 1
-    			]);
+            foreach ($major as $value) {
+                for ($i=1; $i <= 2; $i++) { 
+                    Major::create([
+                        'code' => str_random(5),
+                        'name' => $value,
+                        'level_id' => $i
+                    ]);
+                }
+            }
 
-    			Major::create([
-    				'code' => str_random(5),
-    				'name' => 'rpl',
-    				'level_id' => $i + 1
-    			]);
-    		}
-         
+            $major = ['konstruksi dan properti'];
+
+            foreach ($major as $value) {
+                for ($i=1; $i <= 2; $i++) { 
+                    Major::create([
+                        'code' => str_random(5),
+                        'name' => $value,
+                        'level_id' => $i
+                    ]);
+                }
+            }
+
+            $major = ['ketenagalistrikan'];
+
+            foreach ($major as $value) {
+                for ($i=1; $i <= 3; $i++) { 
+                    Major::create([
+                        'code' => str_random(5),
+                        'name' => $value,
+                        'level_id' => $i
+                    ]);
+                }
+            }
+
+            $major = ['mesin'];
+
+            foreach ($major as $value) {
+                for ($i=1; $i <= 3; $i++) { 
+                    Major::create([
+                        'code' => str_random(5),
+                        'name' => $value,
+                        'level_id' => $i
+                    ]);
+                }
+            }
+
+            $major = ['komputer dan informatika'];
+
+            foreach ($major as $value) {
+                for ($i=1; $i <= 3; $i++) { 
+                    Major::create([
+                        'code' => str_random(5),
+                        'name' => $value,
+                        'level_id' => $i
+                    ]);
+                }
+            }
+
+            $major = ['survei dan pemetaan'];
+
+            foreach ($major as $value) {
+                for ($i=3; $i <= 3; $i++) { 
+                    Major::create([
+                        'code' => str_random(5),
+                        'name' => $value,
+                        'level_id' => $i
+                    ]);
+                }
+            }
+
+            $major = ['bangunan'];
+
+            foreach ($major as $value) {
+                for ($i=3; $i <= 3; $i++) { 
+                    Major::create([
+                        'code' => str_random(5),
+                        'name' => $value,
+                        'level_id' => $i
+                    ]);
+                }
+            }
 
 
     }
