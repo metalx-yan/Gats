@@ -19,13 +19,14 @@ class CreateGeneratesTable extends Migration
             $table->time('start');
             $table->time('end');
             $table->boolean('read')->default(0);
+            $table->boolean('approve')->default(0);
             $table->timestamps();
         });
 
         Schema::table('generates', function (Blueprint $table) {
-            $table->unsignedInteger('teacher_id');
-            $table->unsignedInteger('room_id');
-            $table->unsignedInteger('lesson_id');
+            $table->unsignedInteger('teacher_id')->nullable();
+            $table->unsignedInteger('room_id')->nullable();
+            $table->unsignedInteger('lesson_id')->nullable();
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('role_id');
             $table->unsignedInteger('major_id');

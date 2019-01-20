@@ -96,31 +96,6 @@
 								</div>
 							</div>
 
-						{{-- 	<div class="col-lg-3">
-								<div class="form-group">
-									<input type="hidden" name="user_id" value="{{ Auth::user()->id }}" class="form-control">
-								</div>
-							</div>
-
-							<div class="col-lg-3">
-								<div class="form-group">
-									<input type="hidden" name="role_id" value="{{ Auth::user()->role->id }}" class="form-control">
-								</div>
-							</div>
- --}}
-{{-- 							<div class="col-lg-3">
-								<div class="form-group">
-									<input type="hidden" name="read" value="0" class="form-control">
-								</div>
-							</div>
- --}}
-							{{-- <div class="col-lg-3">
-								<div class="form-group">
-									<input type="hidden" name="end" value="0" class="form-control">
-								</div>
-							</div> --}}
-
-							
 						</div>	
 					
 					<button type="submit" class="form-control btn-success fontsopher">Generate</button><p></p>
@@ -207,7 +182,7 @@
 						$('#hour').html('');
 						data.map(function (map) {
 							if (map.substr(0, 5) == '10:00') {
-								$('#hour').append('<option value="' + map + '">' + map.substr(0, 5) + " (istirahat)" + '</option>');
+								$('#hour').append('<option value="' + map + '">' + map.substr(0, 5) + '</option>');
 							} else {
 								$('#hour').append('<option value="' + map + '">' + map.substr(0, 5) + '</option>');
 							}
@@ -239,18 +214,26 @@
 						`);
 
 					$('#type').on('change', function () {
-						$.ajax({
-							url: 'http://jadwal.test/api/rooms/'
-								+ $('#type').val()
-								+ '/' + day.val()
-								+ '/' + $('#hour').val()
-								+ '/' + $('#sesi').val()
-						}).done(function (data) {
-							$('#room').html('');
-							data.map(function (map) {
-								$('#room').append('<option value="' + map.id + '">' + map.code + '</option>');
+						if ($('#type').val() != '') {
+							$.ajax({
+								url: 'http://jadwal.test/api/rooms/'
+									+ $('#type').val()
+									+ '/' + day.val()
+									+ '/' + $('#hour').val()
+									+ '/' + $('#sesi').val()
+							}).done(function (data) {
+								$('#room').html('');
+								data.map(function (map) {
+									$('#room').append('<option value="' + map.id + '">' + map.code + '</option>');
+								});
+								console.log(data);
+								if (data.length == 0) {
+									$('#room').append('<option value="">Ruangan kosong</option>');
+								}
 							});
-						});
+						} else {
+							$('#room').html('');
+						}
 					});
 
 					$('#hour').on('change', function () {
@@ -266,7 +249,6 @@
 					$('#type-lesson-cont').html(`
 						<label for="">Tipe Mata Pelajaran</label>
 						<select name="lesson_id" id="" class="form-control">
-							<option value="">-- Select --</option>
 							@php
 								$typelesson = App\Models\TypeLesson::where('slug', 'umum')->first();
 							@endphp
@@ -277,12 +259,11 @@
 					$('#lesson-major-cont').html(`
 							<label for="">Pilih Jurusan</label>
 							<select name="major_id" id="major" class="form-control">
-								<option value="">-- Select --</option>
 								@php
 									$dup = [];
 								@endphp
 								@foreach ($typelesson->lessons as $lesson)
-									@foreach ($lesson->majors as $major)
+									@foreach ($lesson->majors->where('id', $showexpert->major->id) as $major)
 										@if (!in_array($major->id, $dup))
 											<option value="{{ $major->id }}">{{ $major->level->class }} {{ $major->name }} </option>
 										@endif
@@ -298,7 +279,7 @@
 						<label for="">Mata Pelajaran</label>
 						<select name="lesson_id" id="" class="form-control">
 							<option value="">-- Select --</option>
-							@foreach ($typelesson->lessons as $lesson)
+							@foreach ($showexpert->major->lessons as $lesson)
 								@if ($lesson->type_lesson->name == 'umum')
 									<option value="{{ $lesson->id }}">{{ ucwords($lesson->name)}}</option>
 								@endif
@@ -308,7 +289,7 @@
 
 					$('#type-teacher-cont').html(`
 						<label for="">Tipe Guru</label>
-						<select name="teacher_id" id="" class="form-control">
+						<select name="teacher_id" id="type_teacher" class="form-control">
 							<option value="">-- Select --</option>
 							@foreach (App\Models\TypeTeacher::all() as $typeteacher)
 								@if ($typeteacher->name == 'umum')
@@ -320,15 +301,32 @@
 
 					$('#teacher-cont').html(`
 						<label for="">Guru</label>
-						<select name="teacher_id" id="" class="form-control">
+						<select name="teacher_id" id="teacher" class="form-control">
 							<option value="">-- Select --</option>
-							@foreach ($typeteacher->teachers as $teacher)
-								@if ($teacher->type_teacher->name == 'umum')
-									<option value="{{ $teacher->id }}">{{ ucwords($teacher->name)}}</option>
-								@endif
-							@endforeach
 						</select>
 					`);
+
+					$('#type_teacher').on('change', function () {
+						if ($('#type_teacher').val() != '') {
+						$.ajax({
+							url: 'http://jadwal.test/api/type-teacher/'
+								+ $('#type_teacher').val()
+						}).done(function (data) {
+							$('#teacher').html('');
+							data.map(function (map) {
+								$('#teacher').append('<option value="' + map.id + '">' + map.name + '</option>');
+							});
+							console.log(data);
+							if (data.length == 0) {
+								$('#teacher').append('<option value="">Guru Lagi Di Pake</option>');
+							}
+						});
+					} else
+					{
+						$('#teacher').html('');
+					}
+					});
+
 
 
 				} else {

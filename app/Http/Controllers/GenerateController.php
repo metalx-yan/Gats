@@ -20,7 +20,7 @@ class GenerateController extends Controller
     {
         $showexpert = Expertise::find($expertise);
         $major1 = Major::all();
-        $gens = Generate::all();
+        $gens = Generate::where('major_id', $major)->get();
         return view('curriculums.generates.setup', compact(['showexpert', 'major1', 'gens']));
     }
 

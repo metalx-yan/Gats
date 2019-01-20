@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Generate;
 use App\Models\TypeRoom;
 use App\Models\TypeLesson;
+use App\Models\TypeTeacher;
 use Illuminate\Http\Request;
 
 class ApiController extends Controller
@@ -16,12 +17,7 @@ class ApiController extends Controller
     	$start = Carbon::parse('07:00:00');
     	for ($i=0; $i < 10; $i++) { 
         	array_push($hours, $start->format('H:i:s'));
-    		if ($start->format('H:i:s') == '10:00:00') {
-                $start->addMinutes(15);
-            }
-            else {
-                $start->addMinutes(45);
-            }
+            $start->addMinutes(45);
     	}
         return response()->json($hours);
     }
@@ -41,8 +37,12 @@ class ApiController extends Controller
                 }
             }
         }
-    	return response()->json($resp);
+        return response()->json($resp);
     }
 
-      
+    public function typeTeacher($id)
+    {
+        $type = TypeTeacher::find($id);
+    	return response()->json($type->teachers);
+    }      
 }

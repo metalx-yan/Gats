@@ -13,7 +13,7 @@ class TypeLessonTableSeeder extends Seeder
     public function run()
     {
         $type = [
-        	'jurusan', 'umum'
+        	'jurusan', 'umum', 'istirahat'
         ];
 
         foreach ($type as $types) {
