@@ -15,7 +15,6 @@
 
 Route::group(['prefix' => 'curriculum', 'middleware' => ['auth','role:curriculum']], function() {
 
-	Route::get('generate/{level_id}/{major_id}/{expertise_id}/create', 'GenerateController@showgencurri')->name('showgenexpert.generate');
 
 	Route::get('generate/{level_id}/{major_id}', 'GenerateController@showmixcurri')->name('showmixcurri.generate');
 
@@ -37,7 +36,6 @@ Route::group(['prefix' => 'curriculum', 'middleware' => ['auth','role:curriculum
 
 	Route::resource('teacher', 'TeacherController')->except(['create', 'show']);
 
-	Route::resource('generate', 'GenerateController')->except(['create', 'show']);
 
 	Route::resource('room', 'RoomController')->except(['create', 'show']);
 
@@ -50,11 +48,19 @@ Route::group(['prefix' => 'curriculum', 'middleware' => ['auth','role:curriculum
 	})->name('curriculum');
 });
 
+
+Route::group(['middleware' => ['auth','role:major,curriculum']], function() {
+
+	Route::resource('generate', 'GenerateController')->except(['create', 'show']);
+
+	Route::get('{role_name}/generate/{level_id}/{major_id}/{expertise_id}/create', 'GenerateController@showgencurri')->name('showgenexpert.generate');
+});
+
 // JURUSAN
 
 Route::group(['prefix' => 'major', 'middleware' => ['auth','role:major']], function() {
 
-	Route::get('generate/{level_id}/{major_id}/{expertise_id}', 'GenerateController@showgenmajor')->name('showgenmajor.generate');
+	// Route::get('generate/{level_id}/{major_id}/{expertise_id}', 'GenerateController@showgenmajor')->name('showgenmajor.generate');
 
 	Route::get('generate/{level_id}/{major_id}', 'GenerateController@showmixmajor')->name('showmixmajor.generate');
 	

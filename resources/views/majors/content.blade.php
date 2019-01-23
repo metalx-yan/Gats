@@ -5,7 +5,7 @@
 @section('content')
 
 <h1 class="section-header">
-  <div>Atur Jadwal</div>
+  <div>Dashboard</div>
 </h1>
 
 	{{-- 	

@@ -13,11 +13,20 @@ class CheckRole
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next, $role)
+    public function handle($request, Closure $next, $role, $role2 = null)
     {
-        if (!$request->user()->hasRole($role)) {
-            return redirect()->back();
-        }   
-            return $next($request);
+        if (!is_null($role2)) {
+            if ($request->user()->hasRole($role) or $request->user()->hasRole($role2)) {
+                return $next($request);
+            }   else {
+                return abort(403);
+            }
+        } else {
+            if ($request->user()->hasRole($role)) {
+                return $next($request);
+            }   else {
+                return abort(403);
+            }
+        }
     }
 }

@@ -14,7 +14,7 @@
     <div class="card-icon bg-primary-teacher">
       <i class="ion ion-person"></i>
     </div>
-    <div class="card-wrap">
+    <div class="card-wrap ">
       <div class="card-header header">
         <h4>Total Guru Aktif</h4>
       </div>

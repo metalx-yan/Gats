@@ -8,7 +8,7 @@
 
 @section('content')
 	<h1 class="section-header">
-	  <div>Edit Data Ruang {{ ucwords($room->type_room->name) }}</div>
+	  <div>Data Ruang {{ ucwords($room->type_room->name) }}</div>
 	</h1>
 
 @php
@@ -48,7 +48,7 @@
 	<div class="col-lg-4">
 		<div class="card">
 			<div class="card-header headercolorincurrent fontsopher">
-				Tambah Ruang
+				Edit Ruang
 			</div>
 				<form action="{{ route('room.update', $room->id) }}" method="POST">
 				@csrf

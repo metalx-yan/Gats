@@ -19,7 +19,7 @@
 							<h6>{{ $indexs->major->level->class }} {{ $indexs->name }} {{ $indexs->part }}</h6>
 							<hr>
 							<center>
-							<a href="{{ route('showgenexpert.generate', [$indexs->major->level->id, $indexs->major->id, $indexs->id]) }}" class="btn btn-info">Atur Jadwal</a>
+									<a href="{{ route('showgenexpert.generate', [Auth::user()->role->name, $indexs->major->level->id, $indexs->major->id, $indexs->id]) }}" class="btn btn-info">Atur Jadwal</a>
 							<a href="" class="btn btn-warning">Lihat Jadwal</a>
 							</center>
 						<hr>

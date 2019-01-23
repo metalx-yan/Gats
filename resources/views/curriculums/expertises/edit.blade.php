@@ -52,7 +52,7 @@
 	<div class="col-lg-4">
 		<div class="card">
 			<div class="card-header headercolorincurrent fontsopher">
-				Tambah Keahlian Jurusan
+				Edit Keahlian Jurusan
 			</div>
 				<form action="{{ route('expertise.update', [$expertise->id]) }}" method="POST">
 				@csrf

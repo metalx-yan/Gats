@@ -73,9 +73,9 @@
                         @foreach ($level->majors as $major)
                           <li>
                             <a href="{{ route('showmixmajor.generate', [$major->level->id, $major->id]) }}">
-                              @if (App\Models\Generate::where('role_id', 1)->where('read', 0)->count() != 0)
-                                <span class="badge badge-primary">{{ App\Models\Generate::where('role_id', 1)->where('read', 0)->count() }}</span>
-                              @endif
+                              {{-- @if (App\Models\Generate::where('role_id', 1)->where('read', 0)->count() != 0) --}}
+                                {{-- <span class="badge badge-primary">{{ App\Models\Generate::where('role_id', 1)->where('read', 0)->count() }}</span> --}}
+                              {{-- @endif --}}
                               <i class="ion ion-ios-play-outline"></i>{{ ucwords($major->name) }}
                             </a>
                           </li>

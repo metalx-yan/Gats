@@ -15,7 +15,7 @@
 
 @section('content')
 	<h1 class="section-header">
-	  <div>Edit Data Mata Pelajaran {{ ucwords($lesson->type_lesson->name) }}</div>
+	  <div>Data Mata Pelajaran {{ ucwords($lesson->type_lesson->name) }}</div>
 	</h1>
 
 @php
@@ -26,7 +26,7 @@
 	<div class="col-lg-12">
 		<div class="card">
 			<div class="card-header headercolorincurrent fontsopher">
-				Tambah Mata Pelajaran
+				Edit Mata Pelajaran
 			</div>
 				<form action="{{ route('lesson.update', $lesson->id) }}" method="POST">
 				@csrf

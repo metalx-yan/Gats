@@ -20,16 +20,18 @@ class GenerateController extends Controller
     {
         $showexpert = Expertise::find($expertise);
         $major1 = Major::all();
-        $gens = Generate::where('major_id', $major)->get();
+        $gens = Generate::where('role_id', Auth::user()->role->id)->where('major_id', $major)->get();
         return view('curriculums.generates.setup', compact(['showexpert', 'major1', 'gens']));
     }
 
-    public function showgenmajor($level, $major, $expertise)
-    {
-        $showmajor = Expertise::find($expertise);
-        
-        return view('majors.generates.setup', compact(['showmajor']));
-    }
+    // public function showgenmajor($level, $major, $expertise)
+    // {
+    //     $showexpert = Expertise::find($expertise);
+    //     $major1 = Major::all();
+    //     $gens = Generate::where('role_id', Auth::user()->role->id)->where('major_id', $major)->get();
+
+    //     return view('curriculums.generates.setup', compact(['showexpert', 'major1', 'gens']));
+    // }
 
     public function showmixcurri($level, $major)
     {
@@ -40,9 +42,10 @@ class GenerateController extends Controller
 
     public function showmixmajor($level, $major)
     {
-        $mixmajor = Major::find($major);
+        $mixcurriculum = Major::find($major);
         
-        return view('majors.generates.index', compact(['mixmajor']));
+        return view('curriculums.generates.index', compact(['mixcurriculum']));
+
     }
 
     public function index()

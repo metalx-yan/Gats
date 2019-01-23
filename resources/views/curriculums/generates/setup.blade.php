@@ -16,10 +16,11 @@
 	$no = 1;
 @endphp
 
+
 <div class="row">
 	<div class="col-md-12">
 		<div class="card">
-			<h5 class="card-header head" align="center">----====----</h5>
+			<h5 class="card-header head" align="center">Atur Jadwal</h5>
 			<div class="card-body">
 				<form action="{{ route('generate.store') }}" method="POST">
 					@csrf
@@ -124,21 +125,25 @@
 						</tr>
 					</thead>
 					<tbody class="fontsopher">
+
 						@foreach ($gens as $gen)
-						<tr>
-							<td>{{ $no }}</td>
-							@php
-								$no++;	
-							@endphp
-							<td>{{ ucwords($gen->day) }}</td>
-							<td>{{ $gen->start }}</td>
-							<td>{{ $gen->end }}</td>
-							<td>{{ ucwords($gen->teacher->name) }}</td>
-							<td>{{ $gen->room->code }} - {{ $gen->room->name }}</td>
-							<td>{{ $gen->lesson->name }}</td>
-							<td>{{ $gen->major->level->class }} {{ $gen->major->name }}</td>
-						</tr>
+						@if ($gen)
+							<tr>
+								<td>{{ $no }}</td>
+								@php
+									$no++;	
+								@endphp
+								<td>{{ ucwords($gen->day) }}</td>
+								<td>{{ $gen->start }}</td>
+								<td>{{ $gen->end }}</td>
+								<td>{{ ucwords($gen->teacher->name) }}</td>
+								<td>{{ $gen->room->code }} - {{ $gen->room->name }}</td>
+								<td>{{ $gen->lesson->name }}</td>
+								<td>{{ $gen->major->level->class }} {{ $gen->major->name }} {{ $gen->role_id }}</td>
+							</tr>
+						@endif
 						@endforeach
+
 					</tbody>
 				</table>
 			</div>
@@ -200,8 +205,10 @@
 							<label for="">Tipe Ruang</label>
 							<select name="room_id" id="type" class="form-control">
 								<option value="">-- Select --</option>
-								@if (Auth::user()->role->name == 'curriculum')
+								@if (Auth::user()->role->id == 1)
 									<option value="teori">Teori</option>
+								@elseif(Auth::user()->role->id == 2)
+									<option value="praktek">Praktek</option>
 								@endif
 							</select>
 						`);
@@ -250,7 +257,12 @@
 						<label for="">Tipe Mata Pelajaran</label>
 						<select name="lesson_id" id="" class="form-control">
 							@php
+							if (Auth::user()->role->id == 1) {
 								$typelesson = App\Models\TypeLesson::where('slug', 'umum')->first();
+							}
+							elseif(Auth::user()->role->id == 2){
+								$typelesson = App\Models\TypeLesson::where('slug', 'jurusan')->first();
+							}
 							@endphp
 							<option value="{{ $typelesson->id }}">{{ ucwords($typelesson->name)}}</option>
 						</select>
@@ -280,7 +292,7 @@
 						<select name="lesson_id" id="" class="form-control">
 							<option value="">-- Select --</option>
 							@foreach ($showexpert->major->lessons as $lesson)
-								@if ($lesson->type_lesson->name == 'umum')
+								@if ($lesson->type_lesson->id == $typelesson->id)
 									<option value="{{ $lesson->id }}">{{ ucwords($lesson->name)}}</option>
 								@endif
 							@endforeach
@@ -291,11 +303,15 @@
 						<label for="">Tipe Guru</label>
 						<select name="teacher_id" id="type_teacher" class="form-control">
 							<option value="">-- Select --</option>
-							@foreach (App\Models\TypeTeacher::all() as $typeteacher)
-								@if ($typeteacher->name == 'umum')
-									<option value="{{ $typeteacher->id }}">{{ ucwords($typeteacher->name)}}</option>
-								@endif
-							@endforeach
+							@php
+							if (Auth::user()->role->id == 1) {
+								$typeteacher = App\Models\TypeTeacher::where('slug', 'umum')->first();
+							}
+							elseif(Auth::user()->role->id == 2){
+								$typeteacher = App\Models\TypeTeacher::where('slug', 'jurusan')->first();
+							}
+							@endphp
+							<option value="{{ $typeteacher->id }}">{{ ucwords($typeteacher->name)}}</option>
 						</select>
 					`);
 
