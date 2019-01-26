@@ -10,8 +10,6 @@ class Lesson extends Model
 		'code',
 		'name',
 		'semester',
-		'beginning',
-		'end',
         'type_lesson_id',
     ];
 

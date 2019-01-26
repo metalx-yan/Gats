@@ -9,7 +9,7 @@
 @section('content')
 
 <h1 class="section-header">
-  <div>Atur Jadwal Kelas {{ ucwords($showexpert->major->level->class) }} {{ ucwords($showexpert->major->name) }} {{ ucwords($showexpert->part) }} </div>
+  {{-- <div>Atur Jadwal Kelas {{ ucwords($showexpert->major->level->class) }} {{ ucwords($showexpert->major->name) }} {{ ucwords($showexpert->part) }} </div> --}}
 </h1>
 
 @php
@@ -28,12 +28,13 @@
 							<div class="col-lg-3">
 								<div class="form-group">
 									<label for="">Hari</label>
-									<select name="day" id="day" class="form-control">
+									<select name="day" id="day" class="form-control {{ $errors->has('day') ? 'is-invalid' : ''}}">
 										<option value="">-- Select --</option>
 										@foreach (App\Models\Generate::day() as $day)
 											<option value="{{ $day }}">{{ ucwords($day) }}</option>
 										@endforeach
 									</select>
+									{!! $errors->first('day', '<span class="invalid-feedback">:message</span>') !!}
 								</div>
 							</div>
 
@@ -122,12 +123,12 @@
 							<th>Ruang</th>
 							<th>Mata Pelajaran</th>
 							<th>Kelas Jurusan</th>
+							<th>Aksi</th>
 						</tr>
 					</thead>
 					<tbody class="fontsopher">
 
-						@foreach ($gens as $gen)
-						@if ($gen)
+					{{-- 	@foreach ($gens as $gen)
 							<tr>
 								<td>{{ $no }}</td>
 								@php
@@ -139,10 +140,27 @@
 								<td>{{ ucwords($gen->teacher->name) }}</td>
 								<td>{{ $gen->room->code }} - {{ $gen->room->name }}</td>
 								<td>{{ $gen->lesson->name }}</td>
-								<td>{{ $gen->major->level->class }} {{ $gen->major->name }} {{ $gen->role_id }}</td>
+								<td>{{ $gen->major->level->class }} {{ $gen->major->name }}</td>
+								<td>
+									<div class="row">
+			              				<div class="col-xs-4">
+			                				<a href="{{ route('edit.generate', [Auth::user()->role->name, $gen->major->level->id, $gen->major->id, $gen->id]) }}" class="btn btn-warning btn-sm">
+												<i class="ion ion-edit"></i>
+			                				</a>
+			              				</div>
+			              				<div class="col-xs-1 offset-sm-1"></div>
+			              
+			              				<div class="col-xs-4">
+			                				<form class="" action="" method="POST">
+			                      				@csrf
+			                      				@method('DELETE')
+												<button class="ion ion-android-delete btn btn-danger btn-sm" name="delete" type="submit"></button>
+			                  				</form>
+			                  			</div>
+							      	</div>
+								</td>
 							</tr>
-						@endif
-						@endforeach
+						@endforeach --}}
 
 					</tbody>
 				</table>
@@ -275,9 +293,9 @@
 									$dup = [];
 								@endphp
 								@foreach ($typelesson->lessons as $lesson)
-									@foreach ($lesson->majors->where('id', $showexpert->major->id) as $major)
+									@foreach ($lesson->majors->where('id', $edit->major->id) as $major)
 										@if (!in_array($major->id, $dup))
-											<option value="{{ $major->id }}">{{ $major->level->class }} {{ $major->name }} </option>
+											<option value="{{ $major->id }}" {{ old("major_id", $edit->major_id) == $major->id ? "selected" : "" }}>{{ $major->level->class }} {{ $major->name }} </option>
 										@endif
 										@php
 											array_push($dup, $major->id);
@@ -291,7 +309,7 @@
 						<label for="">Mata Pelajaran</label>
 						<select name="lesson_id" id="" class="form-control">
 							<option value="">-- Select --</option>
-							@foreach ($showexpert->major->lessons as $lesson)
+							@foreach ($edit->major->lessons as $lesson)
 								@if ($lesson->type_lesson->id == $typelesson->id)
 									<option value="{{ $lesson->id }}">{{ ucwords($lesson->name)}}</option>
 								@endif

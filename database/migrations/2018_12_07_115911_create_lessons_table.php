@@ -18,8 +18,6 @@ class CreateLessonsTable extends Migration
             $table->string('code', 8)->unique();
             $table->string('name');
             $table->enum('semester', ['ganjil', 'genap']);
-            $table->year('beginning');
-            $table->year('end');
             $table->timestamps();
         });
 

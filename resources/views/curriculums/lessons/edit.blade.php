@@ -57,7 +57,6 @@
 				      <th>Guru</th>
 				      <th>Akun Jurusan</th>
 				      <th>Kelas Jurusan</th>
-				      <th>Tahun Ajaran</th>
 				    </tr>
 				  </thead>
 				  <tbody class="fontsopher">
@@ -76,17 +75,8 @@
 					      {{ ucwords($user->name) }},<br>
 				      @endforeach</td>
 				      <td>@foreach ($lesson->majors as $major)
-					      {{ ucwords($major->name) }},<br>
+					      {{ ucwords($major->level->class) }} {{ ucwords($major->name) }},<br>
 				      @endforeach</td>
-				      <td>{{ $lesson->beginning }}/{{ $lesson->end }}</td>
-				      {{-- <td>
-				      	@if ($lesson->status == "Aktif")
-				      		<span class="badge badge-success"><b>{{ $lesson->status }}</b></span>
-						@else
-				      		<span class="badge badge-danger"><b>{{ $lesson->status }}</b></span>
-						
-						@endif
-				      </td> --}}
 				    </tr>
 				  </tbody>
 				</table>
@@ -100,12 +90,12 @@
 @section('scripts')
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 
-	<script type="text/javascript">
+	{{-- <script type="text/javascript">
       $('.date-own').datepicker({
          minViewMode: 2,
          format: 'yyyy'
        });
-  	</script>
+  	</script> --}}
 
   	<script>
 		$(document).ready(function() {

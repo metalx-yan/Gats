@@ -57,14 +57,14 @@
 				<select class="form-control {{ $errors->has('teachers') ? 'is-invalid' : ''}}" id="select4" name="teachers[]" multiple="multiple">
 					@if ($typelesson->id == 1)
 						@foreach ($teachers as $key)
-							@if ($key->type_teacher_id == 1)
+							@if ($key->type_teacher_id == 1 && $key->status == "aktif")
 						  		<option value="{{ $key->id }}"> {{ $key->name }}</option>
 							@endif
 						@endforeach
 
 					@elseif($typelesson->id == 2)
 						@foreach ($teachers as $key)
-							@if ($key->type_teacher_id == 2)
+							@if ($key->type_teacher_id == 2 && $key->status == "aktif")
 						  		<option value="{{ $key->id }}"> {{ $key->name }}</option>
 							@endif
 						@endforeach
@@ -83,7 +83,7 @@
 				{!! $errors->first('semester', '<span class="invalid-feedback">:message</span>') !!}
 			</div>
 			
-			<div class="col-lg-3">
+			{{-- <div class="col-lg-3">
 				<label for="">Tahun Ajaran Awal</label>
 				<input type="text" name="beginning" value="{{ old('beginning') ?? $lesson->beginning }}" class="date-own form-control {{ $errors->has('beginning') ? 'is-invalid' : ''}}" autocomplete="off">
 				{!! $errors->first('beginning', '<span class="invalid-feedback">:message</span>') !!}
@@ -93,7 +93,7 @@
 				<label for="">Tahun Ajaran Akhir</label>
 				<input type="text" name="end" value="{{ old('end') ?? $lesson->end }}" class="date-own form-control {{ $errors->has('end') ? 'is-invalid' : ''}}" autocomplete="off">
 				{!! $errors->first('end', '<span class="invalid-feedback">:message</span>') !!}
-			</div>
+			</div> --}}
 
 		</div>
 	</div>

@@ -64,7 +64,7 @@
 				{!! $errors->first('majors', '<span class="invalid-feedback">:message</span>') !!}
 			</div>
 
-			<div class="col-lg-3">
+			{{-- <div class="col-lg-3">
 				<label for="">Tahun Ajaran Awal</label>
 				<input type="text" name="beginning" value="{{ old('beginning') ?? $lesson->beginning }}" class="date-own form-control {{ $errors->has('beginning') ? 'is-invalid' : ''}}" autocomplete="off">
 				{!! $errors->first('beginning', '<span class="invalid-feedback">:message</span>') !!}
@@ -74,7 +74,7 @@
 				<label for="">Tahun Ajaran Akhir</label>
 				<input type="text" name="end" value="{{ old('end') ?? $lesson->end }}" class="date-own form-control {{ $errors->has('end') ? 'is-invalid' : ''}}" autocomplete="off">
 				{!! $errors->first('end', '<span class="invalid-feedback">:message</span>') !!}
-			</div>
+			</div> --}}
 
 			
 		</div>

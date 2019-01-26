@@ -19,13 +19,13 @@ class CheckRole
             if ($request->user()->hasRole($role) or $request->user()->hasRole($role2)) {
                 return $next($request);
             }   else {
-                return abort(403);
+                return back();
             }
         } else {
             if ($request->user()->hasRole($role)) {
                 return $next($request);
             }   else {
-                return abort(403);
+                return back();
             }
         }
     }

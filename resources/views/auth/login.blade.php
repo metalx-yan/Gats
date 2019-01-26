@@ -49,6 +49,9 @@
                       Login
                     </button>
                   </div>
+                  <div class="form-group">
+                    <a href="{{ route('home') }}" class="btn btn-secondary btn-block">Back to Home</a>
+                  </div>
                 </form>
               </div>
             </div>

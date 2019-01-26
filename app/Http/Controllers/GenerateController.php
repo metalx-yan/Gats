@@ -16,12 +16,12 @@ class GenerateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function showgencurri($level, $major, $expertise)
+    public function showgen($level, $major, $expertise)
     {
         $showexpert = Expertise::find($expertise);
         $major1 = Major::all();
         $gens = Generate::where('role_id', Auth::user()->role->id)->where('major_id', $major)->get();
-        return view('curriculums.generates.setup', compact(['showexpert', 'major1', 'gens']));
+        return view('curriculums.generates.create', compact(['showexpert', 'major1', 'gens']));
     }
 
     // public function showgenmajor($level, $major, $expertise)
@@ -80,13 +80,13 @@ class GenerateController extends Controller
             'major_id' => 'required'
         ]);
         
-        if ($request->start == '10:00:00') {
-            $sesi = 15 * $request->sesi;
-        }
-        else {
-            $sesi = 45 * $request->sesi;
+        // if ($request->start == '10:00:00') {
+        //     $sesi = 15 * $request->sesi;
+        // }
+        // else {
 
-        }
+        // }
+        $sesi = 45 * $request->sesi;
         $create = new Generate;
         $create->day = $request->day;
         $create->start = $request->start;
@@ -113,6 +113,15 @@ class GenerateController extends Controller
         //
     }
 
+    public function editgen($level, $major, $expertise)
+    {
+        $edit = Generate::find($expertise);
+        $major1 = Major::all();
+        $gens = Generate::where('role_id', Auth::user()->role->id)->where('major_id', $major)->get();
+
+        return view('curriculums.generates.edit', compact('edit'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -121,7 +130,9 @@ class GenerateController extends Controller
      */
     public function edit($id)
     {
-        //
+        // $edit = Generate::find($id);
+
+        // return view('curriculums.generates.edit', compact('edit'));
     }
 
     /**
@@ -144,6 +155,8 @@ class GenerateController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Generate::find($id)->delete();
+
+        return redirect()->back()->with('sweetalert', 'Berhasil Menambah Data Atur Jadwal');
     }
 }

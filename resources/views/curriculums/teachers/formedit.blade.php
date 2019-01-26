@@ -35,8 +35,8 @@
 		<div class="col-lg-12">
 			<label for="">Status</label>
 			<select class="form-control {{ $errors->has('status') ? 'is-invalid' : ''}}" name="status">
-				@foreach (["Aktif" => "status", "Non Aktif" => "status"] as $key => $value)
-				  <option value="{{ $key }}" {{ old("status", $teacher->status) == $key ? "selected" : "" }}> {{ $key }}</option>
+				@foreach (["aktif" => "status", "non aktif" => "status"] as $key => $value)
+				  <option value="{{ $key }}" {{ old("status", $teacher->status) == $key ? "selected" : " " }}> {{ ucwords($key) }}</option>
 				@endforeach
 			</select>
 			{!! $errors->first('status', '<span class="invalid-feedback">:message</span>') !!}

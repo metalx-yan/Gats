@@ -61,6 +61,16 @@
               </li>
 
            <li class="menu-header">Ex</li>
+            <li><a href="#" class="has-dropdown"><i class="ion ion-document-text"></i>Lihat Jadwal</a>
+              <ul class="menu-dropdown">
+                @foreach (App\Models\TypeRoom::all() as $typeroom)
+                  @if ($typeroom->id === 1)
+                    <li><a href="{{ route('room.view', $typeroom->id) }}"><i class="ion ion-ios-play-outline"></i>{{ ucwords($typeroom->name) }}</a></li>
+                  @endif
+                @endforeach
+              </ul>
+            </li>
+
             <li>
               <a href="" class="has-dropdown"><i class="ion ion-ios-information-outline"></i>Generate</a>
                 <ul class="menu-dropdown">
@@ -73,9 +83,7 @@
                         @foreach ($level->majors as $major)
                           <li>
                             <a href="{{ route('showmixmajor.generate', [$major->level->id, $major->id]) }}">
-                              {{-- @if (App\Models\Generate::where('role_id', 1)->where('read', 0)->count() != 0) --}}
-                                {{-- <span class="badge badge-primary">{{ App\Models\Generate::where('role_id', 1)->where('read', 0)->count() }}</span> --}}
-                              {{-- @endif --}}
+                           
                               <i class="ion ion-ios-play-outline"></i>{{ ucwords($major->name) }}
                             </a>
                           </li>
@@ -134,23 +142,28 @@
                         @endforeach
                     </ul>
                 </li>
-          
 
           <li class="menu-header">Ex</li>
+
+            <li class="">
+              <a href=""><i class="ion ion-ios-eye"></i><span>Lihat Jadwal</span></a>
+            </li>
+
             <li>
               <a href="#" class="has-dropdown"><i class="ion ion-calendar"></i><span>Generate</span></a>
                <ul class="menu-dropdown">
                     @foreach (App\Models\Level::all() as $level)
                       <li>
                         <a href="#" class="has-dropdown">
-                          @if (App\Models\Generate::where('role_id', 2)->where('read', 0)->count() != 0)
-                            <span class="badge badge-primary">{{ App\Models\Generate::where('role_id', 2)->where('read', 0)->count() }}</span>
-                          @endif
                           <i class="ion ion-android-contact"></i>{{ $level->class }}                          
                         </a>
                         <ul class="menu-dropdown">
                             @foreach ($level->majors as $major)
-                              <li><a href="{{ route('showmixcurri.generate', [$major->level->id, $major->id]) }}"><i class="ion ion-plus-circled"></i>{{ ucwords($major->name) }}</a>
+                              <li><a href="{{ route('showmixcurri.generate', [$major->level->id, $major->id]) }}"><i class="ion ion-plus-circled"></i>{{ ucwords($major->name) }}
+	                          @if (App\Models\Generate::where('major_id', $major->id)->where('role_id', 2)->where('read', 0)->count() != 0)
+	                            <span class="badge badge-primary">{{ App\Models\Generate::where('role_id', 2)->where('read', 0)->count() }}</span>
+	                          @endif
+                              </a>
                               </li>
                             @endforeach
                         </ul>

@@ -10,6 +10,11 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', function() {
+	return view('welcome');
+})->name('home');
+
+Auth::routes();
 
 //KURIKULUM
 
@@ -53,7 +58,9 @@ Route::group(['middleware' => ['auth','role:major,curriculum']], function() {
 
 	Route::resource('generate', 'GenerateController')->except(['create', 'show']);
 
-	Route::get('{role_name}/generate/{level_id}/{major_id}/{expertise_id}/create', 'GenerateController@showgencurri')->name('showgenexpert.generate');
+	Route::get('{role_name}/generate/{level_id}/{major_id}/{expertise_id}/create', 'GenerateController@showgen')->name('showgenexpert.generate');
+
+	Route::get('{role_name}/generate/{level_id}/{major_id}/{expertise_id}/edit', 'GenerateController@editgen')->name('edit.generate');
 });
 
 // JURUSAN
@@ -81,11 +88,6 @@ Route::get('/404', function() {
 	return view('errors.404');
 })->name('404');
 
-Route::get('/', function() {
-	return view('welcome');
-});
-
-Auth::routes();
 
 
 // Route::get('/curriculum/teacher', function() {

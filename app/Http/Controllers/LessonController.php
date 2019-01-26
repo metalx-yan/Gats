@@ -60,8 +60,6 @@ class LessonController extends Controller
             'code'              =>  'required|unique:lessons|between:2,8',
             'name'              =>  'required',
             'semester'          =>  'required',
-            'beginning'         =>  'required',
-            'end'               =>  'required',
             'type_lesson_id'    =>  'required',
             // 'major_id'          =>  'required',
         ]);
@@ -152,8 +150,6 @@ class LessonController extends Controller
             'name'               =>  'required',
             // 'total_hours'        =>  'required|numeric|digits:1',
             'semester'           =>  'required',
-            'beginning'          =>  'required',
-            'end'                =>  'required',
             'type_lesson_id'     =>  'required',
         ]);
 
@@ -162,19 +158,13 @@ class LessonController extends Controller
         $update->name                    = $request->name;
         // $update->total_hours             = $request->total_hours;
         $update->semester                = $request->semester;
-        $update->beginning               = $request->beginning;
-        $update->end                     = $request->end;
         $update->type_lesson_id          = $request->type_lesson_id;
         $update->save();
 
         $update->majors()->sync($request->majors);
         $update->users()->sync($request->users);
         $update->teachers()->sync($request->teachers);
-        // if (isset($request->majors)) {
-        // } else 
-        // {
-        //     $update->majors()->sync(array());
-        //  }
+        
 
         return back()->with('sweetalert', 'Berhasil Mengubah Data Mata Pelajaran');
     }

@@ -57,7 +57,6 @@
 				      <th>Guru</th>
 				      <th>Akun Jurusan</th>
 				      <th>Kelas Jurusan</th>
-				      <th>Tahun Ajaran</th>
 				      <th>Aksi</th>
 				    </tr>
 				  </thead>
@@ -80,7 +79,6 @@
 				      <td>@foreach ($indexs->majors as $major)
 					     {{ $major->level->class }} {{ ucwords($major->name) }},<br>
 				      @endforeach</td>
-				      <td>{{ $indexs->beginning }}/{{ $indexs->end }}</td>
 				     
 				      <td>
 				      	<div class="row">
@@ -122,13 +120,13 @@
 			$('#select4').select2();
 		});
 	</script>
-
+{{-- 
 	<script type="text/javascript">
       $('.date-own').datepicker({
          minViewMode: 2,
          format: 'yyyy'
        });
-  	</script>
+  	</script> --}}
 
 	@if(Session::has('sweetalert'))
 	  <script>
