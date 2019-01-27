@@ -20,18 +20,9 @@ class GenerateController extends Controller
     {
         $showexpert = Expertise::find($expertise);
         $major1 = Major::all();
-        $gens = Generate::where('role_id', Auth::user()->role->id)->where('major_id', $major)->get();
+        $gens = Generate::where('role_id', Auth::user()->role->id)->where('major_id', $major)->orWhereNull('major_id')->orderBy('start')->get() ;
         return view('curriculums.generates.create', compact(['showexpert', 'major1', 'gens']));
     }
-
-    // public function showgenmajor($level, $major, $expertise)
-    // {
-    //     $showexpert = Expertise::find($expertise);
-    //     $major1 = Major::all();
-    //     $gens = Generate::where('role_id', Auth::user()->role->id)->where('major_id', $major)->get();
-
-    //     return view('curriculums.generates.setup', compact(['showexpert', 'major1', 'gens']));
-    // }
 
     public function showmixcurri($level, $major)
     {
@@ -71,33 +62,45 @@ class GenerateController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'day'   => 'required',
-            'start' => 'required',
-            'teacher_id' => 'required',
-            'room_id' => 'required',
-            'lesson_id' => 'required',
-            'major_id' => 'required'
-        ]);
-        
-        // if ($request->start == '10:00:00') {
-        //     $sesi = 15 * $request->sesi;
-        // }
-        // else {
+        if ($request->lesson_id == 3) {
+            $this->validate($request, [
+                'day'   => 'required',
+                'start' => 'required',
+            ]);
+            $sesi = 15 ;
+            $create = new Generate;
+            $create->day = $request->day;
+            $create->start = $request->start;
+            $create->end = Carbon::parse($request->start)->addMinutes($sesi);
+            $create->user_id = Auth::user()->id;
+            $create->role_id = Auth::user()->role->id;
+            $create->save();
+        } else {
 
-        // }
-        $sesi = 45 * $request->sesi;
-        $create = new Generate;
-        $create->day = $request->day;
-        $create->start = $request->start;
-        $create->end = Carbon::parse($request->start)->addMinutes($sesi);
-        $create->teacher_id = $request->teacher_id;
-        $create->room_id = $request->room_id;
-        $create->lesson_id = $request->lesson_id;
-        $create->major_id = $request->major_id;
-        $create->user_id = Auth::user()->id;
-        $create->role_id = Auth::user()->role->id;
-        $create->save();
+            $this->validate($request, [
+                'day'   => 'required',
+                'start' => 'required',
+                'teacher_id' => 'required',
+                'room_id' => 'required',
+                'lesson_id' => 'required',
+                'major_id' => 'required'
+            ]);
+
+            $sesi = 45 * $request->sesi;
+            
+            $create = new Generate;
+            $create->day = $request->day;
+            $create->start = $request->start;
+            $create->end = Carbon::parse($request->start)->addMinutes($sesi);
+            $create->teacher_id = $request->teacher_id;
+            $create->room_id = $request->room_id;
+            $create->lesson_id = $request->lesson_id;
+            $create->major_id = $request->major_id;
+            $create->user_id = Auth::user()->id;
+            $create->role_id = Auth::user()->role->id;
+            $create->save();
+        }
+        
 
         return back()->with('sweetalert', 'Berhasil Menambah Data Atur Jadwal');
     }
@@ -113,12 +116,11 @@ class GenerateController extends Controller
         //
     }
 
-    public function editgen($level, $major, $expertise)
+    public function editgen($level, $major, $expertise, $generate)
     {
-        $edit = Generate::find($expertise);
+        $edit = Generate::find($generate);
         $major1 = Major::all();
         $gens = Generate::where('role_id', Auth::user()->role->id)->where('major_id', $major)->get();
-
         return view('curriculums.generates.edit', compact('edit'));
     }
 

@@ -16,6 +16,16 @@
 	$no = 1;
 @endphp
 
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 
 <div class="row">
 	<div class="col-md-12">
@@ -129,39 +139,48 @@
 					<tbody class="fontsopher">
 
 						@foreach ($gens as $gen)
-						{{-- @if ($gen) --}}
 							<tr>
 								<td>{{ $no }}</td>
 								@php
 									$no++;	
 								@endphp
-								<td>{{ ucwords($gen->day) }}</td>
-								<td>{{ $gen->start }}</td>
-								<td>{{ $gen->end }}</td>
-								<td>{{ ucwords($gen->teacher->name) }}</td>
-								<td>{{ $gen->room->code }} - {{ $gen->room->name }}</td>
-								<td>{{ $gen->lesson->name }}</td>
-								<td>{{ $gen->major->level->class }} {{ $gen->major->name }}</td>
-								<td>
-									<div class="row">
-			              				<div class="col-xs-4">
-			                				<a href="{{ route('edit.generate', [Auth::user()->role->name, $gen->major->level->id, $gen->major->id, $gen->id]) }}" class="btn btn-warning btn-sm">
-												<i class="ion ion-edit"></i>
-			                				</a>
-			              				</div>
-			              				<div class="col-xs-1 offset-sm-1"></div>
-			              
-			              				<div class="col-xs-4">
-			                				<form class="" action="{{ route('generate.destroy', $gen->id) }}" method="POST">
-			                      				@csrf
-			                      				@method('DELETE')
-												<button class="ion ion-android-delete btn btn-danger btn-sm" name="" type="submit"></button>
-			                  				</form>
-			                  			</div>
-							      	</div>
-								</td>
+								@if (is_null($gen->major_id))
+									<td>Istirahat</td>
+									<td>{{ $gen->start }}</td>
+									<td>{{ $gen->end }}</td>
+									<td>-</td>
+									<td>-</td>
+									<td>-</td>
+									<td>-</td>
+									<td></td>
+									@else
+									<td>{{ ucwords($gen->day) }}</td>
+									<td>{{ $gen->start }}</td>
+									<td>{{ $gen->end }}</td>
+									<td>{{ ucwords($gen->teacher->name) }}</td>
+									<td>{{ $gen->room->code }} - {{ $gen->room->name }}</td>
+									<td>{{ $gen->lesson->name }}</td>
+									<td>{{ $gen->major->level->class }} {{ $gen->major->name }}</td>
+									<td>
+										<div class="row">
+				              				<div class="col-xs-4">
+				                				<a href="{{ route('edit.generate', [Auth::user()->role->name, $gen->major->level->id, $gen->major->id, $gen->id]) }}" class="btn btn-warning btn-sm">
+													<i class="ion ion-edit"></i>
+				                				</a>
+				              				</div>
+				              				<div class="col-xs-1 offset-sm-1"></div>
+				              
+				              				<div class="col-xs-4">
+				                				<form class="" action="{{ route('generate.destroy', $gen->id) }}" method="POST">
+				                      				@csrf
+				                      				@method('DELETE')
+													<button class="ion ion-android-delete btn btn-danger btn-sm" name="" type="submit"></button>
+				                  				</form>
+				                  			</div>
+								      	</div>
+									</td>
+								@endif
 							</tr>
-						{{-- @endif --}}
 						@endforeach
 
 					</tbody>
@@ -275,16 +294,23 @@
 
 					$('#type-lesson-cont').html(`
 						<label for="">Tipe Mata Pelajaran</label>
-						<select name="lesson_id" id="" class="form-control">
+						<select name="lesson_id" id="type_lesson" class="form-control">
 							@php
 							if (Auth::user()->role->id == 1) {
 								$typelesson = App\Models\TypeLesson::where('slug', 'umum')->first();
+								$types = App\Models\TypeLesson::whereNotIn('slug', ['jurusan'])->get();
 							}
 							elseif(Auth::user()->role->id == 2){
 								$typelesson = App\Models\TypeLesson::where('slug', 'jurusan')->first();
 							}
 							@endphp
-							<option value="{{ $typelesson->id }}">{{ ucwords($typelesson->name)}}</option>
+							@if (Auth::user()->role->id == 1)
+								@foreach ($types as $type)
+									<option value="{{ $type->id }}">{{ ucwords($type->name)}}</option>
+								@endforeach
+							@else
+								<option value="{{ $typelesson->id }}">{{ ucwords($typelesson->name)}}</option>
+							@endif
 						</select>
 						`);
 
@@ -309,7 +335,7 @@
 
 					$('#lesson-cont').html(`
 						<label for="">Mata Pelajaran</label>
-						<select name="lesson_id" id="" class="form-control">
+						<select name="lesson_id" id="lesson" class="form-control">
 							<option value="">-- Select --</option>
 							@foreach ($showexpert->major->lessons as $lesson)
 								@if ($lesson->type_lesson->id == $typelesson->id)
@@ -363,7 +389,25 @@
 					}
 					});
 
-
+					$('#type_lesson').on('change', function () {
+						if ($('#type_lesson').val() == 3) {
+							$('#major').attr('disabled', true);
+							$('#lesson').attr('disabled', true);
+							$('#type_teacher').attr('disabled', true);
+							$('#teacher').attr('disabled', true);
+							$('#sesi').attr('disabled', true);
+							$('#type').attr('disabled', true);
+							$('#room').attr('disabled', true);
+						} else {
+							$('#major').attr('disabled', false);
+							$('#lesson').attr('disabled', false);
+							$('#type_teacher').attr('disabled', false);
+							$('#teacher').attr('disabled', false);
+							$('#sesi').attr('disabled', false);
+							$('#type').attr('disabled', false);
+							$('#room').attr('disabled', false);
+						}
+					})
 
 				} else {
 					hour_cont.html('');

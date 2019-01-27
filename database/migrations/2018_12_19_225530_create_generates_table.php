@@ -19,7 +19,6 @@ class CreateGeneratesTable extends Migration
             $table->time('start');
             $table->time('end');
             $table->boolean('read')->default(0);
-            $table->boolean('approve')->default(0);
             $table->timestamps();
         });
 
@@ -29,7 +28,7 @@ class CreateGeneratesTable extends Migration
             $table->unsignedInteger('lesson_id')->nullable();
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('role_id');
-            $table->unsignedInteger('major_id');
+            $table->unsignedInteger('major_id')->nullable();
 
             $table->foreign('teacher_id')->references('id')->on('teachers');
             $table->foreign('room_id')->references('id')->on('rooms');

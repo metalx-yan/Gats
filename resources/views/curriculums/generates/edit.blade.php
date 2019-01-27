@@ -295,7 +295,7 @@
 								@foreach ($typelesson->lessons as $lesson)
 									@foreach ($lesson->majors->where('id', $edit->major->id) as $major)
 										@if (!in_array($major->id, $dup))
-											<option value="{{ $major->id }}" {{ old("major_id", $edit->major_id) == $major->id ? "selected" : "" }}>{{ $major->level->class }} {{ $major->name }} </option>
+											<option value="{{ $major->id }}">{{ $major->level->class }} {{ $major->name }} </option>
 										@endif
 										@php
 											array_push($dup, $major->id);
