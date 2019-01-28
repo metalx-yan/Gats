@@ -9,7 +9,7 @@
 @section('content')
 
 <h1 class="section-header">
-  {{-- <div>Atur Jadwal Kelas {{ ucwords($showexpert->major->level->class) }} {{ ucwords($showexpert->major->name) }} {{ ucwords($showexpert->part) }} </div> --}}
+  <div>Jadwal Kelas {{ ucwords($edit->major->level->class) }} {{ ucwords($edit->major->name) }} {{ ucwords($edit->part) }} </div>
 </h1>
 
 @php
@@ -20,7 +20,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="card">
-			<h5 class="card-header head" align="center">Atur Jadwal</h5>
+			<h5 class="card-header head" align="center">Edit Jadwal</h5>
 			<div class="card-body">
 				<form action="{{ route('generate.store') }}" method="POST">
 					@csrf
@@ -128,39 +128,50 @@
 					</thead>
 					<tbody class="fontsopher">
 
-					{{-- 	@foreach ($gens as $gen)
+						@foreach ($gens as $gen)
 							<tr>
 								<td>{{ $no }}</td>
 								@php
 									$no++;	
 								@endphp
-								<td>{{ ucwords($gen->day) }}</td>
-								<td>{{ $gen->start }}</td>
-								<td>{{ $gen->end }}</td>
-								<td>{{ ucwords($gen->teacher->name) }}</td>
-								<td>{{ $gen->room->code }} - {{ $gen->room->name }}</td>
-								<td>{{ $gen->lesson->name }}</td>
-								<td>{{ $gen->major->level->class }} {{ $gen->major->name }}</td>
-								<td>
-									<div class="row">
-			              				<div class="col-xs-4">
-			                				<a href="{{ route('edit.generate', [Auth::user()->role->name, $gen->major->level->id, $gen->major->id, $gen->id]) }}" class="btn btn-warning btn-sm">
-												<i class="ion ion-edit"></i>
-			                				</a>
-			              				</div>
-			              				<div class="col-xs-1 offset-sm-1"></div>
-			              
-			              				<div class="col-xs-4">
-			                				<form class="" action="" method="POST">
-			                      				@csrf
-			                      				@method('DELETE')
-												<button class="ion ion-android-delete btn btn-danger btn-sm" name="delete" type="submit"></button>
-			                  				</form>
-			                  			</div>
-							      	</div>
-								</td>
+								@if (is_null($gen->major_id))
+									<td>Istirahat</td>
+									<td>{{ $gen->start }}</td>
+									<td>{{ $gen->end }}</td>
+									<td>-</td>
+									<td>-</td>
+									<td>-</td>
+									<td>-</td>
+									<td></td>
+									@else
+									<td>{{ ucwords($gen->day) }}</td>
+									<td>{{ $gen->start }}</td>
+									<td>{{ $gen->end }}</td>
+									<td>{{ ucwords($gen->teacher->name) }}</td>
+									<td>{{ $gen->room->code }} - {{ $gen->room->name }}</td>
+									<td>{{ $gen->lesson->name }}</td>
+									<td>{{ $gen->major->level->class }} {{ $gen->major->name }}</td>
+									<td>
+										<div class="row">
+				              				<div class="col-xs-4">
+				                				<a href="{{ route('edit.generate', [Auth::user()->role->name, $gen->major->level->id, $gen->major->id, $gen->id]) }}" class="btn btn-warning btn-sm">
+													<i class="ion ion-edit"></i>
+				                				</a>
+				              				</div>
+				              				<div class="col-xs-1 offset-sm-1"></div>
+				              
+				              				<div class="col-xs-4">
+				                				<form class="" action="{{ route('generate.destroy', $gen->id) }}" method="POST">
+				                      				@csrf
+				                      				@method('DELETE')
+													<button class="ion ion-android-delete btn btn-danger btn-sm" name="" type="submit"></button>
+				                  				</form>
+				                  			</div>
+								      	</div>
+									</td>
+								@endif
 							</tr>
-						@endforeach --}}
+						@endforeach
 
 					</tbody>
 				</table>

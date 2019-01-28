@@ -120,8 +120,8 @@ class GenerateController extends Controller
     {
         $edit = Generate::find($generate);
         $major1 = Major::all();
-        $gens = Generate::where('role_id', Auth::user()->role->id)->where('major_id', $major)->get();
-        return view('curriculums.generates.edit', compact('edit'));
+        $gens = Generate::where('role_id', Auth::user()->role->id)->where('major_id', $major)->orWhereNull('major_id')->orderBy('start')->get();
+        return view('curriculums.generates.edit', compact(['edit','major1', 'gens']));
     }
 
     /**

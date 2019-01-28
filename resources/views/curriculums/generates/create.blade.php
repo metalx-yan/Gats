@@ -136,7 +136,7 @@
 							<th>Aksi</th>
 						</tr>
 					</thead>
-					<tbody class="fontsopher">
+					<tbody class="fontsopher" id="color">
 
 						@foreach ($gens as $gen)
 							<tr>
@@ -407,7 +407,8 @@
 							$('#type').attr('disabled', false);
 							$('#room').attr('disabled', false);
 						}
-					})
+					});
+
 
 				} else {
 					hour_cont.html('');
