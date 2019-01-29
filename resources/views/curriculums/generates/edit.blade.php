@@ -29,7 +29,7 @@
 								<div class="form-group">
 									<label for="">Hari</label>
 									<select name="day" id="day" class="form-control {{ $errors->has('day') ? 'is-invalid' : ''}}">
-										<option value="">-- Select --</option>
+										<option value="{{ $edit->day }}">-- {{ ucwords($edit->day) }} --</option>
 										@foreach (App\Models\Generate::day() as $day)
 											<option value="{{ $day }}">{{ ucwords($day) }}</option>
 										@endforeach
@@ -40,7 +40,12 @@
 
 							<div class="col-lg-3">
 								<div class="form-group">
-									<div id="hour-cont"></div>
+									<div id="hour-cont">
+										<label for="">Jam Masuk</label>
+										<select name="start" id="hour" class="form-control">
+											<option value="{{ $edit->start }}">-- {{ $edit->start }} --</option>
+										</select>
+									</div>
 								</div>
 							</div>
 
@@ -205,11 +210,6 @@
 
 			day.on('change', function () {
 				if (day.val() != '') {
-					hour_cont.html(`
-							<label for="">Jam Masuk</label>
-							<select name="start" id="hour" class="form-control">
-							</select>
-						`);
 					$.ajax({
 						url: 'http://jadwal.test/api/hours/' + day.val()
 					}).done(function (data) {

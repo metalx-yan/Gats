@@ -20,7 +20,7 @@ class GenerateController extends Controller
     {
         $showexpert = Expertise::find($expertise);
         $major1 = Major::all();
-        $gens = Generate::where('role_id', Auth::user()->role->id)->where('major_id', $major)->orWhereNull('major_id')->orderBy('start')->get() ;
+        $gens = Generate::where('role_id', Auth::user()->role->id)->where('major_id', $major)->orWhereNull('major_id')->orderBy('day')->get() ;
         return view('curriculums.generates.create', compact(['showexpert', 'major1', 'gens']));
     }
 
@@ -67,7 +67,8 @@ class GenerateController extends Controller
                 'day'   => 'required',
                 'start' => 'required',
             ]);
-            $sesi = 15 ;
+
+            $sesi = 30 ;
             $create = new Generate;
             $create->day = $request->day;
             $create->start = $request->start;
@@ -76,7 +77,6 @@ class GenerateController extends Controller
             $create->role_id = Auth::user()->role->id;
             $create->save();
         } else {
-
             $this->validate($request, [
                 'day'   => 'required',
                 'start' => 'required',
@@ -85,20 +85,43 @@ class GenerateController extends Controller
                 'lesson_id' => 'required',
                 'major_id' => 'required'
             ]);
-
-            $sesi = 45 * $request->sesi;
             
-            $create = new Generate;
-            $create->day = $request->day;
-            $create->start = $request->start;
-            $create->end = Carbon::parse($request->start)->addMinutes($sesi);
-            $create->teacher_id = $request->teacher_id;
-            $create->room_id = $request->room_id;
-            $create->lesson_id = $request->lesson_id;
-            $create->major_id = $request->major_id;
-            $create->user_id = Auth::user()->id;
-            $create->role_id = Auth::user()->role->id;
-            $create->save();
+            if ($request->start != '07:00:00') {
+                $carbon = Carbon::parse($request->start)->subMinutes(45)->format('H:i:s');
+                $ada = Generate::where('day', $request->day)->whereBetween('start', [$carbon, $request->start])->first();
+                // dd(true);
+                if (is_null($ada)) {
+                    return redirect()->back();
+                } else {                    
+                    $sesi = 45 * $request->sesi;
+                    $create = new Generate;
+                    $create->day = $request->day;
+                    $create->start = $request->start;
+                    $create->end = Carbon::parse($request->start)->addMinutes($sesi);
+                    $create->teacher_id = $request->teacher_id;
+                    $create->room_id = $request->room_id;
+                    $create->lesson_id = $request->lesson_id;
+                    $create->major_id = $request->major_id;
+                    $create->user_id = Auth::user()->id;
+                    $create->role_id = Auth::user()->role->id;
+                    $create->save();
+                }
+            } else {
+                $start = Carbon::parse($request->start)->subMinutes(45);
+                // $s = Generate::where('start', $start)->first();
+                $sesi = 45 * $request->sesi;
+                $create = new Generate;
+                $create->day = $request->day;
+                $create->start = $request->start;
+                $create->end = Carbon::parse($request->start)->addMinutes($sesi);
+                $create->teacher_id = $request->teacher_id;
+                $create->room_id = $request->room_id;
+                $create->lesson_id = $request->lesson_id;
+                $create->major_id = $request->major_id;
+                $create->user_id = Auth::user()->id;
+                $create->role_id = Auth::user()->role->id;
+                $create->save();
+            }
         }
         
 

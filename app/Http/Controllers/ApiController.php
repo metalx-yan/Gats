@@ -15,9 +15,15 @@ class ApiController extends Controller
     {
     	$hours = [];
     	$start = Carbon::parse('07:00:00');
-    	for ($i=0; $i < 10; $i++) { 
-        	array_push($hours, $start->format('H:i:s'));
-            $start->addMinutes(45);
+        $istirahat = Generate::whereNull('teacher_id')->where('day', $day)->get();
+    	for ($i=0; $i < 10; $i++) {
+            if ($istirahat->where('start', $start->format('H:i:s'))->first()) {
+            	array_push($hours, $start->format('H:i:s') . '(istirahat)');
+                $start->addMinutes(30);
+            } else {
+                array_push($hours, $start->format('H:i:s'));
+                $start->addMinutes(45);
+            }
     	}
         return response()->json($hours);
     }

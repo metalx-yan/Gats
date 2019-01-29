@@ -145,10 +145,10 @@
 									$no++;	
 								@endphp
 								@if (is_null($gen->major_id))
-									<td>Istirahat</td>
+									<td>{{ ucwords($gen->day) }}</td>
 									<td>{{ $gen->start }}</td>
 									<td>{{ $gen->end }}</td>
-									<td>-</td>
+									<td>Istirahat</td>
 									<td>-</td>
 									<td>-</td>
 									<td>-</td>
@@ -225,8 +225,8 @@
 					}).done(function (data) {
 						$('#hour').html('');
 						data.map(function (map) {
-							if (map.substr(0, 5) == '10:00') {
-								$('#hour').append('<option value="' + map + '">' + map.substr(0, 5) + '</option>');
+							if (map.includes('istirahat')) {
+								$('#hour').append('<option value="' + map + '">' + map.substr(0, 5) + ' (istirahat)' + '</option>');
 							} else {
 								$('#hour').append('<option value="' + map + '">' + map.substr(0, 5) + '</option>');
 							}
