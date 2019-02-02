@@ -15,12 +15,12 @@ class CreateLessonTeacherTable extends Migration
     {
         
         Schema::create('lesson_teacher', function (Blueprint $table) {
-            $table->increments('id');
             $table->unsignedInteger('lesson_id');
             $table->unsignedInteger('teacher_id');
 
-            $table->foreign('lesson_id')->references('id')->on('lessons')->onDelete('cascade');
-            $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete('cascade');
+            // $table->foreign('lesson_id')->references('id')->on('lessons')->onDelete('cascade');
+            // $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete('cascade');
+            $table->primary(['lesson_id', 'teacher_id']);
         });
     }
 

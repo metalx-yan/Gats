@@ -5,7 +5,7 @@
 @section('content')
 
 <h1 class="section-header">
-  <div>Dashboard</div>
+  <div>{{ ucwords(Auth::user()->role->name) }} Dashboard</div>
 </h1>
 
 <div class="row">

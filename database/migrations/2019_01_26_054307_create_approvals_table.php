@@ -17,7 +17,7 @@ class CreateApprovalsTable extends Migration
             $table->increments('id');
             $table->year('beginning');
             $table->year('end');
-            $table->boolean('approve')->default(0);
+            $table->boolean('status')->default(0);
             $table->timestamps();
         });
 

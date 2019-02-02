@@ -15,8 +15,6 @@ class RoleTableSeeder extends Seeder
         $roles = [
         	'curriculum',
         	'major',
-            'teacher',
-            'student',
             'headmaster'
         ];
 

@@ -14,12 +14,13 @@ class CreateLessonUserTable extends Migration
     public function up()
     {
         Schema::create('lesson_user', function (Blueprint $table) {
-            $table->increments('id');
             $table->unsignedInteger('lesson_id');
             $table->unsignedInteger('user_id');
 
-            $table->foreign('lesson_id')->references('id')->on('lessons')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            // $table->foreign('lesson_id')->references('id')->on('lessons')->onDelete('cascade');
+            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->primary(['lesson_id', 'user_id']);
+
         });
     }
 

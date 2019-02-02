@@ -22,6 +22,10 @@ class UsersTableSeeder extends Seeder
             'role_id' => 2,
         ]);
 
+        $jurusan = factory(User::class)->create([
+            'role_id' => 3,
+        ]);
+
         // Role::create([
         //     'name' => 'curriculum',
         // ]);

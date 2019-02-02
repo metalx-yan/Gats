@@ -52,7 +52,7 @@ class LoginController extends Controller
             return '/major';
         }
         elseif (Auth::user()->role_id == 3) {
-            return '/';
+            return '/headmaster';
         }
     }
 

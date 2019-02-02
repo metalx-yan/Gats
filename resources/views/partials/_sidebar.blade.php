@@ -61,7 +61,7 @@
               </li>
 
            <li class="menu-header">Ex</li>
-            <li><a href="#" class="has-dropdown"><i class="ion ion-document-text"></i>Lihat Jadwal</a>
+            <li><a href="#" class="has-dropdown"><i class="ion ion-document-text"></i>Tahun Ajaran</a>
               <ul class="menu-dropdown">
                 @foreach (App\Models\TypeRoom::all() as $typeroom)
                   @if ($typeroom->id === 1)
@@ -145,8 +145,8 @@
 
           <li class="menu-header">Ex</li>
 
-            <li class="">
-              <a href=""><i class="ion ion-ios-eye"></i><span>Lihat Jadwal</span></a>
+            <li>
+              <a href="{{ route('year.create') }}"><i class="ion ion-ios-eye"></i><span>Tahun Ajaran</span></a>
             </li>
 
             <li>
@@ -173,7 +173,22 @@
             </li>
             
             @endif
-          
+
+            @if (Auth::user()->hasRole('headmaster'))
+              <li class="menu-header">Dashboard</li>
+              <li class="active">
+                <a href="{{ route('headmaster') }}"><i class="ion ion-speedometer"></i><span>Dashboard</span></a>
+              </li>
+
+              <li class="menu-header">Ex</li>
+
+              <li>
+                <a href=""><i class="ion ion-ios-eye"></i><span>Persetujuan Jadwal</span></a>
+                <a href=""><i class="ion ion-ios-eye"></i><span>Lihat Jadwal</span></a>
+              </li>
+
+            @endif
+
           </ul>
         </aside>
       </div>

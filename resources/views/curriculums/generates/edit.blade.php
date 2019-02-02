@@ -9,7 +9,11 @@
 @section('content')
 
 <h1 class="section-header">
+@if ($edit->istirahat())
+  <div>Jadwal Istirahat</div>
+  @else 
   <div>Jadwal Kelas {{ ucwords($edit->major->level->class) }} {{ ucwords($edit->major->name) }} {{ ucwords($edit->part) }} </div>
+@endif
 </h1>
 
 @php
@@ -22,8 +26,9 @@
 		<div class="card">
 			<h5 class="card-header head" align="center">Edit Jadwal</h5>
 			<div class="card-body">
-				<form action="{{ route('generate.store') }}" method="POST">
+				<form action="{{ route('generate.update', $edit->id) }}" method="POST">
 					@csrf
+					@method('PATCH')
 						<div class="row">
 							<div class="col-lg-3">
 								<div class="form-group">
@@ -51,13 +56,31 @@
 
 							<div class="col-lg-3">
 								<div class="form-group">
-									<div id="sesi-cont"></div>
+									<div id="sesi-cont">
+										<label for="">Sesi</label>
+									 	<select name="sesi" id="sesi" class="form-control" {{ $edit->istirahat() ? 'disabled' : null }}>
+									 		<option value="1">1</option>
+									 		<option value="2">2</option>
+									 	</select>
+									</div>
 								</div>
 							</div>
 
 							<div class="col-lg-3">
 								<div class="form-group">
-									<div id="type-cont"></div>
+									<div id="type-cont">
+							 		<label for="">Tipe Ruang</label>
+									<select name="room_id" id="type" class="form-control" {{ $edit->istirahat() ? 'disabled' : null }}>
+										@if (!$edit->istirahat())
+											<option value="{{ $edit->room->type_room->id }}">-- {{ ucwords($edit->room->type_room->name) }} --</option>
+										@endif
+										@if (Auth::user()->role->id == 1)
+										<option value="teori">Teori</option>
+										@elseif(Auth::user()->role->id == 2)
+										<option value="praktek">Praktek</option>
+										@endif
+									</select>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -65,25 +88,82 @@
 						<div class="row">
 							<div class="col-lg-3">
 								<div class="form-group">
-									<div id="room-cont"></div>
+									<div id="room-cont">
+										<label for="">Ruang</label>
+										<select name="room_id" id="room" class="form-control" {{ $edit->istirahat() ? 'disabled' : null }}>
+											@if (!$edit->istirahat())
+												<option value="{{ $edit->room->id }}">-- {{ ucwords($edit->room->name) }} --</option>
+											@endif
+										</select>
+									</div>
 								</div>
 							</div>
 
 							<div class="col-lg-3">
 								<div class="form-group">
-									<div id="type-lesson-cont"></div>
+									<div id="type-lesson-cont">
+									<label for="">Tipe Mata Pelajaran</label>
+									<select name="lesson_id" id="" class="form-control" {{ $edit->istirahat() ? 'disabled' : null }}>
+										@if (!$edit->istirahat())
+											<option value="{{ $edit->lesson->type_lesson->id }}">-- {{ ucwords($edit->lesson->type_lesson->name) }} --</option>
+										@endif
+										@php
+										if (Auth::user()->role->id == 1) {
+											$typelesson = App\Models\TypeLesson::where('slug', 'umum')->first();
+										}
+										elseif(Auth::user()->role->id == 2){
+											$typelesson = App\Models\TypeLesson::where('slug', 'jurusan')->first();
+										}
+										@endphp
+										<option value="{{ $typelesson->id }}">{{ ucwords($typelesson->name)}}</option>
+									</select>
+									</div>
 								</div>
 							</div>
 
 							<div class="col-lg-3">
 								<div class="form-group">
-									<div id="lesson-major-cont"></div>
+									<div id="lesson-major-cont">
+										<label for="">Pilih Jurusan</label>
+										<select name="major_id" id="major" class="form-control" {{ $edit->istirahat() ? 'disabled' : null }}>
+											@if (!$edit->istirahat())
+												<option value="{{ $edit->major->id }}">-- {{ ucwords($edit->major->level->class) }} {{ ucwords($edit->major->name) }} --</option>
+											@endif
+											@php
+												$dup = [];
+											@endphp
+											@foreach ($typelesson->lessons as $lesson)
+												@if (!$edit->istirahat())
+													@foreach ($lesson->majors->where('id', $edit->major->id) as $major)
+														@if (!in_array($major->id, $dup))
+															<option value="{{ $major->id }}">{{ $major->level->class }} {{ $major->name }} </option>
+														@endif
+														@php
+															array_push($dup, $major->id);
+														@endphp
+													@endforeach
+												@endif
+											@endforeach
+										</select>
+									</div>
 								</div>
 							</div>
 
 							<div class="col-lg-3">
 								<div class="form-group">
-									<div id="lesson-cont"></div>
+									<div id="lesson-cont">
+									<label for="">Mata Pelajaran</label>
+									<select name="lesson_id" id="" class="form-control" {{ $edit->istirahat() ? 'disabled' : null }}>
+										@if (!$edit->istirahat())
+											<option value="{{ $edit->lesson->id }}">-- {{ $edit->lesson->name }} --</option>
+											@foreach ($edit->major->lessons as $lesson)
+												@if ($lesson->type_lesson->id == $typelesson->id)
+													<option value="{{ $lesson->id }}">{{ ucwords($lesson->name)}}</option>
+												@endif
+											@endforeach
+										@endif
+									</select>
+									</div>
 								</div>
 							</div>							
 
@@ -93,13 +173,36 @@
 
 							<div class="col-lg-3">
 								<div class="form-group">
-									<div id="type-teacher-cont"></div>
+									<div id="type-teacher-cont">
+										<label for="">Tipe Guru</label>
+										<select name="teacher_id" id="type_teacher" class="form-control" {{ $edit->istirahat() ? 'disabled' : null }}>
+											@if (!$edit->istirahat())
+												<option value="{{ $edit->teacher->type_teacher->id }}">-- {{ ucwords($edit->teacher->type_teacher->name) }} --</option>
+											@endif
+											@php
+											if (Auth::user()->role->id == 1) {
+												$typeteacher = App\Models\TypeTeacher::where('slug', 'umum')->first();
+											}
+											elseif(Auth::user()->role->id == 2){
+												$typeteacher = App\Models\TypeTeacher::where('slug', 'jurusan')->first();
+											}
+											@endphp
+											<option value="{{ $typeteacher->id }}">{{ ucwords($typeteacher->name)}}</option>
+										</select>
+									</div>
 								</div>
 							</div>		
 
 							<div class="col-lg-3">
 								<div class="form-group">
-									<div id="teacher-cont"></div>
+									<div id="teacher-cont">
+										<label for="">Guru</label>
+										<select name="teacher_id" id="teacher" class="form-control" {{ $edit->istirahat() ? 'disabled' : null }}>
+											@if (!$edit->istirahat())
+												<option value="{{ $edit->teacher->id }}">-- {{ $edit->teacher->name }} --</option>
+											@endif
+										</select>
+									</div>
 								</div>
 							</div>
 
@@ -111,7 +214,6 @@
 		</div>
 	</div>
 </div>
-
 
 <div class="row">
 	<div class="col-md-12">
@@ -140,14 +242,31 @@
 									$no++;	
 								@endphp
 								@if (is_null($gen->major_id))
-									<td>Istirahat</td>
+									<td>{{ ucwords($gen->day) }}</td>
 									<td>{{ $gen->start }}</td>
 									<td>{{ $gen->end }}</td>
+									<td>Istirahat</td>
 									<td>-</td>
 									<td>-</td>
 									<td>-</td>
-									<td>-</td>
-									<td></td>
+									<td>
+										<div class="row">
+				              				<div class="col-xs-4">
+				                				<a href="{{ route('edit.generate', [Auth::user()->role->name, 0, 0, $gen->id]) }}" class="btn btn-warning btn-sm">
+													<i class="ion ion-edit"></i>
+				                				</a>
+				              				</div>
+				              				<div class="col-xs-1 offset-sm-1"></div>
+				              
+				              				<div class="col-xs-4">
+				                				<form class="" action="{{ route('generate.destroy', $gen->id) }}" method="POST">
+				                      				@csrf
+				                      				@method('DELETE')
+													<button class="ion ion-android-delete btn btn-danger btn-sm" name="" type="submit"></button>
+				                  				</form>
+				                  			</div>
+								      	</div>
+									</td>
 									@else
 									<td>{{ ucwords($gen->day) }}</td>
 									<td>{{ $gen->start }}</td>
@@ -210,13 +329,18 @@
 
 			day.on('change', function () {
 				if (day.val() != '') {
+					hour_cont.html(`
+							<label for="">Jam Masuk</label>
+							<select name="start" id="hour" class="form-control">
+							</select>
+						`);
 					$.ajax({
 						url: 'http://jadwal.test/api/hours/' + day.val()
 					}).done(function (data) {
 						$('#hour').html('');
 						data.map(function (map) {
-							if (map.substr(0, 5) == '10:00') {
-								$('#hour').append('<option value="' + map + '">' + map.substr(0, 5) + '</option>');
+							if (map.includes('istirahat')) {
+								$('#hour').append('<option value="' + map + '">' + map.substr(0, 5) + ' (istirahat)' + '</option>');
 							} else {
 								$('#hour').append('<option value="' + map + '">' + map.substr(0, 5) + '</option>');
 							}
@@ -284,16 +408,23 @@
 
 					$('#type-lesson-cont').html(`
 						<label for="">Tipe Mata Pelajaran</label>
-						<select name="lesson_id" id="" class="form-control">
+						<select name="lesson_id" id="type_lesson" class="form-control">
 							@php
 							if (Auth::user()->role->id == 1) {
 								$typelesson = App\Models\TypeLesson::where('slug', 'umum')->first();
+								$types = App\Models\TypeLesson::whereNotIn('slug', ['jurusan'])->get();
 							}
 							elseif(Auth::user()->role->id == 2){
 								$typelesson = App\Models\TypeLesson::where('slug', 'jurusan')->first();
 							}
 							@endphp
-							<option value="{{ $typelesson->id }}">{{ ucwords($typelesson->name)}}</option>
+							@if (Auth::user()->role->id == 1)
+								@foreach ($types as $type)
+									<option value="{{ $type->id }}">{{ ucwords($type->name)}}</option>
+								@endforeach
+							@else
+								<option value="{{ $typelesson->id }}">{{ ucwords($typelesson->name)}}</option>
+							@endif
 						</select>
 						`);
 
@@ -304,27 +435,31 @@
 									$dup = [];
 								@endphp
 								@foreach ($typelesson->lessons as $lesson)
-									@foreach ($lesson->majors->where('id', $edit->major->id) as $major)
-										@if (!in_array($major->id, $dup))
-											<option value="{{ $major->id }}">{{ $major->level->class }} {{ $major->name }} </option>
-										@endif
-										@php
-											array_push($dup, $major->id);
-										@endphp
-									@endforeach
+									@if (!$edit->istirahat())
+										@foreach ($lesson->majors->where('id', $edit->major->id) as $major)
+											@if (!in_array($major->id, $dup))
+												<option value="{{ $major->id }}">{{ $major->level->class }} {{ $major->name }} </option>
+											@endif
+											@php
+												array_push($dup, $major->id);
+											@endphp
+										@endforeach
+									@endif
 								@endforeach
 							</select>
 						`);
 
 					$('#lesson-cont').html(`
 						<label for="">Mata Pelajaran</label>
-						<select name="lesson_id" id="" class="form-control">
+						<select name="lesson_id" id="lesson" class="form-control">
 							<option value="">-- Select --</option>
-							@foreach ($edit->major->lessons as $lesson)
-								@if ($lesson->type_lesson->id == $typelesson->id)
-									<option value="{{ $lesson->id }}">{{ ucwords($lesson->name)}}</option>
-								@endif
-							@endforeach
+							@if (!$edit->istirahat())
+								@foreach ($edit->major->lessons as $lesson)
+									@if ($lesson->type_lesson->id == $typelesson->id)
+										<option value="{{ $lesson->id }}">{{ ucwords($lesson->name)}}</option>
+									@endif
+								@endforeach
+							@endif
 						</select>
 					`);
 
@@ -372,6 +507,25 @@
 					}
 					});
 
+					$('#type_lesson').on('change', function () {
+						if ($('#type_lesson').val() == 3) {
+							$('#major').attr('disabled', true);
+							$('#lesson').attr('disabled', true);
+							$('#type_teacher').attr('disabled', true);
+							$('#teacher').attr('disabled', true);
+							$('#sesi').attr('disabled', true);
+							$('#type').attr('disabled', true);
+							$('#room').attr('disabled', true);
+						} else {
+							$('#major').attr('disabled', false);
+							$('#lesson').attr('disabled', false);
+							$('#type_teacher').attr('disabled', false);
+							$('#teacher').attr('disabled', false);
+							$('#sesi').attr('disabled', false);
+							$('#type').attr('disabled', false);
+							$('#room').attr('disabled', false);
+						}
+					});
 
 
 				} else {

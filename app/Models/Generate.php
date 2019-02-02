@@ -53,4 +53,14 @@ class Generate extends Model
     {
         return ['senin', 'selasa', 'rabu', 'kamis', 'jumat'];
     }
+
+    public function approvals()
+    {
+        return $this->belongsToMany(Approval::class);
+    }
+
+    public function istirahat()
+    {
+        return $this->teacher_id == null;
+    }
 }

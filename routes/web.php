@@ -20,7 +20,8 @@ Auth::routes();
 
 Route::group(['prefix' => 'curriculum', 'middleware' => ['auth','role:curriculum']], function() {
 
-
+	Route::resource('year', 'YearController');
+	
 	Route::get('generate/{level_id}/{major_id}', 'GenerateController@showmixcurri')->name('showmixcurri.generate');
 
 	Route::get('expertise/{level_id}/{major_id}/create', 'ExpertiseController@mix')->name('mix.expertise');
@@ -67,8 +68,6 @@ Route::group(['middleware' => ['auth','role:major,curriculum']], function() {
 
 Route::group(['prefix' => 'major', 'middleware' => ['auth','role:major']], function() {
 
-	// Route::get('generate/{level_id}/{major_id}/{expertise_id}', 'GenerateController@showgenmajor')->name('showgenmajor.generate');
-
 	Route::get('generate/{level_id}/{major_id}', 'GenerateController@showmixmajor')->name('showmixmajor.generate');
 	
 	Route::get('room/{typeroom_id}', 'RoomController@view')->name('room.view');
@@ -82,6 +81,16 @@ Route::group(['prefix' => 'major', 'middleware' => ['auth','role:major']], funct
 	Route::get('/', function() {
 	    return view('majors.content');
 	})->name('major');
+});
+
+// KEPALA SEKOLAH
+
+Route::group(['prefix' => 'headmaster', 'middleware' => ['auth','role:headmaster']], function() {
+
+	Route::get('/', function() {
+	    return view('headmasters.content');
+	})->name('headmaster');
+
 });
 
 Route::get('/404', function() { 

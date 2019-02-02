@@ -1,6 +1,6 @@
 @extends('main')
 
-@section('title', 'Jurusan')
+@section('title', 'Kepala Sekolah')
 
 @section('content')
 

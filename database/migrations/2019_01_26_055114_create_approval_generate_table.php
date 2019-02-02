@@ -17,8 +17,10 @@ class CreateApprovalGenerateTable extends Migration
             $table->unsignedInteger('approval_id');
             $table->unsignedInteger('generate_id');
 
-            $table->foreign('approval_id')->references('id')->on('approvals')->onDelete('cascade');
-            $table->foreign('generate_id')->references('id')->on('generates')->onDelete('cascade');
+            // $table->foreign('approval_id')->references('id')->on('approvals')->onDelete('cascade');
+            // $table->foreign('generate_id')->references('id')->on('generates')->onDelete('cascade');
+
+            $table->primary(['approval_id', 'generate_id']);
         });
     }
 

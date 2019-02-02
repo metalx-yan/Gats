@@ -152,7 +152,24 @@
 									<td>-</td>
 									<td>-</td>
 									<td>-</td>
-									<td></td>
+									<td>
+										<div class="row">
+				              				<div class="col-xs-4">
+				                				<a href="{{ route('edit.generate', [Auth::user()->role->name, 0, 0, $gen->id]) }}" class="btn btn-warning btn-sm">
+													<i class="ion ion-edit"></i>
+				                				</a>
+				              				</div>
+				              				<div class="col-xs-1 offset-sm-1"></div>
+				              
+				              				<div class="col-xs-4">
+				                				<form class="" action="{{ route('generate.destroy', $gen->id) }}" method="POST">
+				                      				@csrf
+				                      				@method('DELETE')
+													<button class="ion ion-android-delete btn btn-danger btn-sm" name="" type="submit"></button>
+				                  				</form>
+				                  			</div>
+								      	</div>
+									</td>
 									@else
 									<td>{{ ucwords($gen->day) }}</td>
 									<td>{{ $gen->start }}</td>
