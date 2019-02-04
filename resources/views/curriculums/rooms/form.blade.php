@@ -8,16 +8,6 @@
 		</div>
 	</div>
 </div>
-{{-- 
-<div class="form-group">
-	<div class="row">
-		<div class="col-lg-12">
-			<label for="">Nama</label>
-			<input type="text" name="name" value="{{ old('name') }}" class="form-control {{ $errors->has('name') ? 'is-invalid' : ''}}" autocomplete="off">
-			{!! $errors->first('name', '<span class="invalid-feedback">:message</span>') !!}
-		</div>
-	</div>
-</div> --}}
 
 <div class="form-group">
 	<div class="row">

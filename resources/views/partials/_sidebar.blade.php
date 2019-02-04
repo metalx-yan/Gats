@@ -82,7 +82,7 @@
                       <ul class="menu-dropdown">
                         @foreach ($level->majors as $major)
                           <li>
-                            <a href="{{ route('showmixmajor.generate', [$major->level->id, $major->id]) }}">
+                            <a href="{{ route('showmix.generate', [$major->level->id, $major->id]) }}">
                            
                               <i class="ion ion-ios-play-outline"></i>{{ ucwords($major->name) }}
                             </a>
@@ -129,11 +129,12 @@
                 <li><a href="#" class="has-dropdown"><i class="ion ion-document-text"></i>Data Mata Pelajaran</a>
                     <ul class="menu-dropdown">
                       @foreach (App\Models\TypeLesson::all() as $typelesson)
-                        <li><a href="{{ route('mix.lesson', $typelesson->id) }}"><i class="ion ion-plus-circled"></i>{{ ucwords($typelesson->name) }}</a></li>
+                        @if ($typelesson->id != 3)
+                          <li><a href="{{ route('mix.lesson', $typelesson->id) }}"><i class="ion ion-plus-circled"></i>{{ ucwords($typelesson->name) }}</a></li>
+                        @endif
                       @endforeach
                     </ul>
                 </li>
-
 
                 <li><a href="#"  class="has-dropdown"><i class="ion ion-document-text"></i>Data Ruang</a>
                     <ul class="menu-dropdown">
@@ -146,7 +147,7 @@
           <li class="menu-header">Ex</li>
 
             <li>
-              <a href="{{ route('year.create') }}"><i class="ion ion-ios-eye"></i><span>Tahun Ajaran</span></a>
+              <a href="{{ route('approval.create') }}"><i class="ion ion-ios-eye"></i><span>Tahun Ajaran</span></a>
             </li>
 
             <li>
@@ -159,7 +160,7 @@
                         </a>
                         <ul class="menu-dropdown">
                             @foreach ($level->majors as $major)
-                              <li><a href="{{ route('showmixcurri.generate', [$major->level->id, $major->id]) }}"><i class="ion ion-plus-circled"></i>{{ ucwords($major->name) }}
+                              <li><a href="{{ route('showmix.generate', [$major->level->id, $major->id]) }}"><i class="ion ion-plus-circled"></i>{{ ucwords($major->name) }}
 	                          @if (App\Models\Generate::where('major_id', $major->id)->where('role_id', 2)->where('read', 0)->count() != 0)
 	                            <span class="badge badge-primary">{{ App\Models\Generate::where('role_id', 2)->where('read', 0)->count() }}</span>
 	                          @endif
@@ -183,7 +184,7 @@
               <li class="menu-header">Ex</li>
 
               <li>
-                <a href=""><i class="ion ion-ios-eye"></i><span>Persetujuan Jadwal</span></a>
+                <a href="{{ route('appr.create') }}"><i class="ion ion-ios-eye"></i><span>Persetujuan Jadwal</span></a>
                 <a href=""><i class="ion ion-ios-eye"></i><span>Lihat Jadwal</span></a>
               </li>
 

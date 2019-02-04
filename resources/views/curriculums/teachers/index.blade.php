@@ -59,14 +59,26 @@
                 				</a>
               				</div>
               				<div class="col-xs-1 offset-sm-1"></div>
-              
-              				<div class="col-xs-4">
-                				<form class="" action="{{ route('teacher.destroy', $indexs->id) }}" method="POST">
-                      				@csrf
-                      				@method('DELETE')
-									<button class="ion ion-android-delete btn btn-danger btn-sm" name="delete" type="submit"></button>
-                  				</form>
-                  			</div>
+	              				@if ($indexs->generates->count() == 0)
+	              				<div class="col-xs-4">
+	                				<form class="" action="{{ route('teacher.destroy', $indexs->id) }}" method="POST">
+	                      				@csrf
+	                      				@method('DELETE')
+										<button class="ion ion-android-delete btn btn-danger btn-sm" name="delete" type="submit" ></button>
+	                  				</form>
+	                  			</div>
+
+	                  			@else
+
+	                  			<div class="col-xs-4">
+	                				<form class="" action="{{ route('teacher.destroy', $indexs->id) }}" method="POST">
+	                      				@csrf
+	                      				@method('DELETE')
+										<button class="ion ion-android-delete btn btn-danger btn-sm"  name="delete" type="submit" disabled="disabled" title="Guru Sudah Diatur dalam Penjadwalan"></button>
+	                  				</form>
+	                  			</div>
+
+	              				@endif
 				      	</div>
 				      </td>
 				    </tr>
@@ -106,6 +118,6 @@
 		      swal('Success!!', '{{ Session::get('sweetalert') }}', 'success');
 		  </script>
 		@endif
-	
+		
 @endsection()
 

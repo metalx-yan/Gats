@@ -148,7 +148,6 @@ class LessonController extends Controller
         $update = $request->validate([
             'code'               =>  "required|unique:lessons,code,$id|between:2,8",
             'name'               =>  'required',
-            // 'total_hours'        =>  'required|numeric|digits:1',
             'semester'           =>  'required',
             'type_lesson_id'     =>  'required',
         ]);
@@ -156,7 +155,6 @@ class LessonController extends Controller
         $update = Lesson::findOrFail($id);
         $update->code                    = $request->code;
         $update->name                    = $request->name;
-        // $update->total_hours             = $request->total_hours;
         $update->semester                = $request->semester;
         $update->type_lesson_id          = $request->type_lesson_id;
         $update->save();

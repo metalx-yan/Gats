@@ -120,19 +120,18 @@
 			$('#select4').select2();
 		});
 	</script>
-{{-- 
+
 	<script type="text/javascript">
       $('.date-own').datepicker({
          minViewMode: 2,
          format: 'yyyy'
        });
-  	</script> --}}
+  	</script>
 
 	@if(Session::has('sweetalert'))
 	  <script>
 	      swal('Success!!', '{{ Session::get('sweetalert') }}', 'success');
 	  </script>
-	  {{-- <?php Session::forget('sweetalert'); ?> --}}
 	@endif
 
 @endsection()

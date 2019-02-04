@@ -71,7 +71,7 @@
 									<div id="type-cont">
 							 		<label for="">Tipe Ruang</label>
 									<select name="room_id" id="type" class="form-control" {{ $edit->istirahat() ? 'disabled' : null }}>
-										@if (!$edit->istirahat())
+										@if (!$edit->istirahat() and !$edit->jamKosong())
 											<option value="{{ $edit->room->type_room->id }}">-- {{ ucwords($edit->room->type_room->name) }} --</option>
 										@endif
 										@if (Auth::user()->role->id == 1)
@@ -91,7 +91,7 @@
 									<div id="room-cont">
 										<label for="">Ruang</label>
 										<select name="room_id" id="room" class="form-control" {{ $edit->istirahat() ? 'disabled' : null }}>
-											@if (!$edit->istirahat())
+											@if (!$edit->istirahat() and !$edit->jamKosong())
 												<option value="{{ $edit->room->id }}">-- {{ ucwords($edit->room->name) }} --</option>
 											@endif
 										</select>
@@ -104,7 +104,7 @@
 									<div id="type-lesson-cont">
 									<label for="">Tipe Mata Pelajaran</label>
 									<select name="lesson_id" id="" class="form-control" {{ $edit->istirahat() ? 'disabled' : null }}>
-										@if (!$edit->istirahat())
+										@if (!$edit->istirahat() and !$edit->jamKosong())
 											<option value="{{ $edit->lesson->type_lesson->id }}">-- {{ ucwords($edit->lesson->type_lesson->name) }} --</option>
 										@endif
 										@php
@@ -126,14 +126,14 @@
 									<div id="lesson-major-cont">
 										<label for="">Pilih Jurusan</label>
 										<select name="major_id" id="major" class="form-control" {{ $edit->istirahat() ? 'disabled' : null }}>
-											@if (!$edit->istirahat())
+											@if (!$edit->istirahat() and !$edit->jamKosong())
 												<option value="{{ $edit->major->id }}">-- {{ ucwords($edit->major->level->class) }} {{ ucwords($edit->major->name) }} --</option>
 											@endif
 											@php
 												$dup = [];
 											@endphp
 											@foreach ($typelesson->lessons as $lesson)
-												@if (!$edit->istirahat())
+												@if (!$edit->istirahat() and !$edit->jamKosong())
 													@foreach ($lesson->majors->where('id', $edit->major->id) as $major)
 														@if (!in_array($major->id, $dup))
 															<option value="{{ $major->id }}">{{ $major->level->class }} {{ $major->name }} </option>
@@ -154,7 +154,7 @@
 									<div id="lesson-cont">
 									<label for="">Mata Pelajaran</label>
 									<select name="lesson_id" id="" class="form-control" {{ $edit->istirahat() ? 'disabled' : null }}>
-										@if (!$edit->istirahat())
+										@if (!$edit->istirahat() and !$edit->jamKosong())
 											<option value="{{ $edit->lesson->id }}">-- {{ $edit->lesson->name }} --</option>
 											@foreach ($edit->major->lessons as $lesson)
 												@if ($lesson->type_lesson->id == $typelesson->id)
@@ -176,7 +176,7 @@
 									<div id="type-teacher-cont">
 										<label for="">Tipe Guru</label>
 										<select name="teacher_id" id="type_teacher" class="form-control" {{ $edit->istirahat() ? 'disabled' : null }}>
-											@if (!$edit->istirahat())
+											@if (!$edit->istirahat() and !$edit->jamKosong())
 												<option value="{{ $edit->teacher->type_teacher->id }}">-- {{ ucwords($edit->teacher->type_teacher->name) }} --</option>
 											@endif
 											@php
@@ -198,7 +198,7 @@
 									<div id="teacher-cont">
 										<label for="">Guru</label>
 										<select name="teacher_id" id="teacher" class="form-control" {{ $edit->istirahat() ? 'disabled' : null }}>
-											@if (!$edit->istirahat())
+											@if (!$edit->istirahat() and !$edit->jamKosong())
 												<option value="{{ $edit->teacher->id }}">-- {{ $edit->teacher->name }} --</option>
 											@endif
 										</select>
@@ -241,11 +241,11 @@
 								@php
 									$no++;	
 								@endphp
-								@if (is_null($gen->major_id))
+								@if (is_null($gen->teacher_id))
 									<td>{{ ucwords($gen->day) }}</td>
 									<td>{{ $gen->start }}</td>
 									<td>{{ $gen->end }}</td>
-									<td>Istirahat</td>
+									<td>{{ $gen->istirahat() ? 'Istirahat' : 'Jam Kosong' }}</td>
 									<td>-</td>
 									<td>-</td>
 									<td>-</td>
@@ -341,6 +341,8 @@
 						data.map(function (map) {
 							if (map.includes('istirahat')) {
 								$('#hour').append('<option value="' + map + '">' + map.substr(0, 5) + ' (istirahat)' + '</option>');
+							} else if (map.includes('jam kosong')) {
+								$('#hour').append('<option value="' + map + '">' + map.substr(0, 5) + ' (jam kosong)' + '</option>');
 							} else {
 								$('#hour').append('<option value="' + map + '">' + map.substr(0, 5) + '</option>');
 							}

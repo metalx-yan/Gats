@@ -6,6 +6,7 @@ use App\Models\TypeTeacher;
 use Illuminate\Http\Request;
 use Hash;
 use App\Models\User;
+use App\Models\Generate;
 
 class TeacherController extends Controller
 {
@@ -25,7 +26,9 @@ class TeacherController extends Controller
     {
         $mix = TypeTeacher::find($typeteacherid);
 
-        return view('curriculums.teachers.index', compact('mix'));
+        $teacher = Generate::all();
+
+        return view('curriculums.teachers.index', compact('mix', 'teacher'));
     }
     /**
      * Show the form for creating a new resource.

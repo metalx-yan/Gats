@@ -9,7 +9,7 @@
 @section('content')
 
 <h1 class="section-header">
-  <div>Atur Jadwal Kelas {{ ucwords($showexpert->major->level->class) }} {{ ucwords($showexpert->major->name) }} {{ ucwords($showexpert->part) }} </div>
+  <div>Atur Jadwal Kelas {{ $showexpert->major->level->class }} {{ ucwords($showexpert->major->name) }} {{ ucwords($showexpert->part) }} </div>
 </h1>
 
 @php
@@ -138,20 +138,21 @@
 					</thead>
 					<tbody class="fontsopher" id="color">
 
-						@foreach ($gens as $gen)
 							<tr>
+						@foreach ($gens as $gen)
+								@if ($gen->major_id == $showexpert->major->id)
 								<td>{{ $no }}</td>
 								@php
 									$no++;	
 								@endphp
-								@if (is_null($gen->major_id))
+								@if (is_null($gen->teacher_id))
 									<td>{{ ucwords($gen->day) }}</td>
 									<td>{{ $gen->start }}</td>
 									<td>{{ $gen->end }}</td>
-									<td>Istirahat</td>
+									<td>{{ $gen->istirahat() ? 'Istirahat' : 'Jam Kosong' }}</td>
 									<td>-</td>
 									<td>-</td>
-									<td>-</td>
+									<td>{{ ucwords($gen->major->level->class) }}</td>
 									<td>
 										<div class="row">
 				              				<div class="col-xs-4">
@@ -196,6 +197,7 @@
 				                  			</div>
 								      	</div>
 									</td>
+									@endif
 								@endif
 							</tr>
 						@endforeach
@@ -218,7 +220,11 @@
 		  <script>
 		      swal('Success!!', '{{ Session::get('sweetalert') }}', 'success');
 		  </script>
-		  {{-- <?php Session::forget('sweetalert'); ?> --}}
+
+		  @elseif(Session::has('sweetalerterror'))
+		  <script>
+		      swal('Error!!', '{{ Session::get('sweetalerterror') }}', 'error');
+		  </script>
 		@endif
 
 	<script>
@@ -244,6 +250,8 @@
 						data.map(function (map) {
 							if (map.includes('istirahat')) {
 								$('#hour').append('<option value="' + map + '">' + map.substr(0, 5) + ' (istirahat)' + '</option>');
+							} else if (map.includes('jam kosong')) {
+								$('#hour').append('<option value="' + map + '">' + map.substr(0, 5) + ' (jam kosong)' + '</option>');
 							} else {
 								$('#hour').append('<option value="' + map + '">' + map.substr(0, 5) + '</option>');
 							}
@@ -408,7 +416,7 @@
 
 					$('#type_lesson').on('change', function () {
 						if ($('#type_lesson').val() == 3) {
-							$('#major').attr('disabled', true);
+							// $('#major').attr('disabled', true);
 							$('#lesson').attr('disabled', true);
 							$('#type_teacher').attr('disabled', true);
 							$('#teacher').attr('disabled', true);

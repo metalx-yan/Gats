@@ -18,8 +18,13 @@ class ApiController extends Controller
         $istirahat = Generate::whereNull('teacher_id')->where('day', $day)->get();
     	for ($i=0; $i < 10; $i++) {
             if ($istirahat->where('start', $start->format('H:i:s'))->first()) {
-            	array_push($hours, $start->format('H:i:s') . '(istirahat)');
-                $start->addMinutes(30);
+                if ($istirahat->where('start', $start->format('H:i:s'))->first()->istirahat()) {
+                    array_push($hours, $start->format('H:i:s') . '(istirahat)');
+                    $start->addMinutes(30);
+                } else {
+                	array_push($hours, $start->format('H:i:s') . '(jam kosong)');
+                    $start->addMinutes(45);
+                }
             } else {
                 array_push($hours, $start->format('H:i:s'));
                 $start->addMinutes(45);

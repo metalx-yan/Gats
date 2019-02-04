@@ -20,10 +20,6 @@ Auth::routes();
 
 Route::group(['prefix' => 'curriculum', 'middleware' => ['auth','role:curriculum']], function() {
 
-	Route::resource('year', 'YearController');
-	
-	Route::get('generate/{level_id}/{major_id}', 'GenerateController@showmixcurri')->name('showmixcurri.generate');
-
 	Route::get('expertise/{level_id}/{major_id}/create', 'ExpertiseController@mix')->name('mix.expertise');
 
 	Route::get('expertise/{level_id}/{major_id}/{expertise_id}/edit', 'ExpertiseController@editmix')->name('editmix.expertise');
@@ -41,7 +37,8 @@ Route::group(['prefix' => 'curriculum', 'middleware' => ['auth','role:curriculum
 	Route::get('room/{typeroom_id}/{room_id}/edit', 'RoomController@editmix')->name('editmix.room');
 
 	Route::resource('teacher', 'TeacherController')->except(['create', 'show']);
-
+	
+	Route::resource('approval', 'ApprovalController');
 
 	Route::resource('room', 'RoomController')->except(['create', 'show']);
 
@@ -54,6 +51,13 @@ Route::group(['prefix' => 'curriculum', 'middleware' => ['auth','role:curriculum
 	})->name('curriculum');
 });
 
+// KEPALA SEKOLAH
+
+Route::group(['prefix' => 'headmaster', 'middleware' => ['auth','role:headmaster']], function() {
+
+	Route::get('approval/create', 'ApprovalController@approve')->name('appr.create');
+
+});
 
 Route::group(['middleware' => ['auth','role:major,curriculum']], function() {
 
@@ -62,14 +66,16 @@ Route::group(['middleware' => ['auth','role:major,curriculum']], function() {
 	Route::get('{role_name}/generate/{level_id}/{major_id}/{expertise_id}/create', 'GenerateController@showgen')->name('showgenexpert.generate');
 
 	Route::get('{role_name}/generate/{level_id}/{major_id}/{expertise_id}/edit', 'GenerateController@editgen')->name('edit.generate');
+
+	Route::get('generate/{level_id}/{major_id}', 'GenerateController@showmix')->name('showmix.generate');
+
 });
+
 
 // JURUSAN
 
 Route::group(['prefix' => 'major', 'middleware' => ['auth','role:major']], function() {
 
-	Route::get('generate/{level_id}/{major_id}', 'GenerateController@showmixmajor')->name('showmixmajor.generate');
-	
 	Route::get('room/{typeroom_id}', 'RoomController@view')->name('room.view');
 
 	Route::get('lesson/{typelesson_id}', 'LessonController@view')->name('lesson.view');

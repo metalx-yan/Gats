@@ -26,11 +26,9 @@
 				      <th>No</th>
 				      <th>Kode</th>
 				      <th>Nama</th>
-				  	{{-- @foreach ($typeroom->rooms as $index) --}}
 		      			  @if ($typeroom->id === 1)
 					      <th>Jurusan</th>
 						  @endif
-					 {{-- @endforeach --}}
 				      <th>Aksi</th>
 				    </tr>
 				  </thead>

@@ -799,6 +799,11 @@ h5.card-header.head {
 	text-align: center;
 }
 
+h5.card-header.head4 {
+	background-color: #bbbbbb;
+	text-align: center;
+}
+
 .card .card-header {
 	/*border-bottom-color: #000000;*/
 	/*background-color: #ffc107;*/

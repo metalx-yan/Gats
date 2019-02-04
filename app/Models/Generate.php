@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Generate extends Model
 {
@@ -61,6 +62,13 @@ class Generate extends Model
 
     public function istirahat()
     {
-        return $this->teacher_id == null;
+        $diff = Carbon::parse($this->start)->addMinute(30)->format('H:i:s');
+        return $this->end == $diff;
+    }
+
+    public function jamKosong()
+    {
+        $diff = Carbon::parse($this->start)->addMinute(45)->format('H:i:s');
+        return $this->end == $diff;
     }
 }
