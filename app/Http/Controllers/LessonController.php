@@ -8,6 +8,7 @@ use App\Models\Major;
 use App\Models\Teacher;
 use App\Models\User;
 use App\Models\TypeLesson;
+use Auth;
 
 class LessonController extends Controller
 {
@@ -88,7 +89,7 @@ class LessonController extends Controller
 
     public function view($typelesson)
     {
-        $view = TypeLesson::find($typelesson);
+        $view = Auth::user();
         
         return view('majors.lessons.view', compact('view'));
     }

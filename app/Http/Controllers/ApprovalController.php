@@ -34,7 +34,7 @@ class ApprovalController extends Controller
 
     public function create()
     {
-        $gene = Generate::whereNotNull('major_id')->get();
+        $gene = Generate::whereNotNull('major_id')->get()->groupBy('major_id');
         $expertise = Expertise::all();
         $approve = Approval::all();
 

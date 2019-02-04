@@ -23,7 +23,12 @@ class GenerateController extends Controller
         $showexpert = Expertise::find($gen);
         $major1 = Teacher::all();
         $generate = Generate::orderBy('start')->get();
-        $gens = Generate::where('role_id', Auth::user()->role->id)->where('major_id', $major)->orWhereNull('major_id')->orderBy('day')->get();
+        if (Auth::user()->role->id == 1) {
+            $gens = Generate::where('major_id', $major)->orWhereNull('major_id')->orderBy('day')->get();
+        }else {
+            $gens = Generate::where('user_id', Auth::user()->id)->where('role_id', Auth::user()->role->id)->where('major_id', $major)->orWhereNull('major_id')->orderBy('day')->get();
+
+        }
         return view('curriculums.generates.create', compact(['showexpert', 'major1', 'gens','generate']));
     }
 

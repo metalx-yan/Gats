@@ -175,7 +175,7 @@
 									<td>{{ ucwords($gen->day) }}</td>
 									<td>{{ $gen->start }}</td>
 									<td>{{ $gen->end }}</td>
-									<td>{{ ucwords($gen->teacher->name) }}</td>
+									<td>{{ ucwords($gen->teacher->name) }} - {{ $gen->user->role->name }}</td>
 									<td>{{ $gen->room->code }} - {{ $gen->room->name }}</td>
 									<td>{{ $gen->lesson->name }}</td>
 									<td>{{ $gen->major->level->class }} {{ $gen->major->name }}</td>

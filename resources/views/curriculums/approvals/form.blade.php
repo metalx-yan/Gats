@@ -27,7 +27,7 @@
 			<select class="form-control {{ $errors->has('generates') ? 'is-invalid' : ''}}" id="select2" name="generates[]" multiple="multiple">
 				@foreach ($gene as $gen)
 					{{-- @foreach ($expertise as $element) --}}
-			  			<option value="{{ $gen->id }}">{{ $gen->major->level->class }} {{ ucwords($gen->major->name) }} </option>
+			  			<option value="{{ $gen->first()->id }}">{{ $gen->first()->major->level->class }} {{ ucwords($gen->first()->major->name) }} </option>
 					{{-- @endforeach --}}
 				@endforeach
 			</select>
