@@ -43,7 +43,7 @@
 					  		@endphp
 					  		<td>{{ $app->beginning }}/{{ $app->end }}</td>
 					  		<td>@foreach ($app->generates as $generate)
-									{{ $generate->major->level->class }} {{ ucwords($generate->major->name) }},
+									{{ $generate->major->level->class }} {{ ucwords($generate->major->name) }}, <br>
 						  		@endforeach
 					  		</td>
 					  		<td>

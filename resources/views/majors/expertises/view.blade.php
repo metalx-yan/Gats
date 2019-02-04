@@ -5,7 +5,7 @@
 @section('content')
 
 <h1 class="section-header">
-  <div>Daftar Kelas {{ $view->level->class }} Jurusan {{ $view->major }} </div>
+  <div>Daftar Kelas {{ $view->level->class }} Jurusan {{ ucwords($view->name) }} </div>
 </h1>
 
 @php
@@ -35,7 +35,7 @@
 						@endphp
 				      <td>{{ $views->code }}</td>
 				      <td>{{ $views->name }}</td>
-				      <td>{{ $views->major->major }}</td>
+				      <td>{{ ucwords($views->major->name) }}</td>
 				      <td>{{ $views->major->level->class }} {{ $views->name }} {{ $views->part }}</td>
 				    </tr>
 				  	@endforeach
