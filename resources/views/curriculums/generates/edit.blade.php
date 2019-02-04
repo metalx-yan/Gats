@@ -437,16 +437,14 @@
 									$dup = [];
 								@endphp
 								@foreach ($typelesson->lessons as $lesson)
-									@if (!$edit->istirahat())
-										@foreach ($lesson->majors->where('id', $edit->major->id) as $major)
-											@if (!in_array($major->id, $dup))
-												<option value="{{ $major->id }}">{{ $major->level->class }} {{ $major->name }} </option>
-											@endif
-											@php
-												array_push($dup, $major->id);
-											@endphp
-										@endforeach
-									@endif
+									@foreach ($lesson->majors->where('id', $edit->major->id) as $major)
+										@if (!in_array($major->id, $dup))
+											<option value="{{ $major->id }}">{{ $major->level->class }} {{ $major->name }} </option>
+										@endif
+										@php
+											array_push($dup, $major->id);
+										@endphp
+									@endforeach
 								@endforeach
 							</select>
 						`);

@@ -42,8 +42,13 @@
 							</select>
 						</div>
 					</div>
-
-					<a href="">Enter</a>
+					
+					<div class="col-md-4">
+						<div class="form-group">
+							<label><br></label>
+							<a href="" class="btn btn-success btn-sm form-control">Enter</a>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
