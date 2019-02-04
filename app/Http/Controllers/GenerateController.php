@@ -7,6 +7,7 @@ use App\Models\Teacher;
 use App\Models\Expertise;
 use App\Models\Major;
 use Carbon\Carbon;
+use App\Models\TypeLesson;
 use Auth;
 use App\Models\Generate;
 
@@ -163,7 +164,7 @@ class GenerateController extends Controller
     public function update(Request $request, $id)
     {
         $current = Generate::find($id);
-        if (!is_null($current->lesson_id)) {
+        if ($current->jamPelajaran()) {
             $this->validate($request, [
                 'day'   => 'required',
                 'start' => 'required',
@@ -194,7 +195,7 @@ class GenerateController extends Controller
             $create->user_id = Auth::user()->id;
             $create->role_id = Auth::user()->role->id;
             $create->save();
-        } else {
+        } else if($current->jamKosong()) {
             $update = Generate::findOrFail($id);
             $update->teacher_id = $request->teacher_id;
             $update->room_id = $request->room_id;
@@ -203,9 +204,42 @@ class GenerateController extends Controller
             $update->user_id = Auth::user()->id;
             $update->role_id = Auth::user()->role->id;
             $update->save();
+        } else if($current->istirahat()) {
+            $start = Carbon::parse(substr($request->start, 0, 8));
+            $type = TypeLesson::find($request->lesson_id);
+            $target = Generate::where('day', $request->day)
+                        ->where('start', $start)
+                        ->where('role_id', Auth::user()->role->id)
+                        ->where('major_id', $current->major->id)
+                        ->first();
+            if ($target->jamKosong()) {
+                $end = Carbon::parse($current->start)->subMinutes(15)->format('H:i:s');
+                $new = Carbon::parse($target->end)->subMinutes(15)->format('H:i:s');
+                $target->update([
+                    'end' => $new
+                ]);
+                $current->update([
+                    'start' => $end
+                ]);
+                $between = Generate::where('role_id', Auth::user()->role->id)
+                            ->where('day', 'senin')
+                            ->where('major_id', $current->major->id)
+                            ->whereBetween('start', [$new, $end])
+                            ->get();
+                foreach ($between as $updated) {
+                    if ($updated->id != $current->id) {
+                        $a = Carbon::parse($updated->start)->subMinutes(15)->format('H:i:s');
+                        $b = Carbon::parse($updated->end)->subMinutes(15)->format('H:i:s');
+                        $updated->update([
+                            'start' => $a,
+                            'end' => $b
+                        ]);
+                    }
+                }
+            }
         }
 
-        return back()->with('sweetalert', 'Berhasil Mengubah Data Atur Jadwal');
+        return redirect()->route('showmix.generate', [$current->major->level->id, $current->major->id])->with('sweetalert', 'Berhasil Mengubah Data Atur Jadwal');
     }
 
     /**

@@ -16,6 +16,21 @@
 @endif
 </h1>
 
+@if ($edit->istirahat())
+<div class="row">
+	<div class="col-md-12">
+		<div class="card">
+			<div class="card-header text-center"><h5 class="head">Information</h5></div>
+			<div class="card-body">
+				<div class="alert alert-info">
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste accusamus quibusdam facere illo voluptates dignissimos, ipsa aliquid reprehenderit. Quos excepturi aperiam, mollitia commodi nostrum aliquid molestias omnis vel, sed expedita.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+@endif
+
 @php
 	$no = 1;
 @endphp
@@ -237,7 +252,7 @@
 
 						@foreach ($gens as $gen)
 							<tr>
-								<td>{{ $no }}</td>
+								<td>{{ $gen->id }}</td>
 								@php
 									$no++;	
 								@endphp

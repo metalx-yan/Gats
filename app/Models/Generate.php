@@ -71,4 +71,9 @@ class Generate extends Model
         $diff = Carbon::parse($this->start)->addMinute(45)->format('H:i:s');
         return $this->end == $diff;
     }
+
+    public function jamPelajaran()
+    {
+        return !is_null($this->lesson);
+    }
 }
