@@ -5,7 +5,7 @@
 @section('content')
 
 <h1 class="section-header">
-  <div>Daftar Guru {{ ucwords($view->name) }}</div>
+  <div>Daftar Semua Guru {{ ucwords($view->name) }}</div>
 </h1>
 
 @php

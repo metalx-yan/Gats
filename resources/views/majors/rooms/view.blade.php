@@ -5,7 +5,7 @@
 @section('content')
 
 <h1 class="section-header">
-  <div>Daftar Ruang {{ ucwords($view->name) }}</div>
+  <div>Daftar Semua Ruang {{ ucwords($view->name) }}</div>
 </h1>
 
 @php
@@ -21,7 +21,7 @@
 				    <tr>
 				      <th>No</th>
 				      <th>Kode</th>
-				      <th>Kapasitas</th>
+				      <th>Nama</th>
 				    </tr>
 				  </thead>
 				  <tbody class="fontsopher">
@@ -33,7 +33,7 @@
 								$no++;	
 							@endphp
 					      <td>{{ $views->code }}</td>
-					      <td>{{ $views->capacity }}</td>
+					      <td>{{ $views->name }}</td>
 					    </tr>	
 				  	@endif
 				  	@endforeach

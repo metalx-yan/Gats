@@ -1,4 +1,3 @@
-
 <html>
     <head>
         <title>Home</title>
@@ -42,7 +41,10 @@
                     <div class="col-md-6">
                         <ul class="d-flex header-agile">
                             <li>
-                                <h3><a href="http://smkn4-tng.sch.id/" class="text-white">SMKN 4 Kota Tangerang</a></h3>
+                                <h3>
+                                    <a href="{{ route('home') }}"><img src="{{ asset('/images/logosekolah.png') }}" alt="" height="10%" width="10%"></a> &nbsp
+                                    <a href="{{ route('home') }}" class="text-white">SMKN 4 Kota Tangerang</a>
+                                </h3>
                             </li>
                         </ul>
                     </div>
@@ -53,6 +55,7 @@
                               
                             </select>
                             <!-- Multiple select filter  -->
+                                <label for=""><br><br></label>
                             <div class="login-wthree my-auto">
                                 <a href="{{ route('login') }}" class="text-white text-capitalize">login <span class="fas fa-sign-in-alt flash animated infinite"></span></a>
                             </div>
@@ -64,13 +67,6 @@
         <div class="header-bottom">
             <div class="container">
                 <nav class="navbar navbar-expand-lg navbar-light p-0">
-                    <a class="hover-fill" href="{{ route('home') }}" data-txthover="Home">Home</a>
-                    {{-- <button class="navbar-toggler ml-lg-auto ml-sm-5" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button> --}}
-                    {{-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    </div> --}}
                 </nav>
             </div>
         </div>
@@ -115,7 +111,7 @@
         <div class="col-lg-4">
             <div class="wthree-form">
                 <h4>Pilih Jadwal Sesuai Kelas</h4>
-                <p class="login-sub">Let’s find a perfect course for you now!</p>
+                <i><p class="login-sub">Let’s find a perfect course for you now!</p></i>
                 <form action="home.html" method="get" class="register-wthree">
                     <div class="form-group">
                         <div class="row">

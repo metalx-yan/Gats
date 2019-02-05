@@ -26,7 +26,6 @@
 				      <th>Guru</th>
 				      <th>Akun Jurusan</th>
 				      <th>Kelas Jurusan</th>
-				      <th>Tahun Ajaran</th>
 				    </tr>
 				  </thead>
 				  <tbody class="fontsopher">
@@ -49,7 +48,6 @@
 						       <td>@foreach ($views->majors as $major)
 							    	  {{ ucwords($major->name) }},<br>
 						        @endforeach</td>
-						      <td>{{ $views->beginning }}/{{ $views->end }}</td>
 						    </tr>
 					  	@endif
 				  	@endforeach

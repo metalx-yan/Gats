@@ -118,7 +118,7 @@ class LessonController extends Controller
             $majors2[$major->id] = $major->name;
         }
 
-        $users = User::all();
+        $users = User::where('role_id', 2)->get();
 
         $user = array();
 

@@ -29,9 +29,9 @@
 				<label for="">Akun Jurusan</label>
 				<select class="form-control {{ $errors->has('users') ? 'is-invalid' : ''}}" id="select3" $users name="users[]" multiple="multiple">
 					@foreach ($users as $key)
-						@if ($key->role_id == 1)
+						{{-- @if ($key->role_id == 1) --}}
 					  		<option value="{{ $key->id }}">{{ ucwords($key->name) }}</option>
-						@endif
+						{{-- @endif --}}
 					@endforeach
 				</select>
 				{!! $errors->first('users', '<span class="invalid-feedback">:message</span>') !!}
@@ -46,9 +46,9 @@
 				<label for="">Guru</label>
 				<select class="form-control {{ $errors->has('teachers') ? 'is-invalid' : ''}}" id="select4" $teachers name="teachers[]" multiple="multiple">
 					@foreach ($teachers as $key)
-						@if ($key->type_teacher_id == 2)
+						{{-- @if ($key->type_teacher_id == 2) --}}
 					  		<option value="{{ $key->id }}">{{ ucwords($key->name) }}</option>
-						@endif
+						{{-- @endif --}}
 					@endforeach
 				</select>
 				{!! $errors->first('teachers', '<span class="invalid-feedback">:message</span>') !!}
