@@ -800,7 +800,12 @@ h5.card-header.head {
 }
 
 h5.card-header.head4 {
-	background-color: #bbbbbb;
+	background-color: #ffc107;
+	text-align: center;
+}
+
+h5.card-header.head5 {
+	background-color: #b3b3b2;
 	text-align: center;
 }
 

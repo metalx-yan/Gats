@@ -40,6 +40,8 @@ Route::group(['prefix' => 'curriculum', 'middleware' => ['auth','role:curriculum
 	
 	Route::resource('approval', 'ApprovalController');
 
+	Route::resource('user', 'UserController');
+
 	Route::resource('room', 'RoomController')->except(['create', 'show']);
 
 	Route::resource('lesson', 'LessonController')->except(['create', 'show']);
@@ -61,13 +63,14 @@ Route::group(['prefix' => 'headmaster', 'middleware' => ['auth','role:headmaster
 
 Route::group(['middleware' => ['auth','role:major,curriculum']], function() {
 
+	Route::get('{role_name}/generate/{level_id}/{major_id}', 'GenerateController@showmix')->name('showmix.generate');
+	
 	Route::resource('generate', 'GenerateController')->except(['create', 'show']);
 
 	Route::get('{role_name}/generate/{level_id}/{major_id}/{expertise_id}/create', 'GenerateController@showgen')->name('showgenexpert.generate');
 
 	Route::get('{role_name}/generate/{level_id}/{major_id}/{expertise_id}/edit', 'GenerateController@editgen')->name('edit.generate');
 
-	Route::get('generate/{level_id}/{major_id}', 'GenerateController@showmix')->name('showmix.generate');
 
 });
 

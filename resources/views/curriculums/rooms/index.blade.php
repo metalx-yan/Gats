@@ -42,7 +42,7 @@
 				      <td>{{ $indexs->code }}</td>
 				      <td>{{ $indexs->name }}</td>
 				      
-	      				@if ($indexs->major_id === 1)
+	      				@if ($indexs->type_room->id === 1)
 					      <td>
 				      		{{ $indexs->major->level->class }} {{ ucwords($indexs->major->name) }}
 					      </td>
@@ -112,5 +112,5 @@
     </script>
 		 
 	
-@endsection()
+@endsection
 

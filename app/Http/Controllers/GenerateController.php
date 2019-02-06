@@ -32,7 +32,7 @@ class GenerateController extends Controller
         return view('curriculums.generates.create', compact(['showexpert', 'major1', 'gens','generate']));
     }
 
-    public function showmix($level, $major)
+    public function showmix($level, $major, $gen)
     {
         $mixcurriculum = Major::find($major);
         

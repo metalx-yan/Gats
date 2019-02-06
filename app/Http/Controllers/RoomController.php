@@ -105,8 +105,8 @@ class RoomController extends Controller
         // dd($request);
         $this->validate($request, [
             'code'          =>  "required|unique:rooms,code,$id|max:5",
-            'name'      =>  'required',
-            'major_id'      =>  '',
+            'name'          =>  'required',
+            'major_id'      =>  'required',
         ]);
 
         $room = Room::findOrFail($id);

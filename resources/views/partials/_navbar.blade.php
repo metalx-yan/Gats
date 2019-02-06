@@ -9,72 +9,55 @@
             <input class="form-control" type="search" placeholder="Search" aria-label="Search">
             <button class="btn" type="submit"><i class="ion ion-search"></i></button>
           </div> --}}
-        </form>
           {{-- expr --}}
+        </form>
         <ul class="navbar-nav navbar-right">
         @if (Auth::user()->role->id != 2)
           <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg 
             @foreach (App\Models\Level::all() as $level)
-              @foreach ($level->majors as $major)
+              {{-- @foreach ($level->majors as $major) --}}
                 @if (App\Models\Generate::where('role_id', 2)->where('read', 0)->count() != 0)
                   beep
                 @endif
-              @endforeach
+              {{-- @endforeach --}}
             @endforeach
             "><i class="ion ion-ios-bell-outline"></i></a>
             <div class="dropdown-menu dropdown-list dropdown-menu-right">
-              <div class="dropdown-header">Notifications
-                <div class="float-right">
+              <div class="dropdown-header">Notifications 
+                @if (Auth::user()->role->id == 1)
+                  ({{ App\Models\Generate::where('role_id', 2)->count() }})
+                @endif
+                {{-- <div class="float-right">
                   <a href="#">View All</a>
-                </div>
+                </div> --}}
               </div>
               <div class="dropdown-list-content">
-                <a href="#" class="dropdown-item dropdown-item-unread">
-                  <img alt="image" src="../dist/img/avatar/avatar-1.jpeg" class="rounded-circle dropdown-item-img">
-                  <div class="dropdown-item-desc">
-                    <b>Kusnaedi</b> has moved task <b>Fix bug header</b> to <b>Done</b>
-                    <div class="time">10 Hours Ago</div>
-                  </div>
-                </a>
-                <a href="#" class="dropdown-item dropdown-item-unread">
-                  <img alt="image" src="../dist/img/avatar/avatar-2.jpeg" class="rounded-circle dropdown-item-img">
-                  <div class="dropdown-item-desc">
-                    <b>Ujang Maman</b> has moved task <b>Fix bug footer</b> to <b>Progress</b>
-                    <div class="time">12 Hours Ago</div>
-                  </div>
-                </a>
-                <a href="#" class="dropdown-item">
-                  <img alt="image" src="../dist/img/avatar/avatar-3.jpeg" class="rounded-circle dropdown-item-img">
-                  <div class="dropdown-item-desc">
-                    <b>Agung Ardiansyah</b> has moved task <b>Fix bug sidebar</b> to <b>Done</b>
-                    <div class="time">12 Hours Ago</div>
-                  </div>
-                </a>
-                <a href="#" class="dropdown-item">
-                  <img alt="image" src="../dist/img/avatar/avatar-4.jpeg" class="rounded-circle dropdown-item-img">
-                  <div class="dropdown-item-desc">
-                    <b>Ardian Rahardiansyah</b> has moved task <b>Fix bug navbar</b> to <b>Done</b>
-                    <div class="time">16 Hours Ago</div>
-                  </div>
-                </a>
-                <a href="#" class="dropdown-item">
-                  <img alt="image" src="../dist/img/avatar/avatar-5.jpeg" class="rounded-circle dropdown-item-img">
-                  <div class="dropdown-item-desc">
-                    <b>Alfa Zulkarnain</b> has moved task <b>Add logo</b> to <b>Done</b>
-                    <div class="time">Yesterday</div>
-                  </div>
-                </a>
+                    @foreach (App\Models\Generate::all() as $get)
+                      @if ($get->role_id == 2)
+                        @if (Auth::user()->role->id == 1)
+                          <a href="#" class="dropdown-item dropdown-item-unread">
+                            <img alt="image" src="{{ asset('images/default_account.png') }}" class="rounded-circle dropdown-item-img">
+                            <div class="dropdown-item-desc">
+                              <b>{{ ucwords($get->user->name) }}</b> telah mengirim jadwal jurusan untuk kelas <b>{{ $get->major->level->class }} {{ ucwords($get->major->name) }}</b> 
+                              <div class="time">{{ substr(Carbon\Carbon::parse($get->created_at), 0, 10) }} ({{ $get->created_at->diffForHumans() }})</div>
+                            </div>
+                          </a>
+                        @endif
+                      @endif
+                    @endforeach
               </div>
             </div>
           </li>
         @endif
           <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg">
             <i class="ion ion-android-person d-lg-none"></i>
-            <div class="d-sm-none d-lg-inline-block">{{ Auth::user()->name }} </div></a>
+            <div class="d-sm-none d-lg-inline-block">{{ ucwords(Auth::user()->name) }} </div></a>
             <div class="dropdown-menu dropdown-menu-right">
-              <a href="profile.html" class="dropdown-item has-icon">
-                <i class="ion ion-android-person"></i> Profile
-              </a>
+              @if (Auth::user()->role->id == 1)
+                <a href="{{ route('user.create') }}" class="dropdown-item has-icon">
+                  <i class="ion ion-android-person"></i> Kelola Akun
+                </a>
+              @endif
               <a class="dropdown-item" href="{{ route('logout') }}"
                 onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">

@@ -5,7 +5,7 @@
 @section('content')
 
 <h1 class="section-header">
-  <div>Generate Jadwal Jurusan {{ ucwords($mixcurriculum->name) }} Kelas {{ $mixcurriculum->level->class }}</div>
+  <div>Generate Jadwal Kelas {{ $mixcurriculum->level->class }} Jurusan {{ ucwords($mixcurriculum->name) }} </div>
 </h1>
 
 <div class="row">

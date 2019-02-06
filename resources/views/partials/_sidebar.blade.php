@@ -61,16 +61,7 @@
               </li>
 
            <li class="menu-header">Ex</li>
-            <li><a href="#" class="has-dropdown"><i class="ion ion-document-text"></i>Tahun Ajaran</a>
-              <ul class="menu-dropdown">
-                @foreach (App\Models\TypeRoom::all() as $typeroom)
-                  @if ($typeroom->id === 1)
-                    <li><a href="{{ route('room.view', $typeroom->id) }}"><i class="ion ion-ios-play-outline"></i>{{ ucwords($typeroom->name) }}</a></li>
-                  @endif
-                @endforeach
-              </ul>
-            </li>
-
+            
             <li>
               <a href="" class="has-dropdown"><i class="ion ion-ios-information-outline"></i>Generate</a>
                 <ul class="menu-dropdown">
@@ -82,7 +73,7 @@
                       <ul class="menu-dropdown">
                         @foreach ($level->majors as $major)
                           <li>
-                            <a href="{{ route('showmix.generate', [$major->level->id, $major->id]) }}">
+                            <a href="{{ route('showmix.generate', [Auth::user()->role->name, $major->level->id, $major->id]) }}">
                            
                               <i class="ion ion-ios-play-outline"></i>{{ ucwords($major->name) }}
                             </a>
@@ -160,7 +151,7 @@
                         </a>
                         <ul class="menu-dropdown">
                             @foreach ($level->majors as $major)
-                              <li><a href="{{ route('showmix.generate', [$major->level->id, $major->id]) }}"><i class="ion ion-plus-circled"></i>{{ ucwords($major->name) }}
+                              <li><a href="{{ route('showmix.generate', [Auth::user()->role->name, $major->level->id, $major->id]) }}"><i class="ion ion-plus-circled"></i>{{ ucwords($major->name) }}
 	                          @if (App\Models\Generate::where('major_id', $major->id)->where('role_id', 2)->where('read', 0)->count() != 0)
 	                            <span class="badge badge-primary">{{ App\Models\Generate::where('role_id', 2)->where('read', 0)->count() }}</span>
 	                          @endif

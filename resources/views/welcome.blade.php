@@ -39,7 +39,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
-                        <ul class="d-flex header-agile">
+                        <ul class="d-flex agileh col-sm-12">
                             <li>
                                 <h3>
                                     <a href="{{ route('home') }}"><img src="{{ asset('/images/logosekolah.png') }}" alt="" height="10%" width="10%"></a> &nbsp
@@ -48,12 +48,8 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="col-md-6 hearder-right-agile">
+                    <div class="col-md-6 hearder-right-agile agile">
                         <div class="d-flex">
-                            <!-- Multiple select filter -->
-                            <select class="custom-select">
-                              
-                            </select>
                             <!-- Multiple select filter  -->
                                 <label for=""><br><br></label>
                             <div class="login-wthree my-auto">
@@ -337,7 +333,7 @@
                     <span class="bg-theme"></span>
                 </div>
                 <div class="row stat-row  position-relative text-center">
-                    <img src="images/slide.jpg" alt="" class="img-fluid position-absolute" />
+                    <img src="" alt="" class="img-fluid position-absolute" />
                     <div class="col-lg-3 col-md-6">
                         <div class="counter py-4 px-3 bg1-theme">
                             <i class="far fa-smile"></i>
@@ -536,7 +532,7 @@
     <!-- stats counter -->
     <script src="{{ asset('js/home/counter.js') }}"></script>
     <!-- script for password match -->
-    <script>
+   {{--  <script>
         window.onload = function () {
             document.getElementById("password1").onchange = validatePassword;
             document.getElementById("password2").onchange = validatePassword;
@@ -551,7 +547,7 @@
                 document.getElementById("password2").setCustomValidity('');
             //empty string means no validation error
         }
-    </script>
+    </script> --}}
     <!-- script for password match -->
     <!-- start-smooth-scrolling -->
     <script src="{{ asset('js/home/move-top.js') }}">

@@ -23,14 +23,13 @@
 <div class="form-group">
 	<div class="row">
 		<div class="col-lg-12">
-			<label for="">jurusan</label>
+			<label for="">Jurusan</label>
 			<select name="major_id" id="" class="form-control {{ $errors->has('major_id') ? 'is-invalid' : ''}}">
-				@foreach ($major as $element)
-				<option value="{{ $element->id }}"
-					@if ($room->major_id === $element->id)
-							selected 
-					@endif
-					>{{ $element->level->class }} {{ ucwords($element->name) }}</option>
+					<option value="{{ $room->major->id }}">=== {{ $room->major->level->class }} {{ ucwords($room->major->name) }} ===</option>
+				@foreach ($major as $majr)
+					{{-- @if () --}}
+						<option value="{{ $majr->id }}" >{{ $majr->level->class }} {{ ucwords($majr->name) }}</option>
+					{{-- @endif --}}
 				@endforeach
 			</select>
 			{!! $errors->first('major_id', '<span class="invalid-feedback">:message</span>') !!}
