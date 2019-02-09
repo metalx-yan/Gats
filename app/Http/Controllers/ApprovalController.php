@@ -25,20 +25,22 @@ class ApprovalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function approve()
+    public function year()
     {
         $approve = Approval::all();
+        $generates = Generate::where('major_id');
 
-        return view('headmasters.approval.index', compact('approve'));
+        return view('headmasters.approval.index', compact(['approve','generates']));
     }
 
-    public function create()
+    public function create($major = null)
     {
-        $gene = Generate::whereNotNull('major_id')->get()->groupBy('major_id');
+        $gene = Generate::all();
         $expertise = Expertise::all();
         $approve = Approval::all();
+        $a = Generate::whereNotNull('major_id', $major)->get();
 
-        return view('curriculums.approvals.index', compact('gene', 'expertise', 'approve'));
+        return view('curriculums.approvals.index', compact(['gene', 'expertise', 'approve', 'a']));
     }
 
     /**
@@ -62,7 +64,6 @@ class ApprovalController extends Controller
         $create->save();
 
         $create->generates()->sync($request->generates, false);
-
 
         return redirect()->back()->with('sweetalert', 'Berhasil Menambah Data');
     }

@@ -29,14 +29,17 @@ class GenerateController extends Controller
             $gens = Generate::where('user_id', Auth::user()->id)->where('role_id', Auth::user()->role->id)->where('major_id', $major)->orWhereNull('major_id')->orderBy('day')->get();
 
         }
+
         return view('curriculums.generates.create', compact(['showexpert', 'major1', 'gens','generate']));
     }
 
     public function showmix($level, $major, $gen)
     {
-        $mixcurriculum = Major::find($major);
-        
-        return view('curriculums.generates.index', compact(['mixcurriculum']));
+        $mixcurriculum = Major::find($gen);
+
+        $read = Generate::where('major_id', 1)->where('role_id', 2)->update(['read' => 1]);
+
+        return view('curriculums.generates.index', compact(['mixcurriculum', 'read']));
     }
 
     public function index()
@@ -89,11 +92,11 @@ class GenerateController extends Controller
             ]);
             
             if ($request->start != '07:00:00') {
-                $carbon = Carbon::parse($request->start)->subMinutes(45)->format('H:i:s');
-                $ada = Generate::where('day', $request->day)->whereBetween('start', [$carbon, $request->start])->first();
-                if (is_null($ada)) {
-                    return redirect()->back()->with('sweetalerterror', 'Maaf!! Jam Sebelumnya Tidak Boleh Kosong');
-                } else {                    
+                // $carbon = Carbon::parse($request->start)->subMinutes(45)->format('H:i:s');
+                // $ada = Generate::where('day', $request->day)->whereBetween('start', [$carbon, $request->start])->first();
+                // if (is_null($ada)) {
+                    // return redirect()->back()->with('sweetalerterror', 'Maaf!! Jam Sebelumnya Tidak Boleh Kosong');
+                // } else {                    
                     $sesi = 45 * $request->sesi;
                     $create = new Generate;
                     $create->day = $request->day;
@@ -106,7 +109,7 @@ class GenerateController extends Controller
                     $create->user_id = Auth::user()->id;
                     $create->role_id = Auth::user()->role->id;
                     $create->save();
-                }
+                // }
             } else {
                 $start = Carbon::parse($request->start)->subMinutes(45);
                 $s = Generate::where('start', $start)->first();
@@ -153,6 +156,16 @@ class GenerateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    public function updateRead($id)
+    {
+        $read = Generate::find($id);
+
+        $read->update(['read' => 1]);
+
+        return redirect()->back();
+    }
+
     public function edit($id)
     {
         // $edit = Generate::find($id);

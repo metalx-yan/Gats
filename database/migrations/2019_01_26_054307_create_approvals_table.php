@@ -15,14 +15,14 @@ class CreateApprovalsTable extends Migration
     {
         Schema::create('approvals', function (Blueprint $table) {
             $table->increments('id');
-            $table->year('beginning');
-            $table->year('end');
-            $table->boolean('status')->default(0);
+            $table->year('beginning')->nullable();
+            $table->year('end')->nullable();
+            $table->boolean('status')->default(0)->nullable();
             $table->timestamps();
         });
 
         Schema::table('approvals', function (Blueprint $table) {
-            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');  
         });        
     }

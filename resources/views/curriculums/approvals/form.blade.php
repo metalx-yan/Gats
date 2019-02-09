@@ -22,16 +22,23 @@
 
 <div class="form-group">
 	<div class="row">
-		<div class="col-lg-12">
-			<label for="">Generate Sementara</label>
-			<select class="form-control {{ $errors->has('generates') ? 'is-invalid' : ''}}" id="select2" name="generates[]" multiple="multiple">
-				@foreach ($gene as $gen)
-					{{-- @foreach ($expertise as $element) --}}
-			  			<option value="{{ $gen->first()->id }}">{{ $gen->first()->major->level->class }} {{ ucwords($gen->first()->major->name) }} </option>
-					{{-- @endforeach --}}
+		<div class="col-md-12">
+			<label for="">Kelas Jurusan yang sudah di Generate</label>
+			<select class="form-control {{ $errors->has('generates') ? 'is-invalid' : ''}}" name="generates[]" id="select2" multiple="multiple">
+				@php
+					$b = [];
+				@endphp
+				@foreach ($a as $gen)
+					@if (!in_array($gen->major->id, $b))
+						<option value="{{ $gen->id }}">{{ $gen->major->name }}</option>
+					@endif
+				@php
+					array_push($b, $gen->major->id);
+				@endphp
 				@endforeach
-			</select>
-			{!! $errors->first('generates', '<span class="invalid-feedback">:message</span>') !!}
+				
+			</select>	
+			{!! $errors->first('beginning', '<span class="invalid-feedback">:message</span>') !!}
 		</div>
 	</div>
 </div>

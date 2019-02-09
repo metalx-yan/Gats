@@ -20,6 +20,8 @@ Auth::routes();
 
 Route::group(['prefix' => 'curriculum', 'middleware' => ['auth','role:curriculum']], function() {
 
+	Route::get('expertise/{generate_id}', 'ExpertiseController@updateRead')->name('update.read');
+
 	Route::get('expertise/{level_id}/{major_id}/create', 'ExpertiseController@mix')->name('mix.expertise');
 
 	Route::get('expertise/{level_id}/{major_id}/{expertise_id}/edit', 'ExpertiseController@editmix')->name('editmix.expertise');
@@ -35,6 +37,10 @@ Route::group(['prefix' => 'curriculum', 'middleware' => ['auth','role:curriculum
 	Route::get('room/{typeroom_id}/create', 'RoomController@mix')->name('mix.room');
 
 	Route::get('room/{typeroom_id}/{room_id}/edit', 'RoomController@editmix')->name('editmix.room');
+
+	Route::get('approval/{id}/create', 'ApprovalController@grouping')->name('grouping.create');
+
+	Route::post('approval/process', 'ApprovalController@process')->name('process.create');
 
 	Route::resource('teacher', 'TeacherController')->except(['create', 'show']);
 	

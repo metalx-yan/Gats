@@ -29,7 +29,7 @@
 					<tr>
 						<th>No</th>
 						<th>Tahun Ajaran</th>
-						<th>Data Generate</th>
+		                <th>Kelas Jurusan</th>
 						<th>Aksi</th>
 					</tr>
 				  </thead>
@@ -42,13 +42,17 @@
 					  			$no++;
 					  		@endphp
 					  		<td>{{ $app->beginning }}/{{ $app->end }}</td>
-					  		<td>@foreach ($app->generates as $generate)
-									{{ $generate->major->level->class }} {{ ucwords($generate->major->name) }}, <br>
-						  		@endforeach
+					  		<td>
+					  			@foreach ($approve as $element)
+									@foreach ($element->generates as $gen)
+										{{ $gen->major->level->class }} {{ ucwords($gen->major->name) }}, <br>
+									@endforeach
+					  			@endforeach
 					  		</td>
+	
 					  		<td>
 					  			<div class="row">
-		              				<div class="col-md-3">
+		              				<div class="col-md-2">
 		                				<a href="{{ route('approval.edit', $app->id) }}" class="btn btn-warning btn-sm">
 											<i class="ion ion-edit"></i>
 		                				</a>

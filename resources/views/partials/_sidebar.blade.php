@@ -137,9 +137,6 @@
 
           <li class="menu-header">Ex</li>
 
-            <li>
-              <a href="{{ route('approval.create') }}"><i class="ion ion-ios-eye"></i><span>Tahun Ajaran</span></a>
-            </li>
 
             <li>
               <a href="#" class="has-dropdown"><i class="ion ion-calendar"></i><span>Generate</span></a>
@@ -152,9 +149,11 @@
                         <ul class="menu-dropdown">
                             @foreach ($level->majors as $major)
                               <li><a href="{{ route('showmix.generate', [Auth::user()->role->name, $major->level->id, $major->id]) }}"><i class="ion ion-plus-circled"></i>{{ ucwords($major->name) }}
-	                          @if (App\Models\Generate::where('major_id', $major->id)->where('role_id', 2)->where('read', 0)->count() != 0)
-	                            <span class="badge badge-primary">{{ App\Models\Generate::where('role_id', 2)->where('read', 0)->count() }}</span>
-	                          @endif
+                            @if (App\Models\Generate::where('major_id', $major->id)->where('role_id', 2)->where('read', 0)->count() != 0)
+                              <span class="badge badge-primary">{{ App\Models\Generate::where('role_id', 2)->where('read', 0)->count() }}</span>
+                              @else
+                              <span></span>
+                            @endif
                               </a>
                               </li>
                             @endforeach
@@ -164,6 +163,10 @@
                 </ul>
             </li>
             
+            <li>
+              <a href="{{ route('approval.create') }}"><i class="ion ion-merge"></i>Pengelompokan Jadwal </a>
+            </li>
+
             @endif
 
             @if (Auth::user()->hasRole('headmaster'))
