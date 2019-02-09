@@ -76,7 +76,6 @@ class GenerateController extends Controller
                 'start' => 'required',
                 'major_id' => 'required'
             ]);
-
             $sesi = 30 ;
             $create = new Generate;
             $create->day = $request->day;
@@ -86,6 +85,15 @@ class GenerateController extends Controller
             $create->role_id = Auth::user()->role->id;
             $create->major_id = $request->major_id;
             $create->save();
+
+            $generates = Generate::where('day', $request->day)->where('role_id', Auth::user()->role->id)->where('major_id', $request->major_id)->get();
+            foreach ($generates as $generate) {
+                if ($generate->id != $create->id) {
+                    $generate->start = Carbon::parse($generate->start)->subMinutes(15);
+                    $generate->end = Carbon::parse($generate->end)->subMinutes(15);
+                    $generate->save();
+                }
+            }
 
         } else {
             $this->validate($request, [
