@@ -41,15 +41,8 @@ class ApiController extends Controller
     {
         $resp = [];
         foreach (TypeRoom::where('slug', $type)->first()->rooms as $room) {
-            if ($sesi == 1) {
-                if (is_null(Generate::where('day', $day)->where('start', $hour)->where('room_id', $room->id)->first())) {
-                    array_push($resp, $room);
-                }
-            } else {
-                $time = Carbon::parse($hour)->addMinute('45');
-                if (is_null(Generate::where('day', $day)->where('start', $hour)->orWhere('start', $time)->where('room_id', $room->id)->first())) {
-                    array_push($resp, $room);
-                }
+            if (is_null(Generate::where('day', $day)->where('start', $hour)->where('room_id', $room->id)->first())) {
+                array_push($resp, $room);
             }
         }
         return response()->json($resp);

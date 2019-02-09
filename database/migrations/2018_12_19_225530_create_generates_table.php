@@ -23,7 +23,7 @@ class CreateGeneratesTable extends Migration
         });
 
         Schema::table('generates', function (Blueprint $table) {
-            // $table->unsignedInteger('generate_id')->nullable();
+            $table->unsignedInteger('generate_id')->nullable();
             $table->unsignedInteger('teacher_id')->nullable();
             $table->unsignedInteger('room_id')->nullable();
             $table->unsignedInteger('lesson_id')->nullable();
@@ -31,7 +31,7 @@ class CreateGeneratesTable extends Migration
             $table->unsignedInteger('role_id');
             $table->unsignedInteger('major_id')->nullable();
 
-            // $table->foreign('generate_id')->references('id')->on('generates');
+            $table->foreign('generate_id')->references('id')->on('generates');
             $table->foreign('teacher_id')->references('id')->on('teachers');
             $table->foreign('room_id')->references('id')->on('rooms');
             $table->foreign('lesson_id')->references('id')->on('lessons');

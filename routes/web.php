@@ -70,6 +70,8 @@ Route::group(['prefix' => 'headmaster', 'middleware' => ['auth','role:headmaster
 Route::group(['middleware' => ['auth','role:major,curriculum']], function() {
 
 	Route::get('{role_name}/generate/{level_id}/{major_id}', 'GenerateController@showmix')->name('showmix.generate');
+
+	Route::put('{role_name}/generate/{id}/expl', 'GenerateController@expl')->name('expl.generate');
 	
 	Route::resource('generate', 'GenerateController')->except(['create', 'show']);
 

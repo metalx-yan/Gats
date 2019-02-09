@@ -179,6 +179,7 @@
 									<td>{{ $gen->room->code }} - {{ $gen->room->name }}</td>
 									<td>{{ $gen->lesson->name }}</td>
 									<td>{{ $gen->major->level->class }} {{ $gen->major->name }}</td>
+									@if (!$gen->generate_id)
 									<td>
 										<div class="row">
 				              				<div class="col-xs-4">
@@ -197,6 +198,19 @@
 				                  			</div>
 								      	</div>
 									</td>
+									@else	
+									<td>
+										<div class="row">
+											<div class="col-xs-4">
+				                				<form class="" action="{{ route('expl.generate', [Auth::user()->role->name, $gen->id]) }}" method="POST">
+				                      				@csrf
+				                      				@method('PUT')
+													<button class=" btn btn-primary btn-sm" name="" type="submit">Pisahkan</button>
+				                  				</form>
+				                  			</div>
+								      	</div>
+									</td>
+									@endif
 									@endif
 								@endif
 							</tr>

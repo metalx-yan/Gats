@@ -17,12 +17,18 @@ class Generate extends Model
 		'room_id',
 		'lesson_id',
         'user_id',
+        'generate_id',
         'role_id'
     ];
 
     public function major()
     {
     	return $this->belongsTo(Major::class);
+    }
+
+    public function generate()
+    {
+        return $this->hasOne(Generate::class);
     }
 
     public function lesson()
@@ -72,8 +78,13 @@ class Generate extends Model
         return $this->end == $diff;
     }
 
-    public function jamPelajaran()
+    public function jamPelajaranSatuSesi()
     {
-        return !is_null($this->lesson);
+        return is_null($this->generate);
+    }
+
+    public function jamPelajaranDuaSesi()
+    {
+        return !is_null($this->generate);
     }
 }
