@@ -26,8 +26,12 @@ class ApiController extends Controller
                     $start->addMinutes(45);
                 }
             } else {
-                array_push($hours, $start->format('H:i:s'));
-                $start->addMinutes(45);
+                if (Generate::where('day', $day)->where('start', $start->format('H:i:s'))->first()) {
+                    $start->addMinutes(45);
+                } else {
+                    array_push($hours, $start->format('H:i:s'));
+                    $start->addMinutes(45);
+                }
             }
     	}
         return response()->json($hours);

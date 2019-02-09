@@ -1,7 +1,6 @@
 @extends('main')
 
-{{-- $user = {{ Auth::user()->role->name }} --}}
-@section('title',  '(Generate Jadwal)') 
+@section('title',  ucwords(Auth::user()->role->name) . ' (Generate Jadwal)') 
 
 @section('links')
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">  
