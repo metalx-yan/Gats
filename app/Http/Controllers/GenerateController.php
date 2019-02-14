@@ -374,14 +374,38 @@ class GenerateController extends Controller
                 dd('Tidak Bisa');
             }
         } else if($current->jamKosong()) {
-            $update = Generate::findOrFail($id);
-            $update->teacher_id = $request->teacher_id;
-            $update->room_id = $request->room_id;
-            $update->lesson_id = $request->lesson_id;
-            $update->major_id = $request->major_id;
-            $update->user_id = Auth::user()->id;
-            $update->role_id = Auth::user()->role->id;
-            $update->save();
+            if ($request->lesson_id == 3) {
+                $update = Generate::findOrFail($id);
+                $update->teacher_id = null;
+                $update->room_id = null;
+                $update->lesson_id = null;
+                $update->end = Carbon::parse($update->end)->subMinutes(15)->format("H:i:s");
+                $update->user_id = Auth::user()->id;
+                $update->role_id = Auth::user()->role->id;
+                $update->save();
+
+                $limit = Carbon::parse(substr($request->start, 0, 8));
+                $generates = Generate::where('day', $request->day)->where('role_id', Auth::user()->role->id)->where('major_id', $current->major_id)->get();
+                foreach ($generates as $generate) {
+                    $test = Carbon::parse($generate->start);
+                    if ($generate->id != $update->id) {
+                        if ($test->greaterThan($limit)) {
+                            $generate->start = Carbon::parse($generate->start)->subMinutes(15);
+                            $generate->end = Carbon::parse($generate->end)->subMinutes(15);
+                            $generate->save();
+                        }
+                    }
+                }
+            } else {
+                $update = Generate::findOrFail($id);
+                $update->teacher_id = $request->teacher_id;
+                $update->room_id = $request->room_id;
+                $update->lesson_id = $request->lesson_id;
+                $update->major_id = $request->major_id;
+                $update->user_id = Auth::user()->id;
+                $update->role_id = Auth::user()->role->id;
+                $update->save();
+            }
         } else if($current->istirahat()) {
             $start = Carbon::parse(substr($request->start, 0, 8));
             $type = TypeLesson::find($request->lesson_id);
@@ -390,28 +414,59 @@ class GenerateController extends Controller
                         ->where('role_id', Auth::user()->role->id)
                         ->where('major_id', $current->major->id)
                         ->first();
-            if ($target->jamKosong()) {
-                $end = Carbon::parse($current->start)->subMinutes(15)->format('H:i:s');
-                $new = Carbon::parse($target->end)->subMinutes(15)->format('H:i:s');
-                $target->update([
-                    'end' => $new
-                ]);
-                $current->update([
-                    'start' => $end
-                ]);
-                $between = Generate::where('role_id', Auth::user()->role->id)
-                            ->where('day', 'senin')
-                            ->where('major_id', $current->major->id)
-                            ->whereBetween('start', [$new, $end])
-                            ->get();
-                foreach ($between as $updated) {
-                    if ($updated->id != $current->id) {
-                        $a = Carbon::parse($updated->start)->subMinutes(15)->format('H:i:s');
-                        $b = Carbon::parse($updated->end)->subMinutes(15)->format('H:i:s');
-                        $updated->update([
-                            'start' => $a,
-                            'end' => $b
-                        ]);
+            if (is_null($target)) {
+                $e = Carbon::parse($current->end)->addMinutes(15);
+                $current->end = $e;
+                $current->save();
+
+                if ($request->lesson_id == 3) {
+                    $c = Carbon::parse(substr($request->start, 0, 8));
+                    $create = new Generate;  
+                    $create->day = $request->day;
+                    $create->start = $c->format('H:i:s');
+                    $create->end = $c->addMinutes(30);
+                    $create->user_id = Auth::user()->id;
+                    $create->role_id = Auth::user()->role->id;
+                    $create->major_id = $current->major_id;
+                    $create->save();
+                }
+
+                $limit = $e->subMinutes(15);
+                $generates = Generate::where('day', $request->day)->where('role_id', Auth::user()->role->id)->where('major_id', $current->major_id)->get();
+                foreach ($generates as $generate) {
+                    $test = Carbon::parse($generate->start);
+                    if ($generate->id != $current->id) {
+                        if ($test->greaterThanOrEqualTo($limit)) {
+                            $generate->start = Carbon::parse($generate->start)->addMinutes(15);
+                            $generate->end = Carbon::parse($generate->end)->addMinutes(15);
+                            $generate->save();
+                        }
+                    }
+                }
+            } else {
+                if ($target->jamKosong()) {
+                    $end = Carbon::parse($current->start)->subMinutes(15)->format('H:i:s');
+                    $new = Carbon::parse($target->end)->subMinutes(15)->format('H:i:s');
+                    $target->update([
+                        'end' => $new
+                    ]);
+                    $current->update([
+                        'start' => $end
+                    ]);
+                    $between = Generate::where('role_id', Auth::user()->role->id)
+                                ->where('day', 'senin')
+                                ->where('major_id', $current->major->id)
+                                ->whereBetween('start', [$new, $end])
+                                ->get();
+                    foreach ($between as $updated) {
+                        if ($updated->id != $current->id) {
+                            $a = Carbon::parse($updated->start)->subMinutes(15)->format('H:i:s');
+                            $b = Carbon::parse($updated->end)->subMinutes(15)->format('H:i:s');
+                            $updated->update([
+                                'start' => $a,
+                                'end' => $b
+                            ]);
+                        }
                     }
                 }
             }

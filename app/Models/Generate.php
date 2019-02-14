@@ -80,7 +80,7 @@ class Generate extends Model
 
     public function jamPelajaranSatuSesi()
     {
-        return is_null($this->generate);
+        return is_null($this->generate) and !is_null($this->teacher_id);
     }
 
     public function jamPelajaranDuaSesi()
