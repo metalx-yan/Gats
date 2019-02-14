@@ -108,6 +108,9 @@
             <div class="wthree-form">
                 <h4>Pilih Jadwal Sesuai Kelas</h4>
                 <i><p class="login-sub">Let’s find a perfect course for you now!</p></i>
+
+                <label class="radio-inline"><input type="radio" name="optradio" checked> Siswa</label>&nbsp;
+                <label class="radio-inline"><input type="radio" name="optradio"> Guru</label>
                 <form action="home.html" method="get" class="register-wthree">
                     <div class="form-group">
                         <div class="row">

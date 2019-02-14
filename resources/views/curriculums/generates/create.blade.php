@@ -9,7 +9,7 @@
 @section('content')
 
 <h1 class="section-header">
-  <div>Atur Jadwal Kelas {{ $showexpert->major->level->class }} {{ ucwords($showexpert->major->name) }} {{ ucwords($showexpert->part) }} </div>
+  <div>Atur Jadwal Kelas {{ $showexpert->major->level->class }} {{ ucwords($showexpert->major->name) }} ({{ $showexpert->major->level->class }} {{ ucwords($showexpert->name) }} {{ $showexpert->part }})</div>
 </h1>
 
 @php
@@ -152,7 +152,7 @@
 									<td>{{ $gen->istirahat() ? 'Istirahat' : 'Jam Kosong' }}</td>
 									<td>-</td>
 									<td>-</td>
-									<td>{{ ucwords($gen->major->level->class) }}</td>
+									<td>-</td>
 									<td>
 										<div class="row">
 				              				<div class="col-xs-4">

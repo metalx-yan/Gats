@@ -21,12 +21,13 @@ class GenerateController extends Controller
     public function showgen($level, $major, $expertise, $gen)
     {
         $showexpert = Expertise::find($gen);
-        $major1 = Teacher::all();
+        // dd($level);
+        // $major1 = Teacher::all();
         $generate = Generate::orderBy('start')->get();
         if (Auth::user()->role->id == 1) {
-            $gens = Generate::where('major_id', $major)->orWhereNull('major_id')->orderBy('day')->get();
+            $gens = Generate::where('major_id', $major)->orWhereNull('major_id')->orderBy('start')->orderBy('start')->get();
         }else {
-            $gens = Generate::where('user_id', Auth::user()->id)->where('role_id', Auth::user()->role->id)->where('major_id', $major)->orWhereNull('major_id')->orderBy('day')->get();
+            $gens = Generate::where('user_id', Auth::user()->id)->where('role_id', Auth::user()->role->id)->where('major_id', $showexpert->id)->where('major_id', $major)->orWhereNull('major_id')->orderBy('day')->get();
 
         }
 
@@ -76,6 +77,7 @@ class GenerateController extends Controller
                 'start' => 'required',
                 'major_id' => 'required'
             ]);
+            
             $sesi = 30 ;
             $create = new Generate;
             $create->day = $request->day;
@@ -86,12 +88,16 @@ class GenerateController extends Controller
             $create->major_id = $request->major_id;
             $create->save();
 
+            $limit = Carbon::parse(substr($request->start, 0, 8));
             $generates = Generate::where('day', $request->day)->where('role_id', Auth::user()->role->id)->where('major_id', $request->major_id)->get();
             foreach ($generates as $generate) {
+                $test = Carbon::parse($generate->start);
                 if ($generate->id != $create->id) {
-                    $generate->start = Carbon::parse($generate->start)->subMinutes(15);
-                    $generate->end = Carbon::parse($generate->end)->subMinutes(15);
-                    $generate->save();
+                    if ($test->greaterThan($limit)) {
+                        $generate->start = Carbon::parse($generate->start)->subMinutes(15);
+                        $generate->end = Carbon::parse($generate->end)->subMinutes(15);
+                        $generate->save();
+                    }
                 }
             }
 
@@ -210,7 +216,7 @@ class GenerateController extends Controller
     {
         $edit = Generate::find($generate);
         $major1 = Major::all();
-        $gens = Generate::where('role_id', Auth::user()->role->id)->orWhereNull('major_id')->orderBy('day')->orderBy('start')->get() ;
+        $gens = Generate::where('role_id', Auth::user()->role->id)->orWhereNull('major_id')->orderBy('start')->orderBy('day')->get() ;
         return view('curriculums.generates.edit', compact(['edit','major1', 'gens']));
     }
 

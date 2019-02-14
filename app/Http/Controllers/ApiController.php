@@ -19,7 +19,6 @@ class ApiController extends Controller
     	for ($i=0; $i < 10; $i++) {
             if ($istirahat->where('start', $start->format('H:i:s'))->first()) {
                 if ($istirahat->where('start', $start->format('H:i:s'))->first()->istirahat()) {
-                    array_push($hours, $start->format('H:i:s') . '(istirahat)');
                     $start->addMinutes(30);
                 } else {
                 	array_push($hours, $start->format('H:i:s') . '(jam kosong)');

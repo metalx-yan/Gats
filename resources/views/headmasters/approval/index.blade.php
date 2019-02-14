@@ -46,7 +46,8 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<label><br></label>
-							<a href="" class="btn btn-success btn-sm form-control">Setuju</a>
+							<a href="" class="btn btn-primary btn-sm form-control"><i class="icon ion-checkmark"></i></a>
+							<div style="font-size: 10px;"><i>*Persetujuan Jadwal Kelas Setelah Itu Akan Melewati Proses Fix Jadwal</i></div>
 						</div>
 					</div>
 				</div>
@@ -68,7 +69,7 @@
 							@endforeach
 						@endforeach
 					</div>
-
+					<button class="btn btn-success form-control">Fix Jadwal </button>
 				</div>
 			</div>
 		</div>

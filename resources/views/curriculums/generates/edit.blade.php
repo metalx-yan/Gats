@@ -224,6 +224,7 @@
 						</div>	
 					
 					<button type="submit" class="form-control btn-success fontsopher">Generate</button><p></p>
+					<a href="{{ route('showmix.generate', [Auth::user()->role->name, $edit->major->level->id, $edit->major->id]) }}" class="btn btn-danger form-control">Back</a>
 				</form>
 			</div>
 		</div>
@@ -252,7 +253,7 @@
 
 						@foreach ($gens as $gen)
 							<tr>
-								<td>{{ $gen->id }}</td>
+								<td>{{ $no }}</td>
 								@php
 									$no++;	
 								@endphp
@@ -290,6 +291,7 @@
 									<td>{{ $gen->room->code }} - {{ $gen->room->name }}</td>
 									<td>{{ $gen->lesson->name }}</td>
 									<td>{{ $gen->major->level->class }} {{ $gen->major->name }}</td>
+									@if (!$gen->generate_id)
 									<td>
 										<div class="row">
 				              				<div class="col-xs-4">
@@ -308,6 +310,19 @@
 				                  			</div>
 								      	</div>
 									</td>
+									@else
+									<td>
+										<div class="row">
+											<div class="col-xs-4">
+				                				<form class="" action="{{ route('expl.generate', [Auth::user()->role->name, $gen->id]) }}" method="POST">
+				                      				@csrf
+				                      				@method('PUT')
+													<button class=" btn btn-primary btn-sm" name="" type="submit">Pisahkan</button>
+				                  				</form>
+				                  			</div>
+								      	</div>
+									</td>
+									@endif
 								@endif
 							</tr>
 						@endforeach

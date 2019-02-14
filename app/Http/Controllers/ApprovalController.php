@@ -25,7 +25,7 @@ class ApprovalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function year()
+    public function approve()
     {
         $approve = Approval::all();
         $generates = Generate::where('major_id');
