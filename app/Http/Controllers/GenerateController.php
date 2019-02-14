@@ -68,7 +68,12 @@ class GenerateController extends Controller
     {
         $kosong = Generate::whereNull('lesson_id')->where('start', substr($request->start, 0, 8))->first();
         if ($kosong) {
-            $kosong->delete();
+            if (!$kosong->jamKosong(2)) {
+                dd('jam kosong hanya tersedia satu sesi, jam diinput 2 sesi');
+            } else {
+                $kosong->delete();
+                $kosong->nextJamKosong()->delete();
+            }
         }
 
         if ($request->lesson_id == 3) {
@@ -397,14 +402,44 @@ class GenerateController extends Controller
                     }
                 }
             } else {
-                $update = Generate::findOrFail($id);
-                $update->teacher_id = $request->teacher_id;
-                $update->room_id = $request->room_id;
-                $update->lesson_id = $request->lesson_id;
-                $update->major_id = $request->major_id;
-                $update->user_id = Auth::user()->id;
-                $update->role_id = Auth::user()->role->id;
-                $update->save();
+                if ($request->sesi == 2) {
+                    $target = Generate::where('day', $request->day)
+                                ->where('start', substr($request->start, 0, 8))
+                                ->where('role_id', Auth::user()->role->id)
+                                ->where('major_id', $current->major->id)
+                                ->first();
+                    if (!$target->jamKosong(2)) {
+                        dd('Jam kosong satu sesi tidak bisa diisi 2 sesi');
+                    } else {
+                        $update = Generate::findOrFail($id);
+                        $update->teacher_id = $request->teacher_id;
+                        $update->room_id = $request->room_id;
+                        $update->lesson_id = $request->lesson_id;
+                        $update->major_id = $request->major_id;
+                        $update->user_id = Auth::user()->id;
+                        $update->role_id = Auth::user()->role->id;
+                        $update->save();
+
+                        $next = $update->nextJamKosong();
+                        $next->teacher_id = $request->teacher_id;
+                        $next->room_id = $request->room_id;
+                        $next->lesson_id = $request->lesson_id;
+                        $next->major_id = $request->major_id;
+                        $next->user_id = Auth::user()->id;
+                        $next->generate_id = $update->id;
+                        $next->role_id = Auth::user()->role->id;
+                        $next->save();                        
+                    }
+                } else {
+                    $update = Generate::findOrFail($id);
+                    $update->teacher_id = $request->teacher_id;
+                    $update->room_id = $request->room_id;
+                    $update->lesson_id = $request->lesson_id;
+                    $update->major_id = $request->major_id;
+                    $update->user_id = Auth::user()->id;
+                    $update->role_id = Auth::user()->role->id;
+                    $update->save();
+                }
             }
         } else if($current->istirahat()) {
             $start = Carbon::parse(substr($request->start, 0, 8));

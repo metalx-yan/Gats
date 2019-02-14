@@ -72,10 +72,25 @@ class Generate extends Model
         return $this->end == $diff;
     }
 
-    public function jamKosong()
+    public function jamKosong($sesi = 1)
     {
-        $diff = Carbon::parse($this->start)->addMinute(45)->format('H:i:s');
-        return $this->end == $diff;
+        $diff = Carbon::parse($this->start);
+        if ($sesi == 2) {
+            $c = Carbon::parse($this->start)->addMinutes(45)->format('H:i:s');
+            if (is_null(Generate::where('day', $this->day)->whereNull('teacher_id')->where('start', $c)->first())) {
+                return false;
+            } else {
+                return Generate::where('day', $this->day)->whereNull('teacher_id')->where('start', $c)->first()->jamKosong();
+            }
+        } else {
+            return $this->end == $diff->addMinute(45)->format('H:i:s');
+        }
+    }
+
+    public function nextJamKosong()
+    {
+        $c = Carbon::parse($this->start)->addMinutes(45)->format('H:i:s');
+        return Generate::where('day', $this->day)->whereNull('teacher_id')->where('start', $c)->first();
     }
 
     public function jamPelajaranSatuSesi()
