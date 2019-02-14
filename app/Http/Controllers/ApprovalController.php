@@ -33,14 +33,13 @@ class ApprovalController extends Controller
         return view('headmasters.approval.index', compact(['approve','generates']));
     }
 
-    public function create($major = null)
+    public function create()
     {
-        $gene = Generate::all();
+        $gene = Generate::all()->groupBy('major_id');
         $expertise = Expertise::all();
         $approve = Approval::all();
-        $a = Generate::whereNotNull('major_id', $major)->get();
 
-        return view('curriculums.approvals.index', compact(['gene', 'expertise', 'approve', 'a']));
+        return view('curriculums.approvals.index', compact(['gene', 'expertise', 'approve']));
     }
 
     /**

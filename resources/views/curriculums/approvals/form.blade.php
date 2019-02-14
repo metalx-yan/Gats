@@ -25,16 +25,9 @@
 		<div class="col-md-12">
 			<label for="">Kelas Jurusan yang sudah di Generate</label>
 			<select class="form-control {{ $errors->has('generates') ? 'is-invalid' : ''}}" name="generates[]" id="select2" multiple="multiple">
-				@php
-					$b = [];
-				@endphp
-				@foreach ($a as $gen)
-					@if (!in_array($gen->major->id, $b))
-						<option value="{{ $gen->id }}">{{ $gen->major->name }}</option>
-					@endif
-				@php
-					array_push($b, $gen->major->id);
-				@endphp
+				@foreach ($gene as $gen)
+
+					<option value="{{ $gen->first()->first()->id }}">{{ $gen->first()->first()->major->level->class }} {{ $gen->first()->first()->major->name }} {{ $gen->first()->first() }} </option>
 				@endforeach
 				
 			</select>	
