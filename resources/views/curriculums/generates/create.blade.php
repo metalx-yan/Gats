@@ -258,7 +258,7 @@
 							</select>
 						`);
 					$.ajax({
-						url: 'http://jadwal.test/api/hours/' + day.val()
+						url: 'http://jadwal.test/api/hours/' + day.val() + '/' + {{ $showexpert->id }}
 					}).done(function (data) {
 						$('#hour').html('');
 						data.map(function (map) {
