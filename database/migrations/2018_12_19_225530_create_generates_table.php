@@ -30,6 +30,7 @@ class CreateGeneratesTable extends Migration
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('role_id');
             $table->unsignedInteger('major_id')->nullable();
+            $table->unsignedInteger('expertise_id');
 
             $table->foreign('generate_id')->references('id')->on('generates');
             $table->foreign('teacher_id')->references('id')->on('teachers');
@@ -38,6 +39,7 @@ class CreateGeneratesTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('role_id')->references('id')->on('roles');
             $table->foreign('major_id')->references('id')->on('majors');
+            $table->foreign('expertise_id')->references('id')->on('expertise');
         });
     }
 

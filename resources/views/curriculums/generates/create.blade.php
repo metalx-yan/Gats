@@ -140,7 +140,7 @@
 
 							<tr>
 						@foreach ($gens as $gen)
-								@if ($gen->id == $showexpert->id)
+								@if ($gen->id)
 								<td>{{ $no }}</td>
 								@php
 									$no++;	

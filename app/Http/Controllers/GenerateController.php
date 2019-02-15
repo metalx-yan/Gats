@@ -30,7 +30,7 @@ class GenerateController extends Controller
             $gens = Generate::where('user_id', Auth::user()->id)->where('role_id', Auth::user()->role->id)->where('major_id', $showexpert->id)->where('major_id', $major)->orWhereNull('major_id')->orderBy('day')->get();
 
         }
-        dd($gens);
+        // dd($gens);
         return view('curriculums.generates.create', compact(['showexpert', 'major1', 'gens','generate']));
     }
 
@@ -220,9 +220,10 @@ class GenerateController extends Controller
     public function editgen($level, $major, $expertise, $generate)
     {
         $edit = Generate::find($generate);
+        $exp = Expertise::find($expertise);
         $major1 = Major::all();
         $gens = Generate::where('role_id', Auth::user()->role->id)->orWhereNull('major_id')->orderBy('start')->orderBy('day')->get() ;
-        return view('curriculums.generates.edit', compact(['edit','major1', 'gens']));
+        return view('curriculums.generates.edit', compact(['edit','major1', 'gens', 'exp']));
     }
 
     /**
