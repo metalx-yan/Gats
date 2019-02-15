@@ -95,6 +95,14 @@
 						</div>
 
 						<div class="row">
+							{{-- <div class="col-lg-3">
+								<div class="form-group">
+									<div>
+										
+									</div>
+								</div>
+							</div> --}}
+							<input type="hidden" value="{{ $showexpert->id }}" name="expertise_id">
 
 							<div class="col-lg-3">
 								<div class="form-group">
@@ -108,6 +116,7 @@
 								</div>
 							</div>
 
+	
 						</div>	
 					
 					<button type="submit" class="form-control btn-success fontsopher">Generate</button><p></p>
@@ -140,12 +149,12 @@
 
 							<tr>
 						@foreach ($gens as $gen)
-								@if ($gen->id)
+							@if ($gen->expertise_id == $showexpert->id) 
 								<td>{{ $no }}</td>
 								@php
 									$no++;	
 								@endphp
-								@if (is_null($gen->teacher_id))
+								@if (is_null($gen->teacher_id)) 
 									<td>{{ ucwords($gen->day) }}</td>
 									<td>{{ $gen->start }}</td>
 									<td>{{ $gen->end }}</td>
@@ -156,7 +165,7 @@
 									<td>
 										<div class="row">
 				              				<div class="col-xs-4">
-				                				<a href="{{ route('edit.generate', [Auth::user()->role->name, 0, 0, $gen->id]) }}" class="btn btn-warning btn-sm">
+				                				<a href="{{ route('edit.generate', [Auth::user()->role->name, 0, 0, $gen->expertise->id, $gen->id]) }}" class="btn btn-warning btn-sm">
 													<i class="ion ion-edit"></i>
 				                				</a>
 				              				</div>
@@ -183,7 +192,7 @@
 									<td>
 										<div class="row">
 				              				<div class="col-xs-4">
-				                				<a href="{{ route('edit.generate', [Auth::user()->role->name, $gen->major->level->id, $gen->major->id, $gen->id]) }}" class="btn btn-warning btn-sm">
+				                				<a href="{{ route('edit.generate', [Auth::user()->role->name, $gen->major->level->id, $gen->major->id, $gen->expertise->id, $gen->id]) }}" class="btn btn-warning btn-sm">
 													<i class="ion ion-edit"></i>
 				                				</a>
 				              				</div>
@@ -212,10 +221,9 @@
 									</td>
 									@endif
 									@endif
-								@endif
+							@endif
 							</tr>
 						@endforeach
-
 					</tbody>
 				</table>
 			</div>
@@ -372,6 +380,19 @@
 							</select>
 						`);
 
+					// $('#lesson-major-expertise-cont').html(`
+					// 	<label for="">Expertise</label>
+					// 	<select name="expertise_id" id="expertise" class="form-control">
+					// 		@foreach ($typelesson->lessons as $lesson)
+					// 			@foreach ($lesson->majors->where('id', $showexpert->major->id) as $major)
+					// 				@foreach ($major->expertises as $expt)
+					// 					<option value="{{ $expt->id }}">{{ $expt->major->level->class }} {{ $expt->name }} {{ $expt->part }}</option>
+					// 				@endforeach
+					// 			@endforeach
+					// 		@endforeach
+					// 	</select>
+					// `);
+
 					$('#lesson-cont').html(`
 						<label for="">Mata Pelajaran</label>
 						<select name="lesson_id" id="lesson" class="form-control">
@@ -428,10 +449,12 @@
 					}
 					});
 
+
 					$('#type_lesson').on('change', function () {
 						if ($('#type_lesson').val() == 3) {
 							// $('#major').attr('disabled', true);
 							$('#lesson').attr('disabled', true);
+							$('#expertise').attr('disabled', true);
 							$('#type_teacher').attr('disabled', true);
 							$('#teacher').attr('disabled', true);
 							$('#sesi').attr('disabled', true);
@@ -439,6 +462,7 @@
 							$('#room').attr('disabled', true);
 						} else {
 							$('#major').attr('disabled', false);
+							$('#expertise').attr('disabled', false);
 							$('#lesson').attr('disabled', false);
 							$('#type_teacher').attr('disabled', false);
 							$('#teacher').attr('disabled', false);

@@ -17,7 +17,7 @@ class Expertise extends Model
 
     public function generates()
     {
-    	return $this->hasMany(Major::class);
+    	return $this->hasMany(Generate::class);
     }
 
 }

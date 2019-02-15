@@ -22,6 +22,7 @@ class GenerateController extends Controller
     {
         $showexpert = Expertise::find($gen);
         // dd($level);
+        // $generat = Expertise::find($gen);
         // $major1 = Teacher::all();
         $generate = Generate::orderBy('start')->get();
         if (Auth::user()->role->id == 1) {
@@ -31,7 +32,7 @@ class GenerateController extends Controller
 
         }
         // dd($gens);
-        return view('curriculums.generates.create', compact(['showexpert', 'major1', 'gens','generate']));
+        return view('curriculums.generates.create', compact(['showexpert', 'major1', 'gens','generate', 'generat']));
     }
 
     public function showmix($level, $major, $gen)
@@ -66,6 +67,7 @@ class GenerateController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $kosong = Generate::whereNull('lesson_id')->where('start', substr($request->start, 0, 8))->first();
         if ($kosong) {
             if (!$kosong->jamKosong(2)) {
@@ -81,6 +83,7 @@ class GenerateController extends Controller
                 'day'   => 'required',
                 'start' => 'required',
                 'major_id' => 'required'
+                // 'expertise_id' => 'required'
             ]);
             
             $sesi = 30 ;
@@ -91,6 +94,7 @@ class GenerateController extends Controller
             $create->user_id = Auth::user()->id;
             $create->role_id = Auth::user()->role->id;
             $create->major_id = $request->major_id;
+            $create->expertise_id = $request->expertise_id;
             $create->save();
 
             $limit = Carbon::parse(substr($request->start, 0, 8));
@@ -129,6 +133,7 @@ class GenerateController extends Controller
                     $parent->lesson_id = $request->lesson_id;
                     $parent->generate_id = $request->generate_id;
                     $parent->major_id = $request->major_id;
+                    $parent->expertise_id = $request->expertise_id;
                     $parent->user_id = Auth::user()->id;
                     $parent->role_id = Auth::user()->role->id;
                     $parent->save();
@@ -142,6 +147,7 @@ class GenerateController extends Controller
                     $create->lesson_id = $request->lesson_id;
                     $create->generate_id = $parent->id;
                     $create->major_id = $request->major_id;
+                    $create->expertise_id = $request->expertise_id;
                     $create->user_id = Auth::user()->id;
                     $create->role_id = Auth::user()->role->id;
                     $create->save();
@@ -154,6 +160,7 @@ class GenerateController extends Controller
                     $create->room_id = $request->room_id;
                     $create->lesson_id = $request->lesson_id;
                     $create->major_id = $request->major_id;
+                    $create->expertise_id = $request->expertise_id;
                     $create->user_id = Auth::user()->id;
                     $create->role_id = Auth::user()->role->id;
                     $create->save();
@@ -171,6 +178,7 @@ class GenerateController extends Controller
                     $parent->lesson_id = $request->lesson_id;
                     $parent->generate_id = $request->generate_id;
                     $parent->major_id = $request->major_id;
+                    $parent->expertise_id = $request->expertise_id;
                     $parent->user_id = Auth::user()->id;
                     $parent->role_id = Auth::user()->role->id;
                     $parent->save();
@@ -184,6 +192,7 @@ class GenerateController extends Controller
                     $create->lesson_id = $request->lesson_id;
                     $create->generate_id = $parent->id;
                     $create->major_id = $request->major_id;
+                    $create->expertise_id = $request->expertise_id;
                     $create->user_id = Auth::user()->id;
                     $create->role_id = Auth::user()->role->id;
                     $create->save();
@@ -196,6 +205,7 @@ class GenerateController extends Controller
                     $create->room_id = $request->room_id;
                     $create->lesson_id = $request->lesson_id;
                     $create->major_id = $request->major_id;
+                    $create->expertise_id = $request->expertise_id;
                     $create->user_id = Auth::user()->id;
                     $create->role_id = Auth::user()->role->id;
                     $create->save();
@@ -217,12 +227,14 @@ class GenerateController extends Controller
         //
     }
 
-    public function editgen($level, $major, $expertise, $generate)
-    {
-        $edit = Generate::find($generate);
-        $exp = Expertise::find($expertise);
+    public function editgen($level, $major, $expertise, $generate, $ex)
+    {   
+        // dd($expertise);
+        $edit = Generate::find($ex);
+        $exp = Expertise::find($generate);
+        // dd($exp);
         $major1 = Major::all();
-        $gens = Generate::where('role_id', Auth::user()->role->id)->orWhereNull('major_id')->orderBy('start')->orderBy('day')->get() ;
+        $gens = Generate::where('role_id', Auth::user()->role->id)->orWhereNull('major_id')->orderBy('start')->orderBy('day')->get();
         return view('curriculums.generates.edit', compact(['edit','major1', 'gens', 'exp']));
     }
 
@@ -266,6 +278,7 @@ class GenerateController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request->all());
         $current = Generate::find($id);
         if ($current->jamPelajaranSatuSesi()) {
             $this->validate($request, [
@@ -284,6 +297,7 @@ class GenerateController extends Controller
 
             $update = Generate::findOrFail($id);
             $update->major_id = $request->major_id;
+            $update->expertise_id = $request->expertise_id;
             $update->teacher_id = null;
             $update->room_id = null;
             $update->lesson_id = null;
@@ -300,6 +314,7 @@ class GenerateController extends Controller
             $create->room_id = $request->room_id;
             $create->lesson_id = $request->lesson_id;
             $create->major_id = $request->major_id;
+            $create->expertise_id = $request->expertise_id;
             $create->user_id = Auth::user()->id;
             $create->role_id = Auth::user()->role->id;
             $create->save();
@@ -317,8 +332,9 @@ class GenerateController extends Controller
                         ->where('role_id', Auth::user()->role->id)
                         ->where('major_id', $current->major->id)
                         ->first();
-
+                        
             if (is_null($satu->teacher_id) and (is_null($dua) or is_null($dua->teacher_id))) {
+                // dd($dua->teacher_id);
                 $satu->day = $request->day;
                 $satu->start = substr($request->start, 0, 8);
                 $satu->end = Carbon::parse(substr($request->start, 0, 8))->addMinutes(45);
@@ -326,6 +342,7 @@ class GenerateController extends Controller
                 $satu->room_id = $request->room_id;
                 $satu->lesson_id = $request->lesson_id;
                 $satu->major_id = $request->major_id;
+                $satu->expertise_id = $request->expertise_id;
                 $satu->user_id = Auth::user()->id;
                 $satu->role_id = Auth::user()->role->id;
                 $satu->save();
@@ -342,6 +359,7 @@ class GenerateController extends Controller
                     $dua->lesson_id = $request->lesson_id;
                     $dua->generate_id = $satu->id;
                     $dua->major_id = $request->major_id;
+                    $dua->expertise_id = $request->expertise_id;
                     $dua->user_id = Auth::user()->id;
                     $dua->role_id = Auth::user()->role->id;
                     $dua->save();
@@ -354,12 +372,14 @@ class GenerateController extends Controller
                     $dua->lesson_id = $request->lesson_id;
                     $dua->generate_id = $satu->id;
                     $dua->major_id = $request->major_id;
+                    $dua->expertise_id = $request->expertise_id;
                     $dua->user_id = Auth::user()->id;
                     $dua->role_id = Auth::user()->role->id;
                     $dua->save();
                 }
                 $lg = Generate::findOrFail($id);
                 $lg->major_id = $request->major_id;
+                $lg->expertise_id = $request->expertise_id;
                 $lg->teacher_id = null;
                 $lg->room_id = null;
                 $lg->lesson_id = null;
@@ -369,6 +389,7 @@ class GenerateController extends Controller
 
                 $gc = $lg->generate;
                 $gc->major_id = $request->major_id;
+                $lg->expertise_id = $request->expertise_id;
                 $gc->teacher_id = null;
                 $gc->room_id = null;
                 $gc->lesson_id = null;
@@ -388,6 +409,7 @@ class GenerateController extends Controller
                 $update->end = Carbon::parse($update->end)->subMinutes(15)->format("H:i:s");
                 $update->user_id = Auth::user()->id;
                 $update->role_id = Auth::user()->role->id;
+                // $update->expertise_id = $request->expertise_id;
                 $update->save();
 
                 $limit = Carbon::parse(substr($request->start, 0, 8));
@@ -417,6 +439,7 @@ class GenerateController extends Controller
                         $update->room_id = $request->room_id;
                         $update->lesson_id = $request->lesson_id;
                         $update->major_id = $request->major_id;
+                        $update->expertise_id = $request->expertise_id;
                         $update->user_id = Auth::user()->id;
                         $update->role_id = Auth::user()->role->id;
                         $update->save();
@@ -426,6 +449,7 @@ class GenerateController extends Controller
                         $next->room_id = $request->room_id;
                         $next->lesson_id = $request->lesson_id;
                         $next->major_id = $request->major_id;
+                        $next->expertise_id = $request->expertise_id;
                         $next->user_id = Auth::user()->id;
                         $next->generate_id = $update->id;
                         $next->role_id = Auth::user()->role->id;
@@ -437,6 +461,7 @@ class GenerateController extends Controller
                     $update->room_id = $request->room_id;
                     $update->lesson_id = $request->lesson_id;
                     $update->major_id = $request->major_id;
+                    $update->expertise_id = $request->expertise_id;
                     $update->user_id = Auth::user()->id;
                     $update->role_id = Auth::user()->role->id;
                     $update->save();
@@ -464,6 +489,7 @@ class GenerateController extends Controller
                     $create->user_id = Auth::user()->id;
                     $create->role_id = Auth::user()->role->id;
                     $create->major_id = $current->major_id;
+                    $create->expertise_id = $current->expertise_id; //test
                     $create->save();
                 }
 

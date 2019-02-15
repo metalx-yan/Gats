@@ -77,7 +77,7 @@ Route::group(['middleware' => ['auth','role:major,curriculum']], function() {
 
 	Route::get('{role_name}/generate/{level_id}/{major_id}/{expertise_id}/create', 'GenerateController@showgen')->name('showgenexpert.generate');
 
-	Route::get('{role_name}/generate/{level_id}/{major_id}/{expertise_id}/edit', 'GenerateController@editgen')->name('edit.generate');
+	Route::get('{role_name}/generate/{level_id}/{major_id}/{expertise_id}/{exid}/edit', 'GenerateController@editgen')->name('edit.generate');
 
 
 });

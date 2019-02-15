@@ -39,7 +39,7 @@ class CreateGeneratesTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('role_id')->references('id')->on('roles');
             $table->foreign('major_id')->references('id')->on('majors');
-            $table->foreign('expertise_id')->references('id')->on('expertise');
+            $table->foreign('expertise_id')->references('id')->on('expertises');
         });
     }
 

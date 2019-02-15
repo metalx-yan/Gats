@@ -12,7 +12,7 @@
 @if ($edit->istirahat())
   <div>Jadwal Istirahat</div>
   @else 
-  <div>Jadwal Kelas {{ ucwords($edit->major->level->class) }} {{ ucwords($edit->major->name) }} {{ ucwords($edit->part) }} </div>
+  <div>Jadwal Kelas {{ ucwords($edit->major->level->class) }} {{ ucwords($edit->major->name) }} ({{ $edit->major->level->class }} {{ ucwords($edit->expertise->name) }} {{ $edit->expertise->part }})</div>
 @endif
 </h1>
 
@@ -185,7 +185,20 @@
 						</div>
 
 						<div class="row">
-
+							<input type="hidden" value="{{ $edit->expertise->id }}" name="expertise_id">
+{{-- 							<div class="col-lg-3">
+								<div class="form-group">
+									<div id="teacher-cont">
+										<label for="">Expertise</label>
+										<select name="teacher_id" id="teacher" class="form-control" {{ $edit->istirahat() ? 'disabled' : null }}>
+											@if (!$edit->istirahat() and !$edit->jamKosong())
+												<option value="">--  --</option>
+											@endif
+										</select>
+									</div>
+								</div>
+							</div>
+ --}}
 							<div class="col-lg-3">
 								<div class="form-group">
 									<div id="type-teacher-cont">
@@ -251,8 +264,9 @@
 					</thead>
 					<tbody class="fontsopher">
 
-						@foreach ($gens as $gen)
 							<tr>
+						@foreach ($gens as $gen)
+							{{-- @if ($gen->expertise_id == $exp->id)  --}}
 								<td>{{ $no }}</td>
 								@php
 									$no++;	
@@ -268,7 +282,7 @@
 									<td>
 										<div class="row">
 				              				<div class="col-xs-4">
-				                				<a href="{{ route('edit.generate', [Auth::user()->role->name, 0, 0, $gen->id]) }}" class="btn btn-warning btn-sm">
+				                				<a href="{{ route('edit.generate', [Auth::user()->role->name, 0, 0,$gen->expertise->id, $gen->id]) }}" class="btn btn-warning btn-sm">
 													<i class="ion ion-edit"></i>
 				                				</a>
 				              				</div>
@@ -295,7 +309,7 @@
 									<td>
 										<div class="row">
 				              				<div class="col-xs-4">
-				                				<a href="{{ route('edit.generate', [Auth::user()->role->name, $gen->major->level->id, $gen->major->id, $gen->id]) }}" class="btn btn-warning btn-sm">
+				                				<a href="{{ route('edit.generate', [Auth::user()->role->name, $gen->major->level->id, $gen->major->id, $gen->expertise->id, $gen->id]) }}" class="btn btn-warning btn-sm">
 													<i class="ion ion-edit"></i>
 				                				</a>
 				              				</div>
@@ -324,6 +338,7 @@
 									</td>
 									@endif
 								@endif
+							{{-- @endif --}}
 							</tr>
 						@endforeach
 
