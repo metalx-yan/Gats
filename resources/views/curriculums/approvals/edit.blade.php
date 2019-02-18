@@ -41,9 +41,7 @@
 					  		@endphp
 					  		<td>{{ $edit->beginning }}/{{ $edit->end }}</td>
 					  		<td>@foreach ($edit->generates as $generate)
-					  				@foreach ($expertise as $exp)
-									{{ $generate->major->level->class }} {{ ucwords($generate->major->name) }} {{ $exp->part }},
-					  				@endforeach
+									{{ $generate->major->level->class }} {{ $generate->expertise->name }} {{ $generate->expertise->part }},
 						  		@endforeach
 					  		</td>
 					  	</tr>

@@ -167,6 +167,27 @@
               <a href="{{ route('approval.create') }}"><i class="ion ion-merge"></i>Pengelompokan Jadwal </a>
             </li>
 
+            <li>
+              <a href="#" class="has-dropdown"><i class="ion ion-calendar"></i><span>Jadwal Telah Disetujui</span></a>
+               <ul class="menu-dropdown">
+                    @foreach (App\Models\Level::all() as $level)
+                      <li>
+                        <a href="#" class="has-dropdown">
+                          <i class="ion ion-android-contact"></i>{{ $level->class }}                          
+                        </a>
+                        <ul class="menu-dropdown">
+                            @foreach ($level->majors as $major)
+                              <li><a href="{{ route('showmajor.approval', [$major->level->id, $major->id]) }}"><i class="ion ion-plus-circled"></i>{{ ucwords($major->name) }}
+                           
+                              </a>
+                              </li>
+                            @endforeach
+                        </ul>
+                      </li>
+                    @endforeach
+                </ul>
+            </li>
+
             @endif
 
             @if (Auth::user()->hasRole('headmaster'))

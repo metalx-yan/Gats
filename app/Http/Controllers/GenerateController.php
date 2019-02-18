@@ -18,26 +18,23 @@ class GenerateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function showgen($level, $major, $expertise, $gen)
+    public function showgen($role, $level, $major, $expertise)
     {
-        $showexpert = Expertise::find($gen);
-        // dd($level);
-        // $generat = Expertise::find($gen);
-        // $major1 = Teacher::all();
+        $showexpert = Expertise::find($expertise);
+        // dd($showexpert);
         $generate = Generate::orderBy('start')->get();
         if (Auth::user()->role->id == 1) {
             $gens = Generate::where('major_id', $major)->orWhereNull('major_id')->orderBy('start')->orderBy('day')->get();
         }else {
-            $gens = Generate::where('user_id', Auth::user()->id)->where('role_id', Auth::user()->role->id)->where('major_id', $showexpert->id)->where('major_id', $major)->orWhereNull('major_id')->orderBy('day')->get();
-
+            $gens = Generate::where('user_id', Auth::user()->id)->where('role_id', Auth::user()->role->id)->where('expertise_id', $showexpert->id)->where('major_id', $major)->orWhereNull('major_id')->orderBy('day')->get();
         }
         // dd($gens);
-        return view('curriculums.generates.create', compact(['showexpert', 'major1', 'gens','generate', 'generat']));
+        return view('curriculums.generates.create', compact(['showexpert', 'major1', 'gens','generate', 'generat', 'mix']));
     }
 
-    public function showmix($level, $major, $gen)
+    public function showmix($role, $level, $major)
     {
-        $mixcurriculum = Major::find($gen);
+        $mixcurriculum = Major::find($major);
 
         $read = Generate::where('major_id', 1)->where('role_id', 2)->update(['read' => 1]);
 
@@ -67,10 +64,13 @@ class GenerateController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         $kosong = Generate::whereNull('lesson_id')->where('start', substr($request->start, 0, 8))->first();
+        // dd($kosong);
         if ($kosong) {
             if (!$kosong->jamKosong(2)) {
+                // if (!$kosong->jamKosong(1)) {
+                //     $kosong->delete();
+                // }
                 dd('jam kosong hanya tersedia satu sesi, jam diinput 2 sesi');
             } else {
                 $kosong->delete();
@@ -222,6 +222,18 @@ class GenerateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function showed($role, $level, $major, $expertise)
+    {
+        $showexpert = Expertise::find($expertise);
+
+        if (Auth::user()->role->id == 1) {
+            $gens = Generate::where('major_id', $major)->orWhereNull('major_id')->orderBy('start')->orderBy('day')->get();
+        }else {
+            $gens = Generate::where('user_id', Auth::user()->id)->where('role_id', Auth::user()->role->id)->where('expertise_id', $showexpert->id)->where('major_id', $major)->orWhereNull('major_id')->orderBy('day')->get();
+        }
+
+        return view('curriculums.generates.show', compact('showexpert', 'gens'));
+    }
     public function show($id)
     {
         //
@@ -231,6 +243,7 @@ class GenerateController extends Controller
     {   
         // dd($expertise);
         $edit = Generate::find($ex);
+        // dd($edit->find(153)->istirahat());
         $exp = Expertise::find($generate);
         // dd($exp);
         $major1 = Major::all();
@@ -331,74 +344,78 @@ class GenerateController extends Controller
                         ->where('start', $next)
                         ->where('role_id', Auth::user()->role->id)
                         ->where('major_id', $current->major->id)
-                        ->first();
-                        
-            if (is_null($satu->teacher_id) and (is_null($dua) or is_null($dua->teacher_id))) {
-                // dd($dua->teacher_id);
-                $satu->day = $request->day;
-                $satu->start = substr($request->start, 0, 8);
-                $satu->end = Carbon::parse(substr($request->start, 0, 8))->addMinutes(45);
-                $satu->teacher_id = $request->teacher_id;
-                $satu->room_id = $request->room_id;
-                $satu->lesson_id = $request->lesson_id;
-                $satu->major_id = $request->major_id;
-                $satu->expertise_id = $request->expertise_id;
-                $satu->user_id = Auth::user()->id;
-                $satu->role_id = Auth::user()->role->id;
-                $satu->save();
+                        ->first();                        
+            if (!is_null($satu) and !is_null($dua)) { // target jam tidak ada dua duanya
+                if (is_null($satu->teacher_id) and (is_null($dua) or is_null($dua->teacher_id))) {
 
-                $c = Carbon::parse(substr($request->start, 0, 8))->addMinutes(45);
+                    $satu->day = $request->day;
+                    $satu->start = substr($request->start, 0, 8);
+                    $satu->end = Carbon::parse(substr($request->start, 0, 8))->addMinutes(45);
+                    $satu->teacher_id = $request->teacher_id;
+                    $satu->room_id = $request->room_id;
+                    $satu->lesson_id = $request->lesson_id;
+                    $satu->major_id = $request->major_id;
+                    $satu->expertise_id = $request->expertise_id;
+                    $satu->user_id = Auth::user()->id;
+                    $satu->role_id = Auth::user()->role->id;
+                    $satu->save();
 
-                if (is_null($dua)) {
-                    $dua = new Generate;
-                    $dua->day = $request->day;
-                    $dua->start = $c->format('H:i:s');
-                    $dua->end = $c->addMinutes(45);
-                    $dua->teacher_id = $request->teacher_id;
-                    $dua->room_id = $request->room_id;
-                    $dua->lesson_id = $request->lesson_id;
-                    $dua->generate_id = $satu->id;
-                    $dua->major_id = $request->major_id;
-                    $dua->expertise_id = $request->expertise_id;
-                    $dua->user_id = Auth::user()->id;
-                    $dua->role_id = Auth::user()->role->id;
-                    $dua->save();
+                    $c = Carbon::parse(substr($request->start, 0, 8))->addMinutes(45);
+
+                    if (is_null($dua)) {
+                        $dua = new Generate;
+                        $dua->day = $request->day;
+                        $dua->start = $c->format('H:i:s');
+                        $dua->end = $c->addMinutes(45);
+                        $dua->teacher_id = $request->teacher_id;
+                        $dua->room_id = $request->room_id;
+                        $dua->lesson_id = $request->lesson_id;
+                        $dua->generate_id = $satu->id;
+                        $dua->major_id = $request->major_id;
+                        $dua->expertise_id = $request->expertise_id;
+                        $dua->user_id = Auth::user()->id;
+                        $dua->role_id = Auth::user()->role->id;
+                        $dua->save();
+                    } else {
+                        $dua->day = $request->day;
+                        $dua->start = $c->format('H:i:s');
+                        $dua->end = $c->addMinutes(45);
+                        $dua->teacher_id = $request->teacher_id;
+                        $dua->room_id = $request->room_id;
+                        $dua->lesson_id = $request->lesson_id;
+                        $dua->generate_id = $satu->id;
+                        $dua->major_id = $request->major_id;
+                        $dua->expertise_id = $request->expertise_id;
+                        $dua->user_id = Auth::user()->id;
+                        $dua->role_id = Auth::user()->role->id;
+                        $dua->save();
+                    }
+                    $lg = Generate::findOrFail($id);
+                    $lg->major_id = $request->major_id;
+                    $lg->expertise_id = $request->expertise_id;
+                    $lg->teacher_id = null;
+                    $lg->room_id = null;
+                    $lg->lesson_id = null;
+                    $lg->user_id = Auth::user()->id;
+                    $lg->role_id = Auth::user()->role->id;
+                    $lg->save();
+
+                    $gc = $lg->generate;
+                    $gc->major_id = $request->major_id;
+                    $lg->expertise_id = $request->expertise_id;
+                    $gc->teacher_id = null;
+                    $gc->room_id = null;
+                    $gc->lesson_id = null;
+                    $gc->generate_id = null;
+                    $gc->user_id = Auth::user()->id;
+                    $gc->role_id = Auth::user()->role->id;
+                    $gc->save();
                 } else {
-                    $dua->day = $request->day;
-                    $dua->start = $c->format('H:i:s');
-                    $dua->end = $c->addMinutes(45);
-                    $dua->teacher_id = $request->teacher_id;
-                    $dua->room_id = $request->room_id;
-                    $dua->lesson_id = $request->lesson_id;
-                    $dua->generate_id = $satu->id;
-                    $dua->major_id = $request->major_id;
-                    $dua->expertise_id = $request->expertise_id;
-                    $dua->user_id = Auth::user()->id;
-                    $dua->role_id = Auth::user()->role->id;
-                    $dua->save();
+                    dd('Tidak Bisa');
                 }
-                $lg = Generate::findOrFail($id);
-                $lg->major_id = $request->major_id;
-                $lg->expertise_id = $request->expertise_id;
-                $lg->teacher_id = null;
-                $lg->room_id = null;
-                $lg->lesson_id = null;
-                $lg->user_id = Auth::user()->id;
-                $lg->role_id = Auth::user()->role->id;
-                $lg->save();
-
-                $gc = $lg->generate;
-                $gc->major_id = $request->major_id;
-                $lg->expertise_id = $request->expertise_id;
-                $gc->teacher_id = null;
-                $gc->room_id = null;
-                $gc->lesson_id = null;
-                $gc->generate_id = null;
-                $gc->user_id = Auth::user()->id;
-                $gc->role_id = Auth::user()->role->id;
-                $gc->save();
             } else {
-                dd('Tidak Bisa');
+                dd('jam kedua kosong');
+                    
             }
         } else if($current->jamKosong()) {
             if ($request->lesson_id == 3) {
@@ -547,7 +564,12 @@ class GenerateController extends Controller
     {
         $generate = Generate::find($id);
 
-        $generate->delete();
+        if ($generate->teacher_id == $generate->orderBy('start', 'desc')->get()->first()->teacher_id) {
+                $generate->delete();
+            } else {
+                return back()->with('sweetalerterror', 'Mohon Mengosongkan Jam Berikutnya Jika Ingin Menghapus');
+            }
+
 
         return redirect()->route('showmix.generate', [Auth::user()->role->name, $generate->major->level->id, $generate->major->id])->with('sweetalert', 'Berhasil Menghapus Data Atur Jadwal');
     }

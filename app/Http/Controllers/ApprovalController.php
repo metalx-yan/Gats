@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Approval;
 use App\Models\Generate;
 use App\Models\Expertise;
+use App\Models\Major;
 use Auth;
 
 class ApprovalController extends Controller
@@ -28,20 +29,40 @@ class ApprovalController extends Controller
     public function approve()
     {
         $approve = Approval::all();
-        $generates = Generate::where('major_id');
+        $generates = Generate::where('expertise_id');
 
         return view('headmasters.approval.index', compact(['approve','generates']));
     }
 
     public function create()
     {
-        $gene = Generate::all()->groupBy('major_id');
+        $gene = Generate::all()->groupBy('expertise_id');
+        // dd($gene);
         $expertise = Expertise::all();
         $approve = Approval::all();
 
         return view('curriculums.approvals.index', compact(['gene', 'expertise', 'approve']));
     }
 
+    public function showmajor($level, $major)
+    {
+        $mixcurriculum = Major::find($major);
+
+        $read = Generate::where('major_id', 1)->where('role_id', 2)->update(['read' => 1]);
+
+        return view('curriculums.approvals.showmajor', compact('mixcurriculum', 'read'));
+    }
+
+    public function approved($level, $major, $expertise)
+    {
+        $expertise = Expertise::find($expertise);
+
+        $majors = Major::find($major);
+        
+        $generate = Generate::where('major_id', $major)->orWhereNull('major_id')->orderBy('start')->orderBy('day')->get();
+
+        return view('curriculums.approvals.approved', compact('expertise', 'majors', 'generate'));
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -87,8 +108,9 @@ class ApprovalController extends Controller
     public function edit($id)
     {
         $edit = Approval::find($id);
-        $expertise = Expertise::all();
-        
+
+        $gener = Generate::all()->groupBy('expertise_id');
+
         $generates = Generate::all();
 
         $arr = array();
@@ -98,7 +120,7 @@ class ApprovalController extends Controller
         }
 
 
-        return view('curriculums.approvals.edit', compact('edit','expertise', 'generates', 'arr'));
+        return view('curriculums.approvals.edit', compact('edit','gener', 'generates', 'arr'));
     }
 
     /**

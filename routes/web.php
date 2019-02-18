@@ -38,9 +38,9 @@ Route::group(['prefix' => 'curriculum', 'middleware' => ['auth','role:curriculum
 
 	Route::get('room/{typeroom_id}/{room_id}/edit', 'RoomController@editmix')->name('editmix.room');
 
-	Route::get('approval/{id}/create', 'ApprovalController@grouping')->name('grouping.create');
+	Route::get('approval/{level_id}/{major_id}', 'ApprovalController@showmajor')->name('showmajor.approval');
 
-	Route::post('approval/process', 'ApprovalController@process')->name('process.create');
+	Route::get('approval/{level_id}/{major_id}/{expertise_id}', 'ApprovalController@approved')->name('approved');
 
 	Route::resource('teacher', 'TeacherController')->except(['create', 'show']);
 	
@@ -77,8 +77,9 @@ Route::group(['middleware' => ['auth','role:major,curriculum']], function() {
 
 	Route::get('{role_name}/generate/{level_id}/{major_id}/{expertise_id}/create', 'GenerateController@showgen')->name('showgenexpert.generate');
 
-	Route::get('{role_name}/generate/{level_id}/{major_id}/{expertise_id}/{exid}/edit', 'GenerateController@editgen')->name('edit.generate');
+	Route::get('{role_name}/generate/{level_id}/{major_id}/{expertise_id}/show', 'GenerateController@showed')->name('showed.generate');
 
+	Route::get('{role_name}/generate/{level_id}/{major_id}/{expertise_id}/{exid}/edit', 'GenerateController@editgen')->name('edit.generate');
 
 });
 

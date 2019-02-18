@@ -35,8 +35,8 @@
 							<label>Kelas Jurusan</label>
 							<select name="" id="" class="form-control">
 								@foreach ($approve as $app)
-									@foreach ($app->generates as $gen)
-										<option value="{{ $gen->id }}">{{ $gen->major->level->class }} {{ ucwords($gen->major->name) }}</option>
+									@foreach ($app->generates as $element)
+										<option value="{{ $element->id }}">{{ $element->major->level->class }} {{ ucwords($element->expertise->name) }} {{ $element->expertise->part }}</option>
 									@endforeach
 								@endforeach
 							</select>
@@ -63,8 +63,9 @@
 					<div class="col-md-12">
 						@foreach ($approve as $app)
 							@foreach ($app->generates as $element)
-								<hr>
-									<div>{{ $element->major->level->class }} {{ ucwords($element->major->name) }}</div>
+								<hr><center>
+								<option value="{{ $element->id }}">{{ $element->major->level->class }} {{ ucwords($element->expertise->name) }} {{ $element->expertise->part }}</option>
+								</center>
 								<hr>
 							@endforeach
 						@endforeach

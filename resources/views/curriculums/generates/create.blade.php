@@ -164,11 +164,13 @@
 									<td>-</td>
 									<td>
 										<div class="row">
+											@if ($gen->istirahat() && $gen->jamKosong())
 				              				<div class="col-xs-4">
 				                				<a href="{{ route('edit.generate', [Auth::user()->role->name, 0, 0, $gen->expertise->id, $gen->id]) }}" class="btn btn-warning btn-sm">
 													<i class="ion ion-edit"></i>
 				                				</a>
 				              				</div>
+											@endif
 				              				<div class="col-xs-1 offset-sm-1"></div>
 				              
 				              				<div class="col-xs-4">
@@ -184,7 +186,7 @@
 									<td>{{ ucwords($gen->day) }}</td>
 									<td>{{ $gen->start }}</td>
 									<td>{{ $gen->end }}</td>
-									<td>{{ ucwords($gen->teacher->name) }} - {{ $gen->user->role->name }}</td>
+									<td>{{ ucwords($gen->teacher->name) }} - {{ $gen->user->role->name }} {{ $gen->expertise_id }}</td>
 									<td>{{ $gen->room->code }} - {{ $gen->room->name }}</td>
 									<td>{{ $gen->lesson->name }}</td>
 									<td>{{ $gen->major->level->class }} {{ $gen->major->name }}</td>
@@ -197,14 +199,15 @@
 				                				</a>
 				              				</div>
 				              				<div class="col-xs-1 offset-sm-1"></div>
-				              
-				              				<div class="col-xs-4">
-				                				<form class="" action="{{ route('generate.destroy', $gen->id) }}" method="POST">
-				                      				@csrf
-				                      				@method('DELETE')
-													<button class="ion ion-android-delete btn btn-danger btn-sm" name="" type="submit"></button>
-				                  				</form>
-				                  			</div>
+				              				@if (!$gen->jamPelajaranDuaSesi())
+					              				<div class="col-xs-4">
+					                				<form class="" action="{{ route('generate.destroy', $gen->id) }}" method="POST">
+					                      				@csrf
+					                      				@method('DELETE')
+														<button class="ion ion-android-delete btn btn-danger btn-sm" name="" type="submit"></button>
+					                  				</form>
+					                  			</div>
+				              				@endif
 								      	</div>
 									</td>
 									@else	
@@ -379,19 +382,6 @@
 								@endforeach
 							</select>
 						`);
-
-					// $('#lesson-major-expertise-cont').html(`
-					// 	<label for="">Expertise</label>
-					// 	<select name="expertise_id" id="expertise" class="form-control">
-					// 		@foreach ($typelesson->lessons as $lesson)
-					// 			@foreach ($lesson->majors->where('id', $showexpert->major->id) as $major)
-					// 				@foreach ($major->expertises as $expt)
-					// 					<option value="{{ $expt->id }}">{{ $expt->major->level->class }} {{ $expt->name }} {{ $expt->part }}</option>
-					// 				@endforeach
-					// 			@endforeach
-					// 		@endforeach
-					// 	</select>
-					// `);
 
 					$('#lesson-cont').html(`
 						<label for="">Mata Pelajaran</label>

@@ -109,7 +109,7 @@
         $(".delete").on("submit", function(){
 		        return confirm("Ingin Menghapus Data Ruang?");
 		    });
-    </script>
+   		</script>
 		 
 	
 @endsection

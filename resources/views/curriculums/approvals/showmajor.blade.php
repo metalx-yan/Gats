@@ -1,11 +1,11 @@
 @extends('main')
 
-@section('title', ' Keahlian Jurusan')
+@section('title', ' Jadwal Fix')
 
 @section('content')
 
 <h1 class="section-header">
-  <div>Generate Jadwal Kelas {{ $mixcurriculum->level->class }} Jurusan {{ ucwords($mixcurriculum->name) }} </div>
+  <div>Jadwal Fix Kelas {{ $mixcurriculum->level->class }} Jurusan {{ ucwords($mixcurriculum->name) }} </div>
 </h1>
 
 <div class="row">
@@ -19,8 +19,7 @@
 							<h6>{{ $indexs->major->level->class }} {{ $indexs->name }} {{ $indexs->part }}</h6>
 							<hr>
 							<center>
-									<a href="{{ route('showgenexpert.generate', [Auth::user()->role->name, $indexs->major->level->id, $indexs->major->id, $indexs->id]) }}" class="btn btn-info">Atur Jadwal</a>
-							<a href="{{ route('showed.generate', [Auth::user()->role->name, $indexs->major->level->id, $indexs->major->id, $indexs->id]) }}" class="btn btn-warning">Lihat Jadwal</a>
+							<a href="{{ route('approved', [$indexs->major->level->id, $indexs->major->id, $indexs->id]) }}" class="btn btn-warning">Lihat Jadwal</a>
 							</center>
 						<hr>
 						</div>

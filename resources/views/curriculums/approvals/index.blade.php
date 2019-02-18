@@ -43,10 +43,10 @@
 					  		@endphp
 					  		<td>{{ $app->beginning }}/{{ $app->end }}</td>
 					  		<td>
-					  			@foreach ($approve as $element)
-									@foreach ($element->generates as $gen)
-										{{ $gen->major->level->class }} {{ ucwords($gen->major->name) }}, <br>
-									@endforeach
+					  			@foreach ($approve as $app)
+					  				@foreach ($app->generates as $gen)
+										{{ $gen->major->level->class }} {{ $gen->expertise->name }} {{ $gen->expertise->part }}, <br>
+					  				@endforeach
 					  			@endforeach
 					  		</td>
 	
@@ -57,7 +57,7 @@
 											<i class="ion ion-edit"></i>
 		                				</a>
 		              				</div>
-		              				{{-- <div class="col-md-1 offset-md-1"></div> --}}
+		              				<div class="col-md-1"></div>
 		              
 		              				<div class="col-md-1">
 		                				<form class="" action="{{ route('approval.destroy', $app->id) }}" method="POST">

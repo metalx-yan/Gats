@@ -23,11 +23,11 @@
 <div class="form-group">
 	<div class="row">
 		<div class="col-md-12">
-			<label for="">Kelas Jurusan yang sudah di Generate</label>
+			<label for="">Kelas Jurusan yang sudah melakukan Generate</label>
 			<select class="form-control {{ $errors->has('generates') ? 'is-invalid' : ''}}" name="generates[]" id="select2" multiple="multiple">
 				@foreach ($gene as $gen)
 
-					<option value="{{ $gen->first()->first()->id }}">{{ $gen->first()->first()->major->level->class }} {{ $gen->first()->first()->major->name }} {{ $gen->first()->first() }} </option>
+					<option value="{{ $gen->first()->id }}">{{ $gen->first()->major->level->class }} {{ $gen->first()->expertise->name }} {{ $gen->first()->expertise->part }}  </option>
 				@endforeach
 				
 			</select>	

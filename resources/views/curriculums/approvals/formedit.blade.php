@@ -25,10 +25,8 @@
 		<div class="col-lg-12">
 			<label for="">Generate Sementara</label>
 			<select class="form-control {{ $errors->has('generates') ? 'is-invalid' : ''}}" id="select2" name="generates[]" multiple="multiple">
-			@foreach ($generates as $key)
-				@foreach ($expertise as $element)
-			  		<option value="{{ $key->id }}">{{ $key->major->level->class }} {{ ucwords($key->major->name) }} {{ $element->part }}</option>
-				@endforeach
+			@foreach ($gener as $key)
+		  		<option value="{{ $key->first()->id }}">{{ $key->first()->major->level->class }} {{ $key->first()->expertise->name }} {{ $key->first()->expertise->part }}</option>
 			@endforeach
 			</select>
 			{!! $errors->first('generates', '<span class="invalid-feedback">:message</span>') !!}

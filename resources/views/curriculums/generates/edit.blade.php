@@ -266,7 +266,7 @@
 
 							<tr>
 						@foreach ($gens as $gen)
-							{{-- @if ($gen->expertise_id == $exp->id)  --}}
+							@if ($gen->expertise_id == $exp->id) 
 								<td>{{ $no }}</td>
 								@php
 									$no++;	
@@ -281,11 +281,13 @@
 									<td>-</td>
 									<td>
 										<div class="row">
-				              				<div class="col-xs-4">
-				                				<a href="{{ route('edit.generate', [Auth::user()->role->name, 0, 0,$gen->expertise->id, $gen->id]) }}" class="btn btn-warning btn-sm">
-													<i class="ion ion-edit"></i>
-				                				</a>
-				              				</div>
+											@if ($gen->istirahat() && $gen->jamKosong())
+					              				<div class="col-xs-4">
+					                				<a href="{{ route('edit.generate', [Auth::user()->role->name, 0, 0,$gen->expertise->id, $gen->id]) }}" class="btn btn-warning btn-sm">
+														<i class="ion ion-edit"></i>
+					                				</a>
+					              				</div>
+											@endif
 				              				<div class="col-xs-1 offset-sm-1"></div>
 				              
 				              				<div class="col-xs-4">
@@ -314,14 +316,15 @@
 				                				</a>
 				              				</div>
 				              				<div class="col-xs-1 offset-sm-1"></div>
-				              
-				              				<div class="col-xs-4">
-				                				<form class="" action="{{ route('generate.destroy', $gen->id) }}" method="POST">
-				                      				@csrf
-				                      				@method('DELETE')
-													<button class="ion ion-android-delete btn btn-danger btn-sm" name="" type="submit"></button>
-				                  				</form>
-				                  			</div>
+				              				@if (!$gen->jamPelajaranDuaSesi())
+					              				<div class="col-xs-4">
+					                				<form class="" action="{{ route('generate.destroy', $gen->id) }}" method="POST">
+					                      				@csrf
+					                      				@method('DELETE')
+														<button class="ion ion-android-delete btn btn-danger btn-sm" name="" type="submit"></button>
+					                  				</form>
+					                  			</div>
+				              				@endif
 								      	</div>
 									</td>
 									@else
@@ -338,7 +341,7 @@
 									</td>
 									@endif
 								@endif
-							{{-- @endif --}}
+							@endif
 							</tr>
 						@endforeach
 
