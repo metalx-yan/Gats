@@ -42,6 +42,8 @@ Route::group(['prefix' => 'curriculum', 'middleware' => ['auth','role:curriculum
 
 	Route::get('approval/{level_id}/{major_id}/{expertise_id}', 'ApprovalController@approved')->name('approved');
 
+	Route::get('/pdf/docs/{expertise_id}', 'ApprovalController@pdf')->name('pdf');
+
 	Route::resource('teacher', 'TeacherController')->except(['create', 'show']);
 	
 	Route::resource('approval', 'ApprovalController');

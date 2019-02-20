@@ -8,6 +8,7 @@ use App\Models\Generate;
 use App\Models\Expertise;
 use App\Models\Major;
 use Auth;
+use App;
 
 class ApprovalController extends Controller
 {
@@ -46,6 +47,7 @@ class ApprovalController extends Controller
 
     public function showmajor($level, $major)
     {
+        // dd($a);
         $mixcurriculum = Major::find($major);
 
         $read = Generate::where('major_id', 1)->where('role_id', 2)->update(['read' => 1]);
@@ -62,6 +64,17 @@ class ApprovalController extends Controller
         $generate = Generate::where('major_id', $major)->orWhereNull('major_id')->orderBy('start')->orderBy('day')->get();
 
         return view('curriculums.approvals.approved', compact('expertise', 'majors', 'generate'));
+    }
+
+    public function pdf($expertise)
+    {
+        $generate = Generate::where('expertise_id', $expertise)->orWhereNull('expertise_id')->orderBy('start')->orderBy('day')->get();
+
+        $pdf = App::make('dompdf.wrapper');
+
+        $pdf->loadHTML(view('curriculums.approvals.pdf', compact('generate')))->setPaper('a4', 'landscape');
+
+        return $pdf->stream();
     }
     /**
      * Store a newly created resource in storage.
