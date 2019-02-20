@@ -100,7 +100,7 @@ class GenerateController extends Controller
             $create->save();
 
             $limit = Carbon::parse(substr($request->start, 0, 8));
-            $generates = Generate::where('day', $request->day)->where('role_id', Auth::user()->role->id)->where('major_id', $request->major_id)->get();
+            $generates = Generate::where('day', $request->day)->where('role_id', Auth::user()->role->id)->where('expertise_id', $request->expertise_id)->where('major_id', $request->major_id)->get();
             foreach ($generates as $generate) {
                 $test = Carbon::parse($generate->start);
                 if ($generate->id != $create->id) {
@@ -433,7 +433,7 @@ class GenerateController extends Controller
                 $update->save();
 
                 $limit = Carbon::parse(substr($request->start, 0, 8));
-                $generates = Generate::where('day', $request->day)->where('role_id', Auth::user()->role->id)->where('major_id', $current->major_id)->get();
+                $generates = Generate::where('day', $request->day)->where('role_id', Auth::user()->role->id)->where('expertise_id', $request->expertise_id)->where('major_id', $current->major_id)->get();
                 foreach ($generates as $generate) {
                     $test = Carbon::parse($generate->start);
                     if ($generate->id != $update->id) {
@@ -514,7 +514,7 @@ class GenerateController extends Controller
                 }
 
                 $limit = $e->subMinutes(15);
-                $generates = Generate::where('day', $request->day)->where('role_id', Auth::user()->role->id)->where('major_id', $current->major_id)->get();
+                $generates = Generate::where('day', $request->day)->where('role_id', Auth::user()->role->id)->where('expertise_id', $request->expertise_id)->where('major_id', $current->major_id)->get();
                 foreach ($generates as $generate) {
                     $test = Carbon::parse($generate->start);
                     if ($generate->id != $current->id) {
@@ -566,13 +566,14 @@ class GenerateController extends Controller
     public function destroy($id)
     {
         $generate = Generate::find($id);
-
-        if ($generate->teacher_id == $generate->orderBy('start', 'desc')->get()->first()->teacher_id) {
+        if ($generate->deleteable()) {
+            if ($generate->teacher_id == $generate->teacher_id) {
                 $generate->delete();
             } else {
                 return back()->with('sweetalerterror', 'Mohon Mengosongkan Jam Berikutnya Jika Ingin Menghapus');
             }
-
+        }
+                return back()->with('sweetalerterror', 'Mohon Mengosongkan Jam Berikutnya Jika Ingin Menghapus');
 
         return redirect()->route('showmix.generate', [Auth::user()->role->name, $generate->major->level->id, $generate->major->id])->with('sweetalert', 'Berhasil Menghapus Data Atur Jadwal');
     }

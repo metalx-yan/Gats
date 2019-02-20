@@ -67,6 +67,8 @@ Route::group(['prefix' => 'headmaster', 'middleware' => ['auth','role:headmaster
 
 	Route::get('approval/create', 'ApprovalController@approve')->name('appr.create');
 
+	Route::post('approval/create', 'ApprovalController@showexpertise')->name('showexpert');
+
 });
 
 Route::group(['middleware' => ['auth','role:major,curriculum']], function() {

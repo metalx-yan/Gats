@@ -13,16 +13,18 @@
 </h1>
 
 	
+<form action="{{ route('showexpert') }}" method="post">
+@csrf
 <div class="row">
 	<div class="col-lg-8">
 		<div class="card">
 			<h5 class="card-header head5">Pilih Jadwal</h5>
 			<div class="card-body">
 				<div class="row">
-					<div class="col-md-4">
+					<div class="col-md-3">
 						<div class="form-group">
 							<label>Tahun Ajaran</label>
-							<select name="" id="" class="form-control">
+							<select name="tahun" id="" class="form-control">
 								@foreach ($approve as $app)
 									<option value="{{ $app->id }}">{{ $app->beginning }} / {{ $app->end }}</option>
 								@endforeach
@@ -30,10 +32,10 @@
 						</div>
 					</div>
 
-					<div class="col-md-4">
+					<div class="col-md-3">
 						<div class="form-group">
 							<label>Kelas Jurusan</label>
-							<select name="" id="" class="form-control">
+							<select name="expertise" id="" class="form-control">
 								@foreach ($approve as $app)
 									@foreach ($app->generates as $element)
 										<option value="{{ $element->id }}">{{ $element->major->level->class }} {{ ucwords($element->expertise->name) }} {{ $element->expertise->part }}</option>
@@ -43,17 +45,25 @@
 						</div>
 					</div>
 					
-					<div class="col-md-4">
+					<div class="col-md-3">
 						<div class="form-group">
 							<label><br></label>
-							<a href="" class="btn btn-primary btn-sm form-control"><i class="icon ion-checkmark"></i></a>
-							<div style="font-size: 10px;"><i>*Persetujuan Jadwal Kelas Setelah Itu Akan Melewati Proses Fix Jadwal</i></div>
+								<button type="submit" href="{{ route('showexpert') }}" class="btn btn-primary btn-sm form-control">Lihat Jadwal</button>
+						</div>
+					</div>
+
+					<div class="col-md-3">
+						<div class="form-group">
+							<label><br></label>
+							<a href="" class="btn btn-info btn-sm form-control"><i class="icon ion-checkmark"></i></a>
+							{{-- <div style="font-size: 10px;"><i>*Persetujuan Jadwal Kelas Setelah Itu Akan Melewati Proses Fix Jadwal</i></div> --}}
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+					</form>
 
 	<div class="col-lg-4">
 		<div class="card">
@@ -77,6 +87,8 @@
 	</div>
 </div>
 
+@if (app('request')->input('expertise'))
+
 <div class="row">
 	<div class="col-md-8">
 		<div class="card">
@@ -94,7 +106,8 @@
 			  		</thead>
 			  		<tbody>
 			  			@foreach ($generates as $gens)
-			  				{{-- expr --}}
+							@if ($gens->expertise->id)
+								{{-- expr --}}
 			  			<tr>
 			  				<th>{{ $gens->id }}</th>
 			  				<td>2</td>
@@ -103,6 +116,7 @@
 			  				<td>5</td>
 			  				<td>6</td>
 			  			</tr>
+							@endif
 			  			@endforeach
 			  		</tbody>
 			  	</table>
@@ -110,5 +124,7 @@
 		</div>
 	</div>
 </div>
+
+@endif
 
 @endsection

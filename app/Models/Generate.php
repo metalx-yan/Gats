@@ -98,6 +98,29 @@ class Generate extends Model
         $c = Carbon::parse($this->start)->addMinutes(45)->format('H:i:s');
         return Generate::where('day', $this->day)->whereNull('teacher_id')->where('start', $c)->first();
     }
+    public function next()
+    {
+        if ($this->istirahat()) {
+            $c =  Carbon::parse($this->start)->addMinutes(30)->format('H:i:s');
+            return Generate::where('day', $this->day)
+                ->where('start', $c)
+                ->where('major_id', $this->major_id)
+                ->where('expertise_id', $this->expertise_id)
+                ->first();
+        } else {
+            $c =  Carbon::parse($this->start)->addMinutes(45)->format('H:i:s');
+            return Generate::where('day', $this->day)
+                ->where('start', $c)
+                ->where('major_id', $this->major_id)
+                ->where('expertise_id', $this->expertise_id)
+                ->first();
+        }
+    }
+
+    public function deleteable()
+    {
+        return is_null($this->next());
+    }
 
     public function jamPelajaranSatuSesi()
     {

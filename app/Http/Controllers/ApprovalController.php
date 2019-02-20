@@ -27,10 +27,10 @@ class ApprovalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function approve()
+    public function approve(Request $request)
     {
         $approve = Approval::all();
-        $generates = Generate::where('expertise_id');
+        $generates = Generate::all();
 
         return view('headmasters.approval.index', compact(['approve','generates']));
     }
@@ -47,7 +47,6 @@ class ApprovalController extends Controller
 
     public function showmajor($level, $major)
     {
-        // dd($a);
         $mixcurriculum = Major::find($major);
 
         $read = Generate::where('major_id', 1)->where('role_id', 2)->update(['read' => 1]);
@@ -75,6 +74,13 @@ class ApprovalController extends Controller
         $pdf->loadHTML(view('curriculums.approvals.pdf', compact('generate')))->setPaper('a4', 'landscape');
 
         return $pdf->stream();
+    }
+
+    public function showexpertise(Request $request)
+    {
+        $expertise = $request->expertise;
+        $tahun = $request->tahun;
+        return redirect()->route('appr.create', compact('expertise', 'tahun'));
     }
     /**
      * Store a newly created resource in storage.
