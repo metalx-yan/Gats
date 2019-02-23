@@ -27,6 +27,14 @@ class ApprovalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function acc()
+    {
+        $appro = Generate::where('read', '=', 0)->update([
+            'read' => 1
+        ]);
+
+        return redirect()->back()->with('sweetalert', 'Berhasil Menyetujui Jadwal');
+    }
     public function approve(Request $request)
     {
         $approve = Approval::all();
@@ -67,11 +75,14 @@ class ApprovalController extends Controller
 
     public function pdf($expertise)
     {
-        $generate = Generate::where('expertise_id', $expertise)->orWhereNull('expertise_id')->orderBy('start')->orderBy('day')->get();
+        $generate = Generate::where('expertise_id', $expertise)->orderBy('start')->orderBy('day')->get();
+
+            // $expert = Expertise::all()->groupBy('name');
+            // dd($expert->groupBy('name'));
 
         $pdf = App::make('dompdf.wrapper');
 
-        $pdf->loadHTML(view('curriculums.approvals.pdf', compact('generate')))->setPaper('a4', 'landscape');
+        $pdf->loadHTML(view('curriculums.approvals.pdf', compact('generate', 'expert', 'a')))->setPaper('a4', 'landscape');
 
         return $pdf->stream();
     }

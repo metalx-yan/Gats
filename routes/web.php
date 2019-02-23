@@ -40,6 +40,7 @@ Route::group(['prefix' => 'curriculum', 'middleware' => ['auth','role:curriculum
 
 	Route::get('approval/{level_id}/{major_id}', 'ApprovalController@showmajor')->name('showmajor.approval');
 
+
 	Route::get('approval/{level_id}/{major_id}/{expertise_id}', 'ApprovalController@approved')->name('approved');
 
 	Route::get('/pdf/docs/{expertise_id}', 'ApprovalController@pdf')->name('pdf');
@@ -68,6 +69,8 @@ Route::group(['prefix' => 'headmaster', 'middleware' => ['auth','role:headmaster
 	Route::get('approval/create', 'ApprovalController@approve')->name('appr.create');
 
 	Route::post('approval/create', 'ApprovalController@showexpertise')->name('showexpert');
+
+	Route::put('approval/update', 'ApprovalController@acc')->name('acc.approval');
 
 });
 

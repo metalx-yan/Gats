@@ -3,6 +3,7 @@
 @section('title', 'Persetujuan Jadwal')
 
 @section('links')
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">  
 
 @endsection
 
@@ -66,6 +67,9 @@
 					</form>
 
 	<div class="col-lg-4">
+<form action="{{ route('acc.approval') }}" method="POST">
+	@csrf
+	@method('PUT')
 		<div class="card">
 			<h5 class="card-header head4">Kelas</h5>
 			<div class="card-body">
@@ -80,15 +84,18 @@
 							@endforeach
 						@endforeach
 					</div>
-					<button class="btn btn-success form-control">Fix Jadwal </button>
+					<button class="btn btn-success form-control" type="submit">Setujui Jadwal</button>
 				</div>
 			</div>
 		</div>
 	</div>
+</form>
 </div>
 
 @if (app('request')->input('expertise'))
 
+{{-- @if () --}}
+	{{-- expr --}}
 <div class="row">
 	<div class="col-md-8">
 		<div class="card">
@@ -106,7 +113,7 @@
 			  		</thead>
 			  		<tbody>
 			  			@foreach ($generates as $gens)
-							@if ($gens->expertise->id)
+							@if ($gens->expertise_id)
 								{{-- expr --}}
 			  			<tr>
 			  				<th>{{ $gens->id }}</th>
@@ -124,7 +131,19 @@
 		</div>
 	</div>
 </div>
+{{-- @endif --}}
 
 @endif
 
+@endsection
+
+@section('scripts')
+	
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+	
+  	@if(Session::has('sweetalert'))
+	  <script>
+	      swal('Success!!', '{{ Session::get('sweetalert') }}', 'success');
+	  </script>
+	@endif
 @endsection
