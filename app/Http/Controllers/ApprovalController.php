@@ -35,6 +35,7 @@ class ApprovalController extends Controller
 
         return redirect()->back()->with('sweetalert', 'Berhasil Menyetujui Jadwal');
     }
+    
     public function approve(Request $request)
     {
         $approve = Approval::all();

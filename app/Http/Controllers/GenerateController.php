@@ -566,14 +566,24 @@ class GenerateController extends Controller
     public function destroy($id)
     {
         $generate = Generate::find($id);
-        if ($generate->deleteable()) {
-            if ($generate->teacher_id == $generate->teacher_id) {
+        // if ($generate->deleteable()) {
+        //     if ($generate->teacher_id == $generate->teacher_id) {
+        //         $generate->delete();
+        //     } else {
+        //         return back()->with('sweetalert', 'Berhasil Menghapus Data');
+        //     }
+        // }
+        //     return back()->with('sweetalerterror', 'Mohon Mengosongkan Jam Berikutnya Jika Ingin Menghapus');
+
+        // if ($generate->deleteable()) {
+            if ($generate->istirahat()) {
+                if ($generate->deleteable()) {
+                    dd('istirahat');
+                }
+            } elseif (!$generate->istirahat()) {
                 $generate->delete();
-            } else {
-                return back()->with('sweetalerterror', 'Mohon Mengosongkan Jam Berikutnya Jika Ingin Menghapus');
             }
-        }
-                return back()->with('sweetalerterror', 'Mohon Mengosongkan Jam Berikutnya Jika Ingin Menghapus');
+        // }
 
         return redirect()->route('showmix.generate', [Auth::user()->role->name, $generate->major->level->id, $generate->major->id])->with('sweetalert', 'Berhasil Menghapus Data Atur Jadwal');
     }

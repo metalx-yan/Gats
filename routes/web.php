@@ -40,7 +40,6 @@ Route::group(['prefix' => 'curriculum', 'middleware' => ['auth','role:curriculum
 
 	Route::get('approval/{level_id}/{major_id}', 'ApprovalController@showmajor')->name('showmajor.approval');
 
-
 	Route::get('approval/{level_id}/{major_id}/{expertise_id}', 'ApprovalController@approved')->name('approved');
 
 	Route::get('/pdf/docs/{expertise_id}', 'ApprovalController@pdf')->name('pdf');

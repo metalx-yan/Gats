@@ -66,7 +66,7 @@
         <h4>Total Jurusan</h4>
       </div>
       <div class="card-body header">
-        4
+        {{ Auth::user()->where('role_id', 2)->count() }}
       </div>
     </div>
   </div>
@@ -78,10 +78,10 @@
     </div>
     <div class="card-wrap">
       <div class="card-header header">
-        <h4>Laporan</h4>
+        <h4>Laporan Jadwal Disetujui</h4>
       </div>
       <div class="card-body header">
-        2
+        {{ Auth::user()->generates->where('read', 1)->count() }}
       </div>
     </div>
   </div>
@@ -96,58 +96,18 @@
         <h4>Pengguna</h4>
       </div>
       <div class="card-body header">
-        10
+        {{ Auth::user()->count() }}
       </div>
     </div>
   </div>
 </div>                  
 </div>
-  
 	
-<div class="font">	
-	<div class="card">
-		<div class="card-header cardcolorin">
-			Data Jadwal
-		</div>
-
-		<div class="card-body">
-			<div class="row">
-				<div class="col-md-3 font-label">
-					    <label for="exampleFormControlSelect1">Tahun Ajaran</label>
-						    <select class="form-control" id="exampleFormControlSelect1">
-						      <option>==Pilih Tahun Ajaran==</option>
-						      <option>2</option>
-						      <option>3</option>
-						      <option>4</option>
-						      <option>5</option>
-						    </select>
-				</div>
-			
-			<div class="col-md-9"></div> 
-			</div>
-			<br>
-
-			<div class="row">
-				<div class="col-md-3">
-					<label for="" class="font-label">Baris</label>
-					<select class="form-control" id="exampleFormControlSelect1">
-						      <option>Null</option>
-						      <option>1</option>
-						      <option>2</option>
-						      <option>3</option>
-						      <option>4</option>
-						    </select>
-        </div>
-				
-				<div class="col-md-3 offset-md-6">
-					<label class="font-label">Search</label>
-					<input class="form-control" type="text" placeholder="....">
-        </div>
-
-			</div>
-		
-		</div>		
-	</div>
+<div class="alert alert-primary" role="alert">
+  <h4 class="alert-heading">Selamat Datang di Aplikasi Penjadwalan</h4>
+  <hr>
+  <p>Aplikasi ini bertujuan untuk membantu pihak sekolah agar memudahkan proses pembuatan jadwal serta meminimalisir masalah yang ada pada sekolah. Aplikasi ini memiliki 3 hak akses yaitu Wakasek Kurikulum, Kepala Jurusan dan Kepala Sekolah, dari ke 3 hak akses tersebut memiliki peran yang berbeda beda. Selain digunakan untuk melakukan pembuatan jadwal, aplikasi ini juga dapat mengolah hasil data jadwal menjadi laporan dengan tipe file pdf.</p>
+  <p class="mb-0"></p>
 </div>
 
 @endsection
