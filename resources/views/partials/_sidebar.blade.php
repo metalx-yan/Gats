@@ -84,6 +84,28 @@
                   @endforeach
                 </ul>
             </li>          
+
+            <li>
+              <a href="#" class="has-dropdown"><i class="ion ion-calendar"></i><span>Jadwal Telah Disetujui</span></a>
+               <ul class="menu-dropdown">
+                    @foreach (App\Models\Level::all() as $level)
+                      <li>
+                        <a href="#" class="has-dropdown">
+                          <i class="ion ion-android-contact"></i>{{ $level->class }}                          
+                        </a>
+                        <ul class="menu-dropdown">
+                            @foreach ($level->majors as $major)
+                              <li><a href="{{ route('showmajor.approval', [Auth::user()->role->name, $major->level->id, $major->id]) }}"><i class="ion ion-plus-circled"></i>{{ ucwords($major->name) }}
+                           
+                              </a>
+                              </li>
+                            @endforeach
+                        </ul>
+                      </li>
+                    @endforeach
+                </ul>
+            </li>
+
             @endif
 
             @if (Auth::user()->hasRole('curriculum'))
@@ -177,7 +199,7 @@
                         </a>
                         <ul class="menu-dropdown">
                             @foreach ($level->majors as $major)
-                              <li><a href="{{ route('showmajor.approval', [$major->level->id, $major->id]) }}"><i class="ion ion-plus-circled"></i>{{ ucwords($major->name) }}
+                              <li><a href="{{ route('showmajor.approval', [Auth::user()->role->name, $major->level->id, $major->id]) }}"><i class="ion ion-plus-circled"></i>{{ ucwords($major->name) }}
                            
                               </a>
                               </li>
@@ -200,8 +222,29 @@
 
               <li>
                 <a href="{{ route('appr.create') }}"><i class="ion ion-ios-eye"></i><span>Persetujuan Jadwal</span></a>
-                <a href=""><i class="ion ion-ios-eye"></i><span>Lihat Jadwal</span></a>
+                {{-- <a href=""><i class="ion ion-ios-eye"></i><span>Lihat Jadwal</span></a> --}}
               </li>
+
+              <li>
+              <a href="#" class="has-dropdown"><i class="ion ion-calendar"></i><span>Jadwal Telah Disetujui</span></a>
+               <ul class="menu-dropdown">
+                    @foreach (App\Models\Level::all() as $level)
+                      <li>
+                        <a href="#" class="has-dropdown">
+                          <i class="ion ion-android-contact"></i>{{ $level->class }}                          
+                        </a>
+                        <ul class="menu-dropdown">
+                            @foreach ($level->majors as $major)
+                              <li><a href="{{ route('showmajor.approval', [Auth::user()->role->name, $major->level->id, $major->id]) }}"><i class="ion ion-plus-circled"></i>{{ ucwords($major->name) }}
+                           
+                              </a>
+                              </li>
+                            @endforeach
+                        </ul>
+                      </li>
+                    @endforeach
+                </ul>
+            </li>
 
             @endif
 

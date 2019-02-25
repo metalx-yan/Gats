@@ -19,7 +19,7 @@
 	</div>
 </div>
 
-@if ($room->type_room_id == 1)
+{{-- @if ($room->type_room_id == 1)
 <div class="form-group">
 	<div class="row">
 		<div class="col-lg-12">
@@ -27,9 +27,7 @@
 			<select name="major_id" id="" class="form-control {{ $errors->has('major_id') ? 'is-invalid' : ''}}">
 					<option value="{{ $room->major->id }}">=== {{ $room->major->level->class }} {{ ucwords($room->major->name) }} ===</option>
 				@foreach ($major as $majr)
-					{{-- @if () --}}
 						<option value="{{ $majr->id }}" >{{ $majr->level->class }} {{ ucwords($majr->name) }}</option>
-					{{-- @endif --}}
 				@endforeach
 			</select>
 			{!! $errors->first('major_id', '<span class="invalid-feedback">:message</span>') !!}
@@ -37,7 +35,7 @@
 	</div>
 </div>
 @endif
-
+ --}}
 <div class="form-group">
 	<div class="row">
 		<div class="col-lg-12">

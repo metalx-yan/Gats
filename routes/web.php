@@ -38,10 +38,6 @@ Route::group(['prefix' => 'curriculum', 'middleware' => ['auth','role:curriculum
 
 	Route::get('room/{typeroom_id}/{room_id}/edit', 'RoomController@editmix')->name('editmix.room');
 
-	Route::get('approval/{level_id}/{major_id}', 'ApprovalController@showmajor')->name('showmajor.approval');
-
-	Route::get('approval/{level_id}/{major_id}/{expertise_id}', 'ApprovalController@approved')->name('approved');
-
 	Route::get('/pdf/docs/{expertise_id}', 'ApprovalController@pdf')->name('pdf');
 
 	Route::resource('teacher', 'TeacherController')->except(['create', 'show']);
@@ -86,9 +82,14 @@ Route::group(['middleware' => ['auth','role:major,curriculum']], function() {
 	Route::get('{role_name}/generate/{level_id}/{major_id}/{expertise_id}/show', 'GenerateController@showed')->name('showed.generate');
 
 	Route::get('{role_name}/generate/{level_id}/{major_id}/{expertise_id}/{exid}/edit', 'GenerateController@editgen')->name('edit.generate');
-
 });
 
+Route::group(['middleware' => ['auth']], function() {
+
+	Route::get('{role_name}/approval/{level_id}/{major_id}', 'ApprovalController@showmajor')->name('showmajor.approval');
+
+	Route::get('{role_name}/approval/{level_id}/{major_id}/{expertise_id}', 'ApprovalController@approved')->name('approved');
+});
 
 // JURUSAN
 
@@ -121,13 +122,3 @@ Route::get('/404', function() {
 	return view('errors.404');
 })->name('404');
 
-
-
-// Route::get('/curriculum/teacher', function() {
-// 	return view('curriculums.teachers.index');
-// })->name('curriculums.teachers.index');
-
-// Route::group(['prefix' => 'major', 'middleware' => 'auth','role:major'], function() {
-
-// 	Route::get('/', 'MajorController@index')->name('major');
-// });

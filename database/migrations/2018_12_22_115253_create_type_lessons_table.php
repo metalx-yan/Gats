@@ -15,8 +15,8 @@ class CreateTypeLessonsTable extends Migration
     {
         Schema::create('type_lessons', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('slug')->unique();
+            $table->string('name', 40);
+            $table->string('slug', 40)->unique();
             $table->timestamps();
         });
 

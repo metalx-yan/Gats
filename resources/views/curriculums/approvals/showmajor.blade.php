@@ -19,7 +19,7 @@
 							<h6>{{ $indexs->major->level->class }} {{ $indexs->name }} {{ $indexs->part }}</h6>
 							<hr>
 							<center>
-							<a href="{{ route('approved', [$indexs->major->level->id, $indexs->major->id, $indexs->id]) }}" class="btn btn-warning">Lihat Jadwal</a>
+							<a href="{{ route('approved', [Auth::user()->role->name, $indexs->major->level->id, $indexs->major->id, $indexs->id]) }}" class="btn btn-warning">Lihat Jadwal</a>
 							</center>
 						<hr>
 						</div>

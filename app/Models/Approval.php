@@ -14,4 +14,9 @@ class Approval extends Model
     {
     	return $this->belongsToMany(Generate::class);
     }
+
+    public function user()
+    {
+    	return $this->belongsTo(User::class);
+    }
 }

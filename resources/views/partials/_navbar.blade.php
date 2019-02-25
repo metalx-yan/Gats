@@ -14,13 +14,11 @@
         <ul class="navbar-nav navbar-right">
         @if (Auth::user()->role->id != 2)
           <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg 
-            @foreach (App\Models\Level::all() as $level)
-              {{-- @foreach ($level->majors as $major) --}}
-                @if (App\Models\Generate::where('role_id', 2)->where('read', 0)->count() != 0)
-                  beep
+                @if (Auth::user()->role->id == 1)
+                    @if (App\Models\Generate::where('role_id', 2)->where('read', 0)->count() != 0)
+                      beep
+                  @endif
                 @endif
-              {{-- @endforeach --}}
-            @endforeach
             "><i class="ion ion-ios-bell-outline"></i></a>
             <div class="dropdown-menu dropdown-list dropdown-menu-right">
               <div class="dropdown-header">Notifications 

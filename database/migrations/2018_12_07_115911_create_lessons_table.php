@@ -15,8 +15,8 @@ class CreateLessonsTable extends Migration
     {
         Schema::create('lessons', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('code', 8)->unique();
-            $table->string('name');
+            $table->string('code', 5)->unique();
+            $table->string('name', 40);
             $table->enum('semester', ['ganjil', 'genap']);
             $table->timestamps();
         });

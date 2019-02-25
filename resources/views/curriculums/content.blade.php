@@ -20,7 +20,7 @@
       </div>
       <div class="card-body header">
         @if (Auth::check() || App\Models\Teacher::first()->status = "aktif")
-            {{  App\Models\Teacher::all()->where('status', 'aktif')->count() }}
+            {{  App\Models\Teacher::where('status', 'aktif')->count() }}
         @endif
       </div>
     </div>

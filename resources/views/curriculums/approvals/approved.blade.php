@@ -20,7 +20,7 @@
 		<a href="{{ route('pdf', $expertise->id) }}" target="_blank" class="btn btn-info btn-sm form-control"><i class="icon ion-printer"></i>Download Jadwal</a>
 	</div>
 	<div class="col-md-2">
-		<a href="{{ route('showmajor.approval', [$expertise->major->level->id, $expertise->major->id]) }}" class="btn btn-danger btn-sm form-control">Back</a>
+		<a href="{{ route('showmajor.approval', [Auth::user()->role->name, $expertise->major->level->id, $expertise->major->id]) }}" class="btn btn-danger btn-sm form-control">Back</a>
 	</div>
 </div>
 

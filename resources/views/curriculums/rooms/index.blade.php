@@ -26,9 +26,9 @@
 				      <th>No</th>
 				      <th>Kode</th>
 				      <th>Nama</th>
-		      			  @if ($typeroom->id === 1)
+		      		{{-- 	  @if ($typeroom->id === 1)
 					      <th>Jurusan</th>
-						  @endif
+						  @endif --}}
 				      <th>Aksi</th>
 				    </tr>
 				  </thead>
@@ -42,12 +42,12 @@
 				      <td>{{ $indexs->code }}</td>
 				      <td>{{ $indexs->name }}</td>
 				      
-	      				@if ($indexs->type_room->id === 1)
+	      				{{-- @if ($indexs->type_room->id === 1)
 					      <td>
 				      		{{ $indexs->major->level->class }} {{ ucwords($indexs->major->name) }}
 					      </td>
 	      				@endif
-				      
+				       --}}
 				     
 				      <td>
 				      	<div class="row">

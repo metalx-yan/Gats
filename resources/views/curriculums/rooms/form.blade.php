@@ -19,8 +19,7 @@
 	</div>
 </div>
 
-@if ($typeroom->id == 1)
-	{{-- expr --}}
+{{-- @if ($typeroom->id == 1)
 <div class="form-group">
 	<div class="row">
 		<div class="col-lg-12">
@@ -35,7 +34,7 @@
 	</div>
 </div>
 @endif
-
+ --}}
 <div class="form-group">
 	<div class="row">
 		<div class="col-lg-12">

@@ -29,7 +29,11 @@ class ApprovalController extends Controller
      */
     public function acc()
     {
-        $appro = Generate::where('read', '=', 0)->update([
+        $appro = Approval::where('status', '=', 0)->update([
+            'status' => 1
+        ]);
+
+        Generate::where('read', '=', 0)->update([
             'read' => 1
         ]);
 
@@ -54,7 +58,7 @@ class ApprovalController extends Controller
         return view('curriculums.approvals.index', compact(['gene', 'expertise', 'approve']));
     }
 
-    public function showmajor($level, $major)
+    public function showmajor($role, $level, $major)
     {
         $mixcurriculum = Major::find($major);
 
@@ -63,7 +67,7 @@ class ApprovalController extends Controller
         return view('curriculums.approvals.showmajor', compact('mixcurriculum', 'read'));
     }
 
-    public function approved($level, $major, $expertise)
+    public function approved($role, $level, $major, $expertise)
     {
         $expertise = Expertise::find($expertise);
 

@@ -16,8 +16,8 @@ class CreateTeachersTable extends Migration
         Schema::create('teachers', function (Blueprint $table) {
             $table->increments('id');
             $table->bigInteger('nip')->unique();
-            $table->string('code', 4)->unique();
-            $table->string('name');
+            $table->string('code', 5)->unique();
+            $table->string('name', 40);
             $table->enum('status', ['aktif', 'non aktif']);
             $table->timestamps();
         });

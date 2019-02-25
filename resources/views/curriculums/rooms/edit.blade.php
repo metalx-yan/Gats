@@ -25,9 +25,9 @@
 				      <th>No</th>
 				      <th>Kode</th>
 				      <th>Nama</th>
-					      @if ($room->type_room->id == 1)
+					     {{--  @if ($room->type_room->id == 1)
 						      <th>Jurusan</th>
-					      @endif
+					      @endif --}}
 				    </tr>
 				  </thead>
 				  <tbody class="fontsopher">
@@ -38,9 +38,9 @@
 						@endphp
 				      <td>{{ $room->code }}</td>
 				      <td>{{ $room->name }}</td>
-				      @if ($room->type_room->id == 1)
+				      {{-- @if ($room->type_room->id == 1)
 					      <td>{{ $room->major->level->class }} {{ ucwords($room->major->name) }}</td>
-				      @endif
+				      @endif --}}
 				    </tr>
 				  </tbody>
 				</table>

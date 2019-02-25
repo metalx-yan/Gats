@@ -62,10 +62,10 @@ class User extends Authenticatable
         return $this->belongsToMany(Lesson::class);
     }
 
-    // public function teacher()
-    // {
-    //     return $this->hasOne(Teacher::class);
-    // }
+    public function approvals()
+    {
+        return $this->hasMany(Approval::class);
+    }
 
 }
  
