@@ -7,6 +7,7 @@ use App\Models\Generate;
 use App\Models\TypeRoom;
 use App\Models\TypeLesson;
 use App\Models\TypeTeacher;
+use App\Models\Major;
 use Illuminate\Http\Request;
 
 class ApiController extends Controller
@@ -51,5 +52,18 @@ class ApiController extends Controller
     {
         $type = TypeTeacher::find($id);
     	return response()->json($type->teachers);
-    }      
+    }
+
+    public function major($id)
+    {
+        $major = Major::find($id);
+        return response()->json($major->expertises);
+    }
+
+    public function generates($major, $expertise)
+    {
+        $generate = Generate::where('major_id', $major)->where('expertise_id', $expertise);
+        return response()->json($generate->with(['teacher', 'room', 'lesson', 'major'])->get());
+        
+    }
 }

@@ -17,6 +17,8 @@
                 @if (Auth::user()->role->id == 1)
                     @if (App\Models\Generate::where('role_id', 2)->where('read', 0)->count() != 0)
                       beep
+                      @else
+                      ''
                   @endif
                 @endif
             "><i class="ion ion-ios-bell-outline"></i></a>

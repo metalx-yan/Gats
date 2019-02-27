@@ -174,7 +174,7 @@
                             @if (App\Models\Generate::where('major_id', $major->id)->where('role_id', 2)->where('read', 0)->count() != 0)
                               <span class="badge badge-primary">{{ App\Models\Generate::where('role_id', 2)->where('read', 0)->count() }}</span>
                               @else
-                              <span></span>
+                              <span></span> 
                             @endif
                               </a>
                               </li>

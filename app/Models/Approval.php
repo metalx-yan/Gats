@@ -19,4 +19,9 @@ class Approval extends Model
     {
     	return $this->belongsTo(User::class);
     }
+
+    public function majors()
+    {
+        return $this->hasManyThrough(Major::class, Generate::class);
+    }
 }
