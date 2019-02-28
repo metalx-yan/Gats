@@ -64,6 +64,5 @@ class ApiController extends Controller
     {
         $generate = Generate::where('major_id', $major)->where('expertise_id', $expertise);
         return response()->json($generate->with(['teacher', 'room', 'lesson', 'major'])->get());
-        
     }
 }

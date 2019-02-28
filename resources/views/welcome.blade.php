@@ -168,6 +168,8 @@
         </div>
     </div>
 
+        <a href="{{ route('pdf', $major->id) }}" target="_blank" class="btn btn-info btn-sm form-control"><i class="icon ion-printer"></i>Download Jadwal</a>
+
     <div class="row">
     <div class="col-md-12">
         <div class="card">
@@ -202,47 +204,7 @@
         </div>
     </div>
 </div>
-    {{--     <div class="container pt-lg-5">
-            <div class="title-section pb-4">
-                <h3 class="main-title-agile">about skill point</h3>
-                <div class="title-line">
-                </div>
-            </div>
-            <div class="agileits-top-row row py-md-5">
-                <div class="col-lg-4 col-md-6">
-                    <div class="agileits-about-grids">
-                        <span class="fas fa-book-reader text-color1"></span>
-                        <h4>university life
-                            <span></span>
-                        </h4>
-                        <p>Itaque earum rerum hic tenetur asap iente delectus rulla accumsan ac elit in coeiciendis
-                            maiores alias.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6  mb-lg-0 mb-4">
-                    <div class="agileits-about-grids">
-                        <span class="fas fa-graduation-cap text-color2"></span>
-                        <h4>graduation
-                            <span></span>
-                        </h4>
-                        <p>Itaque earum rerum hic tenetur asap iente delectus rulla accumsan ac elit in coeiciendis
-                            maiores alias.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mx-auto">
-                    <div class="agileits-about-grids">
-                        <span class="fas fa-bezier-curve text-color3"></span>
-                        <h4>social
-                            <span></span>
-                        </h4>
-                        <p>Itaque earum rerum hic tenetur asap iente delectus rulla accumsan ac elit in coeiciendis
-                            maiores alias.</p>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
-    {{-- </section> --}}
-
+    
     <!-- //footer top -->
     <!-- footer -->
     <footer>

@@ -578,7 +578,9 @@ class GenerateController extends Controller
         // if ($generate->deleteable()) {
             if ($generate->istirahat()) {
                 if ($generate->deleteable()) {
-                    dd('istirahat');
+                $generate->delete();
+                return back()->with('sweetalert', 'Berhasil Menghapus Data');
+
                 }
             } elseif (!$generate->istirahat()) {
                 $generate->delete();

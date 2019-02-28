@@ -64,7 +64,7 @@
 			</div>
 		</div>
 	</div>
-					</form>
+</form>
 
 	<div class="col-lg-4">
 <form action="{{ route('acc.approval') }}" method="POST">
@@ -84,7 +84,9 @@
 							@endforeach
 						@endforeach
 					</div>
-					<button class="btn btn-success form-control" type="submit">Setujui Jadwal</button>
+					@if (App\Models\Generate::where('read', 0)->first())
+						<button class="btn btn-success form-control" type="submit">Setujui Jadwal</button>
+					@endif
 				</div>
 			</div>
 		</div>

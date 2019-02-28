@@ -38,8 +38,6 @@ Route::group(['prefix' => 'curriculum', 'middleware' => ['auth','role:curriculum
 
 	Route::get('room/{typeroom_id}/{room_id}/edit', 'RoomController@editmix')->name('editmix.room');
 
-	Route::get('/pdf/docs/{expertise_id}', 'ApprovalController@pdf')->name('pdf');
-
 	Route::resource('teacher', 'TeacherController')->except(['create', 'show']);
 	
 	Route::resource('approval', 'ApprovalController');
@@ -89,7 +87,10 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('{role_name}/approval/{level_id}/{major_id}', 'ApprovalController@showmajor')->name('showmajor.approval');
 
 	Route::get('{role_name}/approval/{level_id}/{major_id}/{expertise_id}', 'ApprovalController@approved')->name('approved');
+
 });
+
+	Route::get('/pdf/docs/{expertise_id}', 'ApprovalController@pdf')->name('pdf');
 
 // JURUSAN
 

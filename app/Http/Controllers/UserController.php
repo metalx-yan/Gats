@@ -39,7 +39,7 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|string|max:255',
-            'username' => 'required|string|unique:users',
+            'username' => 'required|string|max:20|unique:users',
             'password' => 'required|string|min:6|confirmed',
             'role_id' => 'required'
         ]);
@@ -88,8 +88,8 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'username' => "required|unique:users,username,$id|string",
-            'name' => 'required|string|max:255',
+            'username' => "required|unique:users,username,$id|max:20|string",
+            'name' => 'required|string|max:60',
             'password' => 'required|string|min:6|confirmed',
             'role_id' => 'required'
         ]);
