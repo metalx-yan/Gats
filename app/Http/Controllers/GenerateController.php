@@ -64,6 +64,7 @@ class GenerateController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         $kosong = Generate::whereNull('lesson_id')->where('start', substr($request->start, 0, 8))->first();
         if ($kosong) {
             if (!$kosong->jamKosong(2)) {
@@ -88,7 +89,8 @@ class GenerateController extends Controller
                 // 'expertise_id' => 'required'
             ]);
             
-            $sesi = 30 ;
+            // $sesi = 30 ;
+            $sesi = 15 ;
             $create = new Generate;
             $create->day = $request->day;
             $create->start = substr($request->start, 0, 8);
@@ -105,8 +107,8 @@ class GenerateController extends Controller
                 $test = Carbon::parse($generate->start);
                 if ($generate->id != $create->id) {
                     if ($test->greaterThan($limit)) {
-                        $generate->start = Carbon::parse($generate->start)->subMinutes(15);
-                        $generate->end = Carbon::parse($generate->end)->subMinutes(15);
+                        $generate->start = Carbon::parse($generate->start)->subMinutes(30);
+                        $generate->end = Carbon::parse($generate->end)->subMinutes(30);
                         $generate->save();
                     }
                 }
@@ -579,6 +581,7 @@ class GenerateController extends Controller
             if ($generate->istirahat()) {
                 if ($generate->deleteable()) {
                 $generate->delete();
+                // dd('yes');
                 return back()->with('sweetalert', 'Berhasil Menghapus Data');
 
                 }
@@ -586,8 +589,8 @@ class GenerateController extends Controller
                 $generate->delete();
             }
         // }
-
-        return redirect()->route('showmix.generate', [Auth::user()->role->name, $generate->major->level->id, $generate->major->id])->with('sweetalert', 'Berhasil Menghapus Data Atur Jadwal');
+            return redirect()->back();
+        // return redirect()->route('showmix.generate', [Auth::user()->role->name, $generate->major->level->id, $generate->major->id])->with('sweetalert', 'Berhasil Menghapus Data Atur Jadwal');
     }
 
     public function kosongkanGenerate($id, $request)

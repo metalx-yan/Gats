@@ -20,7 +20,7 @@ class ApiController extends Controller
     	for ($i=0; $i < 10; $i++) {
             if ($istirahat->where('expertise_id', $major)->where('start', $start->format('H:i:s'))->first()) {
                 if ($istirahat->where('expertise_id', $major)->where('start', $start->format('H:i:s'))->first()->istirahat()) {
-                    $start->addMinutes(30);
+                    $start->addMinutes(15);
                 } else {
                 	array_push($hours, $start->format('H:i:s') . '(jam kosong)');
                     $start->addMinutes(45);

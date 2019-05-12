@@ -18,6 +18,7 @@ class CreateApprovalsTable extends Migration
             $table->year('beginning')->nullable();
             $table->year('end')->nullable();
             $table->boolean('status')->default(0)->nullable();
+            $table->softdeletes();
             $table->timestamps();
         });
 

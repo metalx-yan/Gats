@@ -48,7 +48,7 @@ class ExpertiseController extends Controller
     {
         $store = $request->validate([
             'code'          =>  'required|unique:expertises|between:2,5',
-            'name'          =>  'required',
+            'name'          =>  'required|max:40',
             'part'          =>  '',
             'major_id'      =>  'required'
         ]);

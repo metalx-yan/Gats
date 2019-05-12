@@ -159,7 +159,6 @@
 
           <li class="menu-header">Ex</li>
 
-
             <li>
               <a href="#" class="has-dropdown"><i class="ion ion-calendar"></i><span>Generate</span></a>
                <ul class="menu-dropdown">
@@ -192,7 +191,35 @@
             <li>
               <a href="#" class="has-dropdown"><i class="ion ion-calendar"></i><span>Jadwal Telah Disetujui</span></a>
                <ul class="menu-dropdown">
-                    @foreach (App\Models\Level::all() as $level)
+                  @foreach (App\Models\Approval::all() as $year)
+                    <li>
+                      <a href="#" class="has-dropdown">
+                         <i class="ion ion-android-contact"></i>{{ $year->beginning }}/{{ $year->end }}
+                      </a>
+
+                      <ul class="menu-dropdown">
+                        @php
+                            $dup = [];
+                        @endphp
+                        @foreach ($year->generates as $element)
+                        @if (!in_array($element->major->level->class, $dup))
+                           <li>
+                             <a class="has-dropdown" href="{{ route('majorin') }}"><i class="ion ion-plus-circled"></i>{{ $element->major->level->class }}
+                              </a>
+                           </li>
+                        @endif
+                        @php
+                          array_push($dup, $element->major->level->class)
+                        @endphp
+                            <ol>
+                              <li><a href="{{ route('showmajor.approval', [Auth::user()->role->name, $element->major->level->id, $element->major->id]) }}" class="ion ion-eject">{{ $element->major->name }}</a></li>
+                            </ol>
+                        @endforeach
+                      </ul>
+                    </li>
+                  @endforeach
+
+            {{--         @foreach (App\Models\Level::all() as $level)
                       <li>
                         <a href="#" class="has-dropdown">
                           <i class="ion ion-android-contact"></i>{{ $level->class }}                          
@@ -206,7 +233,7 @@
                             @endforeach
                         </ul>
                       </li>
-                    @endforeach
+                    @endforeach --}}
                 </ul>
             </li>
 

@@ -150,6 +150,8 @@
 							<tr>
 						@foreach ($gens as $gen)
 							@if ($gen->expertise_id == $showexpert->id) 
+								@if ($gen->read != 1)
+									{{-- expr --}}
 								<td>{{ $no }}</td>
 								@php
 									$no++;	
@@ -172,7 +174,6 @@
 				              				</div>
 											@endif
 				              				<div class="col-xs-1 offset-sm-1"></div>
-				              
 				              				<div class="col-xs-4">
 				                				<form class="" action="{{ route('generate.destroy', $gen->id) }}" method="POST">
 				                      				@csrf
@@ -200,13 +201,13 @@
 				              				</div>
 				              				<div class="col-xs-1 offset-sm-1"></div>
 				              				@if (!$gen->jamPelajaranDuaSesi())
-					              				<div class="col-xs-4">
-					                				<form class="" action="{{ route('generate.destroy', $gen->id) }}" method="POST">
-					                      				@csrf
-					                      				@method('DELETE')
-														<button class="ion ion-android-delete btn btn-danger btn-sm" name="" type="submit"></button>
-					                  				</form>
-					                  			</div>
+						              				<div class="col-xs-4">
+						                				<form class="" action="{{ route('generate.destroy', $gen->id) }}" method="POST">
+						                      				@csrf
+						                      				@method('DELETE')
+															<button class="ion ion-android-delete btn btn-danger btn-sm" name="" type="submit"></button>
+						                  				</form>
+						                  			</div>
 				              				@endif
 								      	</div>
 									</td>
@@ -224,6 +225,7 @@
 									</td>
 									@endif
 									@endif
+								@endif
 							@endif
 							</tr>
 						@endforeach

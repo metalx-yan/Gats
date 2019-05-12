@@ -27,6 +27,13 @@ class ApprovalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function majorin()
+    {
+        $yes = Approval::all();
+        // dd($yes);
+        return view('curriculums.approvals.majorin', compact('yes'));
+    }
+
     public function acc()
     {
         $appro = Approval::where('status', '=', 0)->update([
@@ -36,6 +43,8 @@ class ApprovalController extends Controller
         Generate::where('read', '=', 0)->update([
             'read' => 1
         ]);
+
+        // Generate::withTrashed()
 
         return redirect()->back()->with('sweetalert', 'Berhasil Menyetujui Jadwal');
     }

@@ -35,7 +35,6 @@
 		<div class="col-lg-12">
 			<label for="">Status</label>
 			<select class="form-control {{ $errors->has('status') ? 'is-invalid' : ''}}" name="status">
-				<option>-- Select --</option>
 				@foreach (App\Models\Teacher::status() as $key)
 				  <option value="{{ $key }}"> {{ ucwords($key) }}</option>
 				@endforeach

@@ -3,10 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\softDeletes;
 use Carbon\Carbon;
 
 class Generate extends Model
 {
+    use softDeletes;
+
+    protected $dates = ['deleted_at'];
+
     protected $fillable = [
     	'day',
         'start',
@@ -74,7 +79,8 @@ class Generate extends Model
 
     public function istirahat()
     {
-        $diff = Carbon::parse($this->start)->addMinute(30)->format('H:i:s');
+        $diff = Carbon::parse($this->start)->addMinutes(15)->format('H:i:s');
+        // dd($diff);
         return $this->end == $diff;
     }
 
@@ -101,7 +107,7 @@ class Generate extends Model
     public function next()
     {
         if ($this->istirahat()) {
-            $c =  Carbon::parse($this->start)->addMinutes(30)->format('H:i:s');
+            $c =  Carbon::parse($this->start)->addMinutes(15)->format('H:i:s');
             return Generate::where('day', $this->day)
                 ->where('start', $c)
                 ->where('major_id', $this->major_id)

@@ -9,7 +9,7 @@
 </h1>
 
 <div class="row">
-<div class="col-lg-2 col-md-6">
+{{-- <div class="col-lg-2 col-md-6">
   <div class="card card-sm-3 col-12">
     <div class="card-icon bg-primary-teacher">
       <i class="ion ion-person"></i>
@@ -40,7 +40,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> --}}
 <div class="col-lg-2 col-md-6">
   <div class="card card-sm-3 col-12">
     <div class="card-icon bg-primary-lesson">
@@ -48,15 +48,15 @@
     </div>
     <div class="card-wrap">
       <div class="card-header header">
-        <h4>Total Mata Pelajaran</h4>
+        <h4>Tahun Ajaran</h4>
       </div>
       <div class="card-body header">
-        {{ App\Models\Lesson::all()->count() }}
+        {{ App\Models\Approval::all()->count() }}
       </div>
     </div>
   </div>
 </div>
-<div class="col-lg-2 col-md-6">
+{{-- <div class="col-lg-2 col-md-6">
   <div class="card card-sm-3 col-12">
     <div class="card-icon bg-danger">
    		<i class="ion ion-university"></i>
@@ -100,6 +100,6 @@
       </div>
     </div>
   </div>
-</div>                  
+</div> --}}                  
 </div>
 @endsection

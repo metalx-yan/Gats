@@ -21,11 +21,18 @@
                       ''
                   @endif
                 @endif
+
+                @if (Auth::user()->role->id == 3)
+                  test
+                @endif
             "><i class="ion ion-ios-bell-outline"></i></a>
             <div class="dropdown-menu dropdown-list dropdown-menu-right">
               <div class="dropdown-header">Notifications 
                 @if (Auth::user()->role->id == 1)
                   ({{ App\Models\Generate::where('role_id', 2)->count() }})
+
+                @elseif(Auth::user()->role->id == 3)
+                ({{ App\Models\Approval::all()->count() }})
                 @endif
                 {{-- <div class="float-right">
                   <a href="#">View All</a>

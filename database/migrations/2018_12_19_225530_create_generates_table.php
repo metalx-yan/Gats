@@ -19,6 +19,7 @@ class CreateGeneratesTable extends Migration
             $table->time('start');
             $table->time('end');
             $table->boolean('read')->default(0);
+            $table->softdeletes();
             $table->timestamps();
         });
 

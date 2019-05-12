@@ -58,9 +58,12 @@ class LessonController extends Controller
         // dd($request);
 
         $store = $request->validate([
-            'code'              =>  'required|unique:lessons|between:2,8',
+            'code'              =>  'required|unique:lessons|max:5',
             'name'              =>  'required',
             'semester'          =>  'required',
+            'users'             =>  'required',
+            'majors'            =>  'required',
+            'teachers'          =>  'required',
             'type_lesson_id'    =>  'required',
             // 'major_id'          =>  'required',
         ]);

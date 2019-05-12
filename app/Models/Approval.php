@@ -3,9 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\softDeletes;
 
 class Approval extends Model
 {
+    use softDeletes;
+    
+    protected $dates = ['deleted_at'];
+
     protected $fillable = [
     	'beginning', 'end', 'status', 'user_id'
     ];

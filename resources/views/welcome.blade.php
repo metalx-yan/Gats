@@ -109,8 +109,8 @@
                 <h4>Pilih Jadwal Sesuai Kelas</h4>
                 <i><p class="login-sub">Let’s find a perfect course for you now!</p></i>
 
-                <label class="radio-inline"><input checked="true" type="radio" name="type"> Siswa</label>&nbsp;
-                <label class="radio-inline"><input type="radio" name="type"> Guru</label>
+                {{-- <label class="radio-inline"><input checked="true" type="radio" name="type"> Siswa</label>&nbsp; --}}
+                {{-- <label class="radio-inline"><input type="radio" name="type"> Guru</label> --}}
                 <form action="home.html" method="get" class="register-wthree">
                     <div class="form-group">
                         <div class="row">
@@ -168,7 +168,7 @@
         </div>
     </div>
 
-        <a href="{{ route('pdf', $major->id) }}" target="_blank" class="btn btn-info btn-sm form-control"><i class="icon ion-printer"></i>Download Jadwal</a>
+        {{-- <a href="{{ route('pdf', $major->id) }}" target="_blank" class="btn btn-info btn-sm form-control"><i class="icon ion-printer"></i>Download Jadwal</a> --}}
 
     <div class="row">
     <div class="col-md-12">

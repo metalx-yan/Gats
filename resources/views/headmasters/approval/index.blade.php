@@ -17,7 +17,7 @@
 <form action="{{ route('showexpert') }}" method="post">
 @csrf
 <div class="row">
-	<div class="col-lg-8">
+{{-- 	<div class="col-lg-8">
 		<div class="card">
 			<h5 class="card-header head5">Pilih Jadwal</h5>
 			<div class="card-body">
@@ -57,35 +57,40 @@
 						<div class="form-group">
 							<label><br></label>
 							<a href="" class="btn btn-info btn-sm form-control"><i class="icon ion-checkmark"></i></a>
-							{{-- <div style="font-size: 10px;"><i>*Persetujuan Jadwal Kelas Setelah Itu Akan Melewati Proses Fix Jadwal</i></div> --}}
+							<div style="font-size: 10px;"><i>*Persetujuan Jadwal Kelas Setelah Itu Akan Melewati Proses Fix Jadwal</i></div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> --}}
 	</div>
 </form>
 
-	<div class="col-lg-4">
+	<div class="col-lg-12">
 <form action="{{ route('acc.approval') }}" method="POST">
 	@csrf
 	@method('PUT')
 		<div class="card">
-			<h5 class="card-header head4">Kelas</h5>
+			<h5 class="card-header head4">Daftar Kelas Yang Telah Melakukan Generate</h5>
 			<div class="card-body">
 				<div class="row">
-					<div class="col-md-12">
 						@foreach ($approve as $app)
 							@foreach ($app->generates as $element)
+								@if ($element->read != 1)
+									{{-- expr --}}
+								<div class="col-md-4">
 								<hr><center>
 								<option value="{{ $element->id }}">{{ $element->major->level->class }} {{ ucwords($element->expertise->name) }} {{ $element->expertise->part }}</option>
 								</center>
 								<hr>
+								</div>
+								@endif
 							@endforeach
 						@endforeach
-					</div>
 					@if (App\Models\Generate::where('read', 0)->first())
-						<button class="btn btn-success form-control" type="submit">Setujui Jadwal</button>
+						@if (App\Models\Approval::all()->count() != 0)
+							<button class="btn btn-success form-control" type="submit">Setujui Jadwal</button>
+						@endif
 					@endif
 				</div>
 			</div>

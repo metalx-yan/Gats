@@ -51,7 +51,7 @@ class TeacherController extends Controller
         // dd($request->all());
         $store = $request->validate([
             'nip'               =>  'required|unique:teachers|numeric|digits:18',
-            'code'              =>  'required|unique:teachers|max:4',
+            'code'              =>  'required|unique:teachers|max:5',
             'name'              =>  'required',
             'status'            =>  'required',
             'type_teacher_id'   =>  'required',
@@ -113,11 +113,10 @@ class TeacherController extends Controller
     {
         $this->validate($request, [
             'nip'       =>  "required|unique:teachers,nip,$id|numeric|digits:18",
-            'code'      =>  "required|unique:teachers,code,$id|string|max:4", 
+            'code'      =>  "required|unique:teachers,code,$id|string|max:5", 
             'name'      =>  'required',
             'status'    =>  'required'
         ]);
-
         $teacher = Teacher::findOrFail($id);
         $teacher->nip = $request->nip;
         $teacher->code = $request->code;

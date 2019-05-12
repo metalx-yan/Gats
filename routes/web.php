@@ -20,6 +20,8 @@ Auth::routes();
 
 Route::group(['prefix' => 'curriculum', 'middleware' => ['auth','role:curriculum']], function() {
 
+	Route::get('approved/major', 'ApprovalController@majorin')->name('majorin');
+
 	Route::get('expertise/{generate_id}', 'ExpertiseController@updateRead')->name('update.read');
 
 	Route::get('expertise/{level_id}/{major_id}/create', 'ExpertiseController@mix')->name('mix.expertise');
@@ -58,6 +60,7 @@ Route::group(['prefix' => 'curriculum', 'middleware' => ['auth','role:curriculum
 // KEPALA SEKOLAH
 
 Route::group(['prefix' => 'headmaster', 'middleware' => ['auth','role:headmaster']], function() {
+
 
 	Route::get('approval/create', 'ApprovalController@approve')->name('appr.create');
 
