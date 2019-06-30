@@ -14,7 +14,7 @@ class MajorTableSeeder extends Seeder
     public function run()
     {
 
-            $major = ['geomatika dan geospasial'];
+            $major = ['otomotif'];
 
             foreach ($major as $value) {
                 for ($i=1; $i <= 2; $i++) { 
@@ -26,7 +26,7 @@ class MajorTableSeeder extends Seeder
                 }
             }
 
-            $major = ['konstruksi dan properti'];
+            $major = ['agribisnis tanaman'];
 
             foreach ($major as $value) {
                 for ($i=1; $i <= 2; $i++) { 
@@ -38,7 +38,7 @@ class MajorTableSeeder extends Seeder
                 }
             }
 
-            $major = ['ketenagalistrikan'];
+            $major = ['agribisnis pengolahan hasil pertanian'];
 
             foreach ($major as $value) {
                 for ($i=1; $i <= 3; $i++) { 
@@ -50,7 +50,7 @@ class MajorTableSeeder extends Seeder
                 }
             }
 
-            $major = ['mesin'];
+            $major = ['agribisnis ternak'];
 
             foreach ($major as $value) {
                 for ($i=1; $i <= 3; $i++) { 
@@ -62,7 +62,7 @@ class MajorTableSeeder extends Seeder
                 }
             }
 
-            $major = ['komputer dan informatika'];
+            $major = ['kimia'];
 
             foreach ($major as $value) {
                 for ($i=1; $i <= 3; $i++) { 
@@ -74,7 +74,7 @@ class MajorTableSeeder extends Seeder
                 }
             }
 
-            $major = ['survei dan pemetaan'];
+            $major = ['perikanan'];
 
             foreach ($major as $value) {
                 for ($i=3; $i <= 3; $i++) { 
@@ -86,17 +86,7 @@ class MajorTableSeeder extends Seeder
                 }
             }
 
-            $major = ['bangunan'];
-
-            foreach ($major as $value) {
-                for ($i=3; $i <= 3; $i++) { 
-                    Major::create([
-                        'code' => str_random(5),
-                        'name' => $value,
-                        'level_id' => $i
-                    ]);
-                }
-            }
+        
 
 
     }

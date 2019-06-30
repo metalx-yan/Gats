@@ -47,7 +47,7 @@
 	<div class="col-lg-4">
 		<div class="card">
 			<div class="card-header headercolorincurrent fontsopher">
-				Tambah Akun
+				Edit Data Akun
 			</div>
 				<form action="{{ route('user.update', $edit->id) }}" method="POST">
 				@csrf

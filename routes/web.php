@@ -11,14 +11,21 @@
 |
 */
 Route::get('/', function() {
-	return view('welcome');
+	return view('web');
 })->name('home');
 
 Auth::routes();
 
+//PENGAJUAN
+Route::get('/pengajuan_jadwal', function(){
+	return view('curriculums.submissions.pengajuan');
+})->name('pengajuan');
+
 //KURIKULUM
 
 Route::group(['prefix' => 'curriculum', 'middleware' => ['auth','role:curriculum']], function() {
+
+	Route::resource('submission', 'SubmissionController');
 
 	Route::get('approved/major', 'ApprovalController@majorin')->name('majorin');
 

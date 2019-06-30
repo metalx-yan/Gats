@@ -281,7 +281,7 @@ a:not(.btn-social-icon):not(.btn-social):not(.page-link) .fab {
 	left: 0;
 	width: 100%;
 	height: 115px;
-	background-color: #536cb5;
+	background-color: #b18a21;
 	z-index: -1;
 }
 .navbar .form-inline .form-control {
@@ -658,7 +658,7 @@ body.sidebar-gone .main-content {
 	color: #fff;
 }
 .alert.alert-primary {
-	background-color: #574B90;
+	background-color: #968830;
 }
 .alert.alert-secondary {
 	background-color: #868e96;

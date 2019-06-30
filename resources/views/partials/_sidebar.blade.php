@@ -1,11 +1,14 @@
 <div class="main-sidebar">
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
-            <a href="{{ route('curriculum') }}">Penjadwalan</a>
+            <a href="{{ route('curriculum') }}">SMKN 2</a>
           </div>
             <div class="sidebar-user-picture">
-              <img alt="image" src="{{ asset('images/logosekolah.png') }}">
-            </div> <br>
+              <img alt="image" src="{{ asset('images/smkn2.png') }}">
+            </div>
+            <div class="sidebar-brand">
+            <a href="{{ route('curriculum') }}">TANGERANG</a>
+          </div> <br>
           <ul class="sidebar-menu">
 
             @if (Auth::user()->hasRole('major'))
@@ -63,7 +66,7 @@
            <li class="menu-header">Ex</li>
             
             <li>
-              <a href="" class="has-dropdown"><i class="ion ion-ios-information-outline"></i>Generate</a>
+              <a href="" class="has-dropdown"><i class="ion ion-ios-information-outline"></i>Atur Jadwal</a>
                 <ul class="menu-dropdown">
                   @foreach (App\Models\Level::all() as $level)
                     <li>
@@ -160,7 +163,7 @@
           <li class="menu-header">Ex</li>
 
             <li>
-              <a href="#" class="has-dropdown"><i class="ion ion-calendar"></i><span>Generate</span></a>
+              <a href="#" class="has-dropdown"><i class="ion ion-calendar"></i><span>Atur Jadwal</span></a>
                <ul class="menu-dropdown">
                     @foreach (App\Models\Level::all() as $level)
                       <li>
@@ -184,6 +187,10 @@
                 </ul>
             </li>
             
+            <li>
+              <a href="{{ route('submission.index') }}"><i class="ion ion-merge"></i>Permintaan Jadwal Honorer</a>
+            </li>
+
             <li>
               <a href="{{ route('approval.create') }}"><i class="ion ion-merge"></i>Pengelompokan Jadwal </a>
             </li>

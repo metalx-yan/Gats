@@ -106,7 +106,7 @@
 <div class="alert alert-primary" role="alert">
   <h4 class="alert-heading">Selamat Datang di Aplikasi Penjadwalan</h4>
   <hr>
-  <p>Aplikasi ini bertujuan untuk membantu pihak sekolah agar memudahkan proses pembuatan jadwal serta meminimalisir masalah yang ada pada sekolah. Aplikasi ini memiliki 3 hak akses yaitu Wakasek Kurikulum, Kepala Jurusan dan Kepala Sekolah, dari ke 3 hak akses tersebut memiliki peran yang berbeda beda. Selain digunakan untuk melakukan pembuatan jadwal, aplikasi ini juga dapat mengolah hasil data jadwal menjadi laporan dengan tipe file pdf.</p>
+  <p>Aplikasi ini bertujuan untuk membantu pihak sekolah agar memudahkan proses pembuatan jadwal serta meminimalisir masalah yang ada pada sekolah. Selain digunakan untuk melakukan pembuatan jadwal, aplikasi ini juga dapat mengolah hasil data jadwal menjadi laporan yang dapat diunduh</p>
   <p class="mb-0"></p>
 </div>
 
