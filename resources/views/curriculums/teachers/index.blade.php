@@ -25,10 +25,11 @@
 				    <tr>
 				      <th>No</th>
 				      <th>NIP</th>
-				      <th>Kode</th>
+				      <th>Mata Pelajaran</th>
 				      <th>Nama</th>
 				      <th>Tipe Pengajar</th>
 				      <th>Status</th>
+				      <th>Total Jam</th>
 				      <th>Aksi</th>
 				    </tr>
 				  </thead>
@@ -40,7 +41,7 @@
 							$no++;	
 						@endphp
 				      <td>{{ $indexs->nip }}</td>
-				      <td>{{ $indexs->code }}</td>
+				      <td>{{ $indexs->lesson }}</td>
 				      <td>{{ $indexs->name }}</td>
 				      <td>{{ ucwords($indexs->type_teacher->name) }}</td>
 				      <td>
@@ -51,6 +52,9 @@
 						
 						@endif
 					</td>
+					<td>
+		      	    	{{ $indexs->time }}<br>
+		            </td>
 				      <td>
 				      	<div class="row">
               				<div class="col-xs-4">

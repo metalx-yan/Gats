@@ -88,7 +88,7 @@ input[type=submit]:hover {
         <label for="fname">Kode Guru</label>
       </div>
       <div class="col-75">
-        <input type="text" id="fname" name="code" placeholder="Your name..">
+        <input type="text" id="fname" name="code" placeholder="Your name.." required="">
       </div>
     </div>
     <div class="row">
@@ -96,7 +96,7 @@ input[type=submit]:hover {
         <label for="lname">Nama Lengkap</label>
       </div>
       <div class="col-75">
-        <input type="text" id="lname" name="name" placeholder="Your last name..">
+        <input type="text" id="lname" name="name" placeholder="Your last name.." required="">
       </div>
     </div>
     <div class="row">
@@ -116,7 +116,7 @@ input[type=submit]:hover {
         <label for="lname">Hari</label>
       </div>
       <div class="col-75">
-        <input type="text" id="lname" name="day" placeholder="Your last name..">
+        <input type="text" id="lname" name="day" placeholder="Your last name.." required="">
       </div>
     </div>
     <div class="row">
@@ -124,7 +124,7 @@ input[type=submit]:hover {
         <label for="subject">Jam</label>
       </div>
       <div class="col-75">
-       <input type="text" id="lname" name="time" placeholder="Your last name..">
+       <input type="text" id="lname" name="time" placeholder="Your last name.." required="">
       </div>
     </div>
     <div class="row">

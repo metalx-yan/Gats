@@ -55,21 +55,17 @@ class LessonController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
-
         $store = $request->validate([
-            'code'              =>  'required|unique:lessons|max:5',
+            'code'              =>  'required|unique:lessons|max:6',
             'name'              =>  'required',
             'semester'          =>  'required',
             'users'             =>  'required',
             'majors'            =>  'required',
-            'teachers'          =>  'required',
+            'time'          =>  'required',
             'type_lesson_id'    =>  'required',
-            // 'major_id'          =>  'required',
         ]);
 
         $a = Lesson::create($store);
-
         $a->majors()->sync($request->majors, false);
 
         $a->users()->sync($request->users, false);

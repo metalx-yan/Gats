@@ -8,7 +8,8 @@ class Lesson extends Model
 {
     protected $fillable = [
 		'code',
-		'name',
+        'name',
+		'time',
 		'semester',
         'type_lesson_id',
     ];
@@ -46,5 +47,14 @@ class Lesson extends Model
     public static function semester()
     {
         return ['ganjil', 'genap'];
+    }
+
+    public function parseToMinutes()
+    {
+        return $this->time;
+    }
+     public function parseToHours()
+    {
+        return $this->time / 60;
     }
 }

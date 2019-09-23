@@ -42,17 +42,11 @@
 	<div class="form-group">
 		<div class="row">
 
-			<div class="col-lg-3">
-				<label for="">Guru</label>
-				<select class="form-control {{ $errors->has('teachers') ? 'is-invalid' : ''}}" id="select4" $teachers name="teachers[]" multiple="multiple">
-					@foreach ($teachers as $key)
-						{{-- @if ($key->type_teacher_id == 2) --}}
-					  		<option value="{{ $key->id }}">{{ ucwords($key->name) }}</option>
-						{{-- @endif --}}
-					@endforeach
-				</select>
-				{!! $errors->first('teachers', '<span class="invalid-feedback">:message</span>') !!}
-			</div>
+	<div class="col-lg-3">
+			<label for="">Total Jam</label>
+			<input type="number" name="time" value="{{ old('time') }}" class="form-control {{ $errors->has('time') ? 'is-invalid' : ''}}" autocomplete="off">
+			{!! $errors->first('time', '<span class="invalid-feedback">:message</span>') !!}
+	</div>
 
 			<div class="col-lg-3">
 				<label for="">Kelas Jurusan</label>

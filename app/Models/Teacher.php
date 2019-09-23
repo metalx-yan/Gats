@@ -8,9 +8,10 @@ class Teacher extends Model
 {
     protected $fillable = [
     	'nip',
-    	'code',
+    	'lesson',
     	'name',
     	'status',
+        'time' ,
         'type_teacher_id',
         // 'user_id',
     ];
@@ -33,5 +34,13 @@ class Teacher extends Model
     public static function status()
     {
         return ['aktif', 'non aktif'];
+    }
+     public function parseToMinutes()
+    {
+        return $this->time;
+    }
+     public function parseToHours()
+    {
+        return $this->time / 60;
     }
 }

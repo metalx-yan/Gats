@@ -52,7 +52,7 @@
 	<div class="form-group">
 		<div class="row">
 
-			<div class="col-lg-3">
+		{{-- 	<div class="col-lg-3">
 				<label for="">Guru</label>
 				<select class="form-control {{ $errors->has('teachers') ? 'is-invalid' : ''}}" id="select4" name="teachers[]" multiple="multiple">
 					@if ($typelesson->id == 1)
@@ -71,7 +71,7 @@
 					@endif
 				</select>
 				{!! $errors->first('teachers', '<span class="invalid-feedback">:message</span>') !!}
-			</div>
+			</div> --}}
 
 			<div class="col-lg-3">
 				<label for="">Semester</label>
@@ -81,6 +81,12 @@
 					@endforeach
 				</select>
 				{!! $errors->first('semester', '<span class="invalid-feedback">:message</span>') !!}
+			</div>
+
+			<div class="col-lg-3">
+				<label for="">Total Jam (minutes)</label>
+				<input type="number" name="time" value="{{ old('time') }}" class="form-control {{ $errors->has('time') ? 'is-invalid' : ''}}" autocomplete="off">
+				{!! $errors->first('time', '<span class="invalid-feedback">:message</span>') !!}
 			</div>
 			
 		</div>

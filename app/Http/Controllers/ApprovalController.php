@@ -91,9 +91,6 @@ class ApprovalController extends Controller
     {
         $generate = Generate::where('expertise_id', $expertise)->orderBy('start')->orderBy('day')->get();
 
-            // $expert = Expertise::all()->groupBy('name');
-            // dd($expert->groupBy('name'));
-
         $pdf = App::make('dompdf.wrapper');
 
         $pdf->loadHTML(view('curriculums.approvals.pdf', compact('generate', 'expert', 'a')))->setPaper('a4', 'landscape');

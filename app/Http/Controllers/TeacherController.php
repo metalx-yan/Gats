@@ -27,7 +27,6 @@ class TeacherController extends Controller
         $mix = TypeTeacher::find($typeteacherid);
 
         $teacher = Generate::all();
-
         return view('curriculums.teachers.index', compact('mix', 'teacher'));
     }
     /**
@@ -50,10 +49,11 @@ class TeacherController extends Controller
     {
         // dd($request->all());
         $store = $request->validate([
-            'nip'               =>  'required|unique:teachers|numeric|digits:18',
-            'code'              =>  'required|unique:teachers|max:5',
+            'nip'               =>  'required|unique:teachers',
+            'lesson'              =>  'required',
             'name'              =>  'required',
             'status'            =>  'required',
+            'time'          =>  'required',
             'type_teacher_id'   =>  'required',
             // 'username'          =>  'required|unique:users',
             // 'password'          =>  'required|string|min:6|confirmed',

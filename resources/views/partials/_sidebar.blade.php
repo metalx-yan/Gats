@@ -32,6 +32,16 @@
                   @endforeach
                 </ul>
               </li>
+              
+              <li><a href="#" class="has-dropdown"><i class="ion ion-document-text"></i>Data Mata Pelajaran</a>
+                <ul class="menu-dropdown">
+                  @foreach (App\Models\TypeLesson::all() as $typelesson)
+                    @if ($typelesson->id === 1)
+                      <li><a href="{{ route('lesson.view', $typelesson->id) }}"><i class="ion ion-ios-play-outline"></i>{{ ucwords($typelesson->name) }}</a></li>
+                    @endif
+                  @endforeach
+                </ul>
+              </li>
 
               <li><a href="#" class="has-dropdown"><i class="ion ion-document-text"></i>Data Guru</a>
                 <ul class="menu-dropdown">
@@ -43,15 +53,6 @@
                 </ul>
               </li>
 
-              <li><a href="#" class="has-dropdown"><i class="ion ion-document-text"></i>Data Mata Pelajaran</a>
-                <ul class="menu-dropdown">
-                  @foreach (App\Models\TypeLesson::all() as $typelesson)
-                    @if ($typelesson->id === 1)
-                      <li><a href="{{ route('lesson.view', $typelesson->id) }}"><i class="ion ion-ios-play-outline"></i>{{ ucwords($typelesson->name) }}</a></li>
-                    @endif
-                  @endforeach
-                </ul>
-              </li>
 
               <li><a href="#" class="has-dropdown"><i class="ion ion-document-text"></i>Data Ruang</a>
                 <ul class="menu-dropdown">
@@ -187,9 +188,9 @@
                 </ul>
             </li>
             
-            <li>
+           {{--  <li>
               <a href="{{ route('submission.index') }}"><i class="ion ion-merge"></i>Permintaan Jadwal Honorer</a>
-            </li>
+            </li> --}}
 
             <li>
               <a href="{{ route('approval.create') }}"><i class="ion ion-merge"></i>Pengelompokan Jadwal </a>

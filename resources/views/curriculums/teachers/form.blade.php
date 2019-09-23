@@ -13,9 +13,17 @@
 <div class="form-group">
 	<div class="row">
 		<div class="col-lg-12">
-			<label for="">Kode</label>
-			<input type="text" name="code" value="{{ old('code') }}" class="form-control {{ $errors->has('code') ? 'is-invalid' : ''}}" autocomplete="off">
-			{!! $errors->first('code', '<span class="invalid-feedback">:message</span>') !!}
+			<label for="">Mata Pelajaran</label>
+			<select class="form-control" name="lesson">
+				@foreach(App\Models\Lesson::where('type_lesson_id', $mix->id)->get() as $lesson)
+					@if($lesson->type_lesson_id == 1)
+						<option>{{ $lesson->name }}</option>
+					@elseif($lesson->type_lesson_id == 2)
+						<option>{{ $lesson->name }}</option>
+					@endif
+				@endforeach
+			</select>
+			{!! $errors->first('lesson', '<span class="invalid-feedback">:message</span>') !!}
 		</div>
 	</div>
 </div>
@@ -43,6 +51,12 @@
 		</div>
 	</div>
 </div>
+
+	<div class="col-lg-12">
+				<label for="">Total Jam</label>
+				<input type="number" name="time" value="{{ old('time') }}" class="form-control {{ $errors->has('time') ? 'is-invalid' : ''}}" autocomplete="off">
+				{!! $errors->first('time', '<span class="invalid-feedback">:message</span>') !!}
+	</div>
 
 <div class="form-group">
 	<div class="row">

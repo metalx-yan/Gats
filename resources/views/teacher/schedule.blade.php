@@ -1,7 +1,10 @@
-
 <!DOCTYPE html>
-<html lang="en">
-  <head>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	  <head>
     <meta charset="utf-8">
     <title>Example 2</title>
     <link rel="stylesheet" href="{{ storage_path('css\pdf\style.css') }}">
@@ -20,7 +23,8 @@
       <div id="company" align="center">
         <h2 class="name">PENJADWALAN MATA PELAJARAN</h2>
         <h4>Tahun Ajaran 2018/2019</h4>
-        
+        <h4>Nama Pengajar:  {{ $teacher->name }}</h4>
+
       </div>
       </div>
       <br>
@@ -35,52 +39,32 @@
             <th>Hari</th>
             <th>Jam</th>
             <th>Mata Pelajaran</th>
-            <th>Guru</th>
+            <th>kelas</th>
             <th>Ruang</th>
-            {{-- <th>Ruang</th> --}}
           </tr>
         </thead>
+        </thead>
         <tbody>
-    @foreach ($generate as $gen)
-        @if (!$gen->read == 0)
-
-          <tr>
-            <td class="no">{{ $no }}</td>
+          @php
+          $i = 1;
+          @endphp
+          @foreach($teacher->generates as $generate)
+            <tr>
+              <td>{{ $i }}</td>
+              <td>{{ $generate->day }}</td>
+              <td>{{ $generate->start }}</td>
+              <td>{{ $generate->lesson->name }}</td>
+              <td>{{ $generate->expertise->major->level->class }} {{ $generate->expertise->name }} {{ $generate->expertise->part }}</td>
+              <td>{{ $generate->room->name }}</td>
+            </tr>
             @php
-              $no++;
+            $i++;
             @endphp
-            <td>{{ $gen->day }}</td>
-            <td>{{ $gen->start }} - {{ $gen->end }}</td>
-            
-            <td>@if (!is_null($gen->lesson_id))
-              {{ $gen->lesson->name }}
-              @else
-              Istirahat
-            @endif
-            </td>
-            <td>@if (!is_null($gen->teacher_id))
-              {{ $gen->teacher->name }}
-              {{-- Istirahat --}}
-            @endif
-            </td>
-
-            <td>@if (!is_null($gen->room_id))
-              {{ $gen->room->name }}
-              {{-- @else --}}
-              {{-- Istirahat --}}
-            @endif
-            </td>
-
-          </tr>
-        
+          @endforeach
         </tbody>
-        @endif
-    @endforeach
       </table>
      <hr>
      <div align="center">
-      {{-- <h4>Jurusan <b>{{ ucwords($gen->major->name) }}</b></h4>
-      <h4>Kelas <b>{{ $gen->major->level->class }} {{ ucwords($gen->expertise->name) }} {{ $gen->expertise->part }}</b></h4> --}}
      </div>
-  </body>
+</body>
 </html>

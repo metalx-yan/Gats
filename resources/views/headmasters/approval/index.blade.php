@@ -71,7 +71,7 @@
 	@csrf
 	@method('PUT')
 		<div class="card">
-			<h5 class="card-header head4">Daftar Kelas Yang Telah Melakukan Generate</h5>
+			<h5 class="card-header head4">Daftar Kelas Yang Telah Mengirim Hasil Jadwal</h5>
 			<div class="card-body">
 				<div class="row">
 						@foreach ($approve as $app)

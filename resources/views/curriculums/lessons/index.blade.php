@@ -54,9 +54,10 @@
 				      <th>Kode</th>
 				      <th>Nama</th>
 				      <th>Semester</th>
-				      <th>Guru</th>
+				{{--       <th>Guru</th> --}}
 				      <th>Akun Jurusan</th>
 				      <th>Kelas Jurusan</th>
+				      <th>Total Jam (menit)</th>
 				      <th>Aksi</th>
 				    </tr>
 				  </thead>
@@ -70,16 +71,18 @@
 				      <td>{{ $indexs->code }}</td>
 				      <td>{{ $indexs->name }}</td>
 				      <td>{{ ucwords($indexs->semester) }}</td>
-					  <td>@foreach ($indexs->teachers as $teacher)
+				{{-- 	  <td>@foreach ($indexs->teachers as $teacher)
 					      {{ ucwords($teacher->name) }},<br>
-				      @endforeach</td>
+				      @endforeach</td> --}}
 					  <td>@foreach ($indexs->users as $user)
 					      {{ ucwords($user->name) }},<br>
 				      @endforeach</td>
 				      <td>@foreach ($indexs->majors as $major)
 					     {{ $major->level->class }} {{ ucwords($major->name) }},<br>
 				      @endforeach</td>
-				     
+		            <td>@foreach ($indexs->majors as $major)
+		      	    {{ $indexs->time }}<br>
+		            @endforeach</td>
 				      <td>
 				      	<div class="row">
               				<div class="col-xs-1">

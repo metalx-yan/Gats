@@ -141,6 +141,8 @@ class GenerateController extends Controller
                     $parent->user_id = Auth::user()->id;
                     $parent->role_id = Auth::user()->role->id;
                     $parent->save();
+                    $parent->lesson->update(['time' => ($parent->lesson->parseToMinutes() - 45)]);
+                    $parent->teacher->update(['time' => ($parent->teacher->parseToMinutes() - 45)]);
 
                     $create = new Generate;
                     $create->day = $request->day;
@@ -155,6 +157,8 @@ class GenerateController extends Controller
                     $create->user_id = Auth::user()->id;
                     $create->role_id = Auth::user()->role->id;
                     $create->save();
+                    $create->lesson->update(['time' => ($create->lesson->parseToMinutes() - 45)]);
+                    $create->teacher->update(['time' => ($create->teacher->parseToMinutes() - 45)]);
                 } else {
                     $create = new Generate;
                     $create->day = $request->day;
@@ -168,6 +172,8 @@ class GenerateController extends Controller
                     $create->user_id = Auth::user()->id;
                     $create->role_id = Auth::user()->role->id;
                     $create->save();
+                    $create->lesson->update(['time' => ($create->lesson->parseToMinutes() - 45)]);
+                    $create->teacher->update(['time' => ($create->teacher->parseToMinutes() - 45)]);
                 }
             } else {
                 if ($request->sesi == 2) {
@@ -186,6 +192,8 @@ class GenerateController extends Controller
                     $parent->user_id = Auth::user()->id;
                     $parent->role_id = Auth::user()->role->id;
                     $parent->save();
+                    $parent->lesson->update(['time' => ($parent->lesson->parseToMinutes() - 45)]);
+                    $parent->teacher->update(['time' => ($parent->teacher->parseToMinutes() - 45)]);
 
                     $create = new Generate;
                     $create->day = $request->day;
@@ -200,6 +208,8 @@ class GenerateController extends Controller
                     $create->user_id = Auth::user()->id;
                     $create->role_id = Auth::user()->role->id;
                     $create->save();
+                    $create->lesson->update(['time' => ($create->lesson->parseToMinutes() - 45)]);
+                    $create->teacher->update(['time' => ($create->teacher->parseToMinutes() - 45)]);
                 } else {
                     $create = new Generate;
                     $create->day = $request->day;
@@ -213,6 +223,8 @@ class GenerateController extends Controller
                     $create->user_id = Auth::user()->id;
                     $create->role_id = Auth::user()->role->id;
                     $create->save();
+                    $create->lesson->update(['time' => ($create->lesson->parseToMinutes() - 45)]);
+                    $create->teacher->update(['time' => ($create->teacher->parseToMinutes() - 45)]);
                 }
             }
         }

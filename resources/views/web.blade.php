@@ -63,9 +63,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <div class="d-flex">
                             <!-- Multiple select filter  -->
                                 <label for=""><br><br></label>
-                            <div class="login-wthree my-auto">
+                            {{-- <div class="login-wthree my-auto">
                                <button class="btn btn-primary"><a href="{{ route('pengajuan')}}" class="text-white text-capitalize">Pengajuan Jadwal <span class="fas fa-sign-in-alt flash animated infinite"></span></a></button> 
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                     <div class="col-md-1 hearder-right-agile agile">
@@ -101,7 +101,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<input type="radio" name="slides" id="slides_2" />
 						<input type="radio" name="slides" id="slides_3" />
 						<!-- <ul class="banner_slide_bg"> -->
-						
+						{{-- 
 								<div class="container-fluid">
 									<div class="w3ls_banner_txt">
 										<h3 class="b-w3ltxt text-capitalize mt-md-4">Education Courses.</h3>
@@ -109,7 +109,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										<p class="w3ls_pvt-title my-3"> </p>
 										<!-- <a href="#about" class="btn btn-banner my-3">Read More</a> -->
 									</div>
-								</div>
+								</div> --}}
 							</li>
 							
 						<!-- </ul> -->
@@ -127,14 +127,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div class="banner-form-w3 ml-lg-5">
 						<div class="padding">
 							<!-- banner form -->
-							<form action="#" method="post">
+							<form action="{{ route('teacher.getSchedule') }}" method="post">
+                                @csrf
 								<h5 class="mb-3">Pilih Jadwal Kelas</h5>
-					<label class="radio-inline"><input checked="true" type="radio" name="type"> Siswa</label>&nbsp;
-                	<label class="radio-inline"><input type="radio" name="type"> Guru</label>
+                                <select id="jadwal" name="type">
+                                  <option value="guru" class="klik-guru">Guru</option>
+                                  <option value="siswa" class="klik-siswa">Siswa</option>
+                                </select>
                 <form action="home.html" method="get" class="register-wthree">
                     <div class="form-group">
                         <div class="row">
-                           
+                        </div>
+                    </div>
+
+                       <div class="form-group">
+                            <div class="row">
+                              <div class="col-lg-12">
+                                <label id="ni" class="content page-active">NIP</label>
+                                <input type="text" name="nip" id="nip" value="{{ old('nip') }}" class="form-control {{ $errors->has('nip') ? 'is-invalid' : ''}}" autocomplete="off">
+                                {!! $errors->first('nip', '<span class="invalid-feedback">:message</span>') !!}
+                            </div>
                         </div>
                     </div>
 
@@ -142,7 +154,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <div class="row">
                             <div class="col-md-12">
                                 <span class="fas fa-envelope-open"></span>
-                                <label>
+                                <label id="ta" class="content">
                                     Tahun Ajaran
                                 </label>
                                 <select name="approval_id" id="approval" class="form-control">
@@ -155,11 +167,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </div>
                     </div>
 
+
                      <div class="form-group">
                         <div class="row">
                             <div class="col-md-12">
                                 <span class="fas fa-envelope-open"></span>
-                                <label>
+                                <label id="kj" class="content">
                                     Kelas Jurusan   
                                 </label>
                                 <select name="major_id" id="major" class="form-control">
@@ -177,7 +190,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <div class="row">
                             <div class="col-md-12">
                                 <span class="fas fa-envelope-open"></span>
-                                <label>
+                                <label id="konsen" class="content">
                                     Konsentrasi
                                 </label>
                                 <select id="expertise" name="expertise" class="form-control">
@@ -186,7 +199,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </div>
                         </div>
                     </div>
-                    <div class="mt-4">
+                    <div class="mt-4" id="submit-form">
                         <button type="button" class="btn btn-agile btn-block w-100" onclick="show()">Submit</button>
                     </div>
                 </form>
@@ -296,7 +309,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             console.log(data);
                $('#expertise').empty();
                jQuery.each(data, function(index, val){
-                   $('#expertise').append('<option value="'+val.id+'">'+val.name+'</option>');
+                   $('#expertise').append('<option value="'+val.id+'">'+val.name + ' ' + val.part +'</option>');
                });
            });
        });
@@ -320,6 +333,83 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         var c = $('#approval').val() != '';
         return (c && b) && a;
     }
+    if ($('#jadwal').val() == 'guru') {
+        $('#ta').css("display", "none");
+        $('#kj').css("display", "none");
+        $('#konsen').css("display", "none");
+        $('#approval').css("display", "none");
+        $('#major').css("display", "none");
+        $('#expertise').css("display", "none");
+        $('#submit-form').html('<button type="submit" class="btn btn-agile btn-block w-100">Submit</button>');
+    } else {
+        $('#submit-form').html('<button type="button" class="btn btn-agile btn-block w-100" onclick="show()">Submit</button>');
+    }
+
+    $('#jadwal').on('change', function () {
+        if ($('#jadwal').val() == 'guru') {
+            $('#approval').attr('disabled', true);
+            $('#submit-form').html('<button type="submit" class="btn btn-agile btn-block w-100">Submit</button>');
+        } 
+        if ($('#jadwal').val() == 'guru') {
+            $('#major').attr('disabled', true);
+        } 
+        if ($('#jadwal').val() == 'guru') {
+            $('#expertise').attr('disabled', true);
+        } 
+        else {
+            $('#approval').attr('disabled', false);
+            $('#major').attr('disabled', false);
+            $('#expertise').attr('disabled', false);
+        }
+    });
+
+    $('#jadwal').on('change', function () {
+        if ($('#jadwal').val() == 'siswa') {
+            $('#nip').attr('disabled', true);
+            $('#submit-form').html('<button type="button" class="btn btn-agile btn-block w-100" onclick="show()">Submit</button>');
+        } 
+        else {
+            $('#nip').attr('disabled', false);
+        }
+    });
+
+    
+    $('#jadwal').on('change', function () {
+        console.log($('#jadwal').val());
+        if ($('#jadwal').val() == 'siswa') {
+            $('#nip').attr('disabled', true);
+            $('#approval').css("display", "block");
+            $('#major').css("display", "block");
+            $('#expertise').css("display", "block");
+            $('#ta').css("display", "block");
+            $('#kj').css("display", "block");
+            $('#konsen').css("display", "block");
+        }
+        else {
+            $('#nip').attr('disabled', false);
+            $('#approval').css('display', 'none');
+            $('#major').css('display', 'none');
+            $('#expertise').css('display', 'none');
+             $('#ta').css("display", "none");
+            $('#kj').css("display", "none");
+            $('#konsen').css("display", "none");
+        }
+    });
+
+     $('#jadwal').on('change', function () {
+        console.log($('#jadwal').val());
+        if ($('#jadwal').val() == 'guru') {
+            $('#nip').css("display", "block");
+            $('#ni').css("display", "block");
+        }
+        else {
+             $('#nip').css('display', 'none');
+             $('#ni').css("display", "none");
+        }
+    });
+
+
+
     </script>
 </body>
 </html>

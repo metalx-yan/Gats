@@ -54,7 +54,7 @@
 				      <th>Kode</th>
 				      <th>Nama</th>
 				      <th>Semester</th>
-				      <th>Guru</th>
+				      <th>Total Jam</th>
 				      <th>Akun Jurusan</th>
 				      <th>Kelas Jurusan</th>
 				    </tr>
@@ -68,9 +68,7 @@
 				      <td>{{ $lesson->code }}</td>
 				      <td>{{ $lesson->name }}</td>
 				      <td>{{ ucwords($lesson->semester) }}</td>
-				      <td>@foreach ($lesson->teachers as $teacher)
-					      {{ ucwords($teacher->name) }},<br>
-				      @endforeach</td>
+				      <td>{{ $lesson->time }}</td>
 					  <td>@foreach ($lesson->users as $user)
 					      {{ ucwords($user->name) }},<br>
 				      @endforeach</td>

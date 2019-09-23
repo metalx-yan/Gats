@@ -119,7 +119,7 @@
 	
 						</div>	
 					
-					<button type="submit" class="form-control btn-success fontsopher">Generate</button><p></p>
+					<button type="submit" class="form-control btn-success fontsopher">Save</button><p></p>
 				</form>
 			</div>
 		</div>
@@ -271,7 +271,7 @@
 							</select>
 						`);
 					$.ajax({
-						url: 'http://jadwal.test/api/hours/' + day.val() + '/' + {{ $showexpert->id }}
+						url: 'http://penj.test/api/hours/' + day.val() + '/' + {{ $showexpert->id }}
 					}).done(function (data) {
 						$('#hour').html('');
 						data.map(function (map) {
@@ -314,7 +314,7 @@
 					$('#type').on('change', function () {
 						if ($('#type').val() != '') {
 							$.ajax({
-								url: 'http://jadwal.test/api/rooms/'
+								url: 'http://penj.test/api/rooms/'
 									+ $('#type').val()
 									+ '/' + day.val()
 									+ '/' + $('#hour').val()
@@ -389,10 +389,8 @@
 						<label for="">Mata Pelajaran</label>
 						<select name="lesson_id" id="lesson" class="form-control">
 							<option value="">-- Select --</option>
-							@foreach ($showexpert->major->lessons as $lesson)
-								@if ($lesson->type_lesson->id == $typelesson->id)
-									<option value="{{ $lesson->id }}">{{ ucwords($lesson->name)}}</option>
-								@endif
+							@foreach (\App\Models\Lesson::where('type_lesson_id', 2)->get() as $lesson)
+								<option value="{{ $lesson->id }}">{{ ucwords($lesson->name)}}</option>
 							@endforeach
 						</select>
 					`);
@@ -423,7 +421,7 @@
 					$('#type_teacher').on('change', function () {
 						if ($('#type_teacher').val() != '') {
 						$.ajax({
-							url: 'http://jadwal.test/api/type-teacher/'
+							url: 'http://penj.test/api/type-teacher/'
 								+ $('#type_teacher').val()
 						}).done(function (data) {
 							$('#teacher').html('');
